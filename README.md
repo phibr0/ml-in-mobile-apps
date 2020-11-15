@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to Machine Learning in Smartphone Apps 👋</h1>
+<h1 align="center">Machine Learning in Smartphone Apps 📱</h1>
 <p>
 </p>
 
