@@ -1,17 +1,17 @@
-\documentclass[twoside]{article}
+\documentclass[12pt]{article}
 \usepackage{graphicx}%Package um Grafiken einzufügen
 \graphicspath{ {assets/} }
-\usepackage[german]{babel}%Sprache Deutsch einstellen
+\usepackage[ngerman]{babel}%Sprache Deutsch einstellen
 \usepackage[german]{babelbib}%Sprache Deutsch für die Bibliographie
-\usepackage[a4paper, width=150mm, top=25mm, bottom=25mm, bindingoffset=6mm]{geometry}
-\usepackage{fancyhdr}
+\usepackage[headheight=15pt, a4paper, left=40mm, top=20mm, bottom=20mm, right=20mm]{geometry}
 \usepackage[]{fontspec}
-\setmainfont{Helvetica}
+%\setmainfont{Arial}
+\usepackage[]{fancyhdr}
 \pagestyle{fancy}
 
 \title{Machine Learning in Smartphone Apps}
-\date{2020-11-15}
-\author{Phillipasjdakjd Bronzel}
+\date{\today, Schuljahr: 2020/2021 Q1}
+\author{Phillip Bronzel, ASGSG Informatik}
 
 \begin{document}
   \pagenumbering{gobble}
@@ -20,6 +20,6 @@
   \tableofcontents
   \newpage
   \pagenumbering{arabic}
-
-  Hello World!
+  \section{Einführung}
+  \input{lib/einführung.tex}
 \end{document}
