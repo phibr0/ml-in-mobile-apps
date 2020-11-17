@@ -2,12 +2,15 @@
 \usepackage{graphicx}%Package um Grafiken einzufügen
 \graphicspath{ {assets/} }
 \usepackage[ngerman]{babel}%Sprache Deutsch einstellen
-\usepackage[german]{babelbib}%Sprache Deutsch für die Bibliographie
 \usepackage[headheight=15pt, a4paper, left=40mm, top=20mm, bottom=20mm, right=20mm]{geometry}
 %\usepackage[]{fontspec}
 %\setmainfont{Arial}
 \usepackage[]{fancyhdr}
 \pagestyle{fancy}
+
+\usepackage[style=authoryear]{biblatex}
+\addbibresource{references.bib}
+\usepackage{csquotes}
 
 \title{Machine Learning in Smartphone Apps}
 \date{\today, Schuljahr: 2020/2021 Q1}
@@ -16,12 +19,20 @@
 \begin{document}
   \pagenumbering{gobble}
   \maketitle
-  \centering
-    \includegraphics[totalheight=10cm]{titlepage.png}
+  \begin{center}
+   \includegraphics[totalheight=10cm]{titlepage.png}
+   \cite{titlepageimage}
+  \end{center}
+
   \newpage
   \tableofcontents
+
   \newpage
   \pagenumbering{arabic}
   \section{Einführung}
   \input{lib/einführung.tex}
+
+  \newpage
+  \pagenumbering{roman}
+  \printbibliography
 \end{document}
