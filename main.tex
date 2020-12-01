@@ -8,7 +8,7 @@
 \usepackage[]{fancyhdr}
 \pagestyle{fancy}
 \lhead{\leftmark}
-\rhead{\thepage} 
+\rhead{Phillip Bronzel} 
 
 \usepackage[style=authoryear, backend=biber]{biblatex}
 \addbibresource{references.bib}
@@ -19,18 +19,18 @@
 \author{ASGSG Informatik, 2020/2021}
 
 \begin{document}
-  \pagenumbering{gobble}
   \maketitle
+  \pagenumbering{gobble}
   \begin{center}
    \includegraphics[totalheight=10cm]{titlepage.png}
    \cite{titlepageimage}
   \end{center}
 
   \newpage
+  \pagenumbering{arabic}
   \tableofcontents
 
   \newpage
-  \pagenumbering{arabic}
   \section{Einführung}
   \input{lib/einführung.tex}
 
