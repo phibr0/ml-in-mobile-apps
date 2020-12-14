@@ -15,11 +15,22 @@
 \addbibresource{references.bib}
 \usepackage{csquotes}
 
+\usepackage{eso-pic}
+\newcommand\BackgroundPic{
+    \put(0,0){
+    \parbox[b][\paperheight]{\paperwidth}{%
+    \vfill
+    \centering
+    \includegraphics[width=\paperwidth,height=\paperheight]{assets/titlebackground.pdf}
+    \vfill
+    }}}
+
 \title{Machine Learning in Smartphone Apps}
 \date{Phillip Bronzel \today}
 \author{ASGSG Informatik, 2020/2021}
 
 \begin{document}
+  \AddToShipoutPicture*{\BackgroundPic}
   \maketitle
   \pagenumbering{gobble}
   \begin{center}
