@@ -18,7 +18,7 @@
 \usepackage{eso-pic}
 \newcommand\BackgroundPic{
     \put(0,0){
-    \parbox[b][\paperheight]{\paperwidth}{%
+    \parbox[b][\paperheight]{\paperwidth}{
     \vfill
     \centering
     \includegraphics[width=\paperwidth,height=\paperheight]{assets/titlebackground.pdf}
@@ -27,12 +27,31 @@
 
 \usepackage{chronology}
 
+\usepackage[onehalfspacing]{setspace}
+
+\usepackage[bottom]{footmisc}
+
+\usepackage{tikz}
+\tikzset{%
+    every neuron/.style={
+            circle,
+            draw,
+            minimum size=1cm
+        },
+    neuron missing/.style={
+            draw=none,
+            scale=4,
+            text height=0.333cm,
+            execute at begin node=\color{black}$\vdots$
+        },
+}
+
 \title{Machine Learning in Smartphone Apps}
 \date{Phillip Bronzel \today}
 \author{ASGSG Informatik, 2020/2021}
 
-\pagecolor{black}
-\color{white}
+%\pagecolor{black}
+%\color{white}
 
 \begin{document}
   \AddToShipoutPicture*{\BackgroundPic}
@@ -55,7 +74,6 @@
   \newpage
   \input{lib/einführung.tex}%TODO: Kapitel der App einfügen
 
-  \newpage
   \input{lib/neuronalenetzwerke.tex}
 
   \newpage
