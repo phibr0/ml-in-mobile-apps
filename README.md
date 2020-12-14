@@ -8,5 +8,5 @@
 
 👤 **Phillip Bronzel**
 
-* Website: [phibr0.github.io](https://phibr0.github.io)
+* Website: [phibr0.de](https://phibr0.de)
 * Github: [@phibr0](https://github.com/phibr0)
