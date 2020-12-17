@@ -29,12 +29,12 @@ Heute gibt es (vergleichsweise) simple Frameworks, wie das im Jahr 2015 erschien
 
 \subsection{Aufbau}
 
-\begin{wrapfigure}{r}{10cm}
+\begin{wrapfigure}{r}{85mm}
     \input{lib/tikz/nn.tex}
     \caption[Aufbau]{Vereinfachter Aufbau eines NN}
 \end{wrapfigure}
 
-In Abbildung 2 sieht man den Aufbau eines herkömmlichen NN, so wie es noch vor 40 Jahren verwendet wurde. In der Grafik erkennt man drei Layer mit x-beliebigen Neuronen, welche untereinander mit jeweils allen Neuronen der vorigen und nächsten Layer verbunden sind. Die Anzahl der Hidden Layer kann an das Ziel angepasst und  ausgewählt werden und auch die Anzahl der einzelnen Neuronen ist erstmal beliebig, als Faustregel gilt aber:
+In Abbildung 2 sieht man den Aufbau eines herkömmlichen künstlichen Neuronalen Netzwerks, so wie es noch vor 40 Jahren verwendet wurde. In der Grafik erkennt man drei Layer mit einer x-beliebigen Anzahl Neuronen, welche untereinander mit jeweils allen Neuronen der vorigen und nächsten Layer verbunden sind. Jede Verbindung hat ein weight zwischen $-1 \leq  w \leq 1$ und auch jedes Neuron hat einen Bias, ebenfalls zwischen $-1 \leq  b \leq 1$. Die Anzahl der Hidden Layer kann an das Ziel angepasst und ausgewählt werden und auch die Anzahl der einzelnen Neuronen ist erstmal beliebig, als Faustregel für gute Ergebnisse gilt aber:
 
 \begin{itemize}
     \item Die Anzahl der Neuronen in dem Hidden Layer sollte zwischen der Größe des Input und Output Layers liegen.
@@ -57,5 +57,7 @@ fib(1000) # Druckt alle Fibonacci Zahlen bis 1000
 \end{lstlisting}
 
 \subsection{Funktionsweise} \label{funktionsweise}
+
+\input{lib/tikz/sigmoid.tex}
 
 \subsubsection{Trainieren - Backpropagation}
