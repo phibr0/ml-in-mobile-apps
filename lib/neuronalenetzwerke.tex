@@ -2,53 +2,61 @@
 
 \subsection{Geschichte}
 
-Im Jahr 1943 wurde die erste Arbeit darüber geschrieben, wie Neuronen im Gehirn funktionieren könnten und die Autoren Warren McCulloch und Walter Pitts experimentierten sogar damit diese mit elektronischen Schaltkreisen nachzubauen.\footnote[6]{\cite[]{alogicalcalculus}} In den 1950er Jahren haben Forscher von IBM daran gearbeitet ein NN\footnote[7]{Kurzform für "`Neuronales Netzwerk"', wird ab jetzt weiterhin verwendet.} mit einem Computer zu simulieren. Der Versuch scheiterte allerdings.\footnote[8]{\cite[Absatz 3]{nnhistory}} Immer wieder gab es kleinere Forschungsprojekte, ein sehr großer Durchbruch war aber 1975 die Entwicklung eines "`Backpropagation"' Algorithmus durch den Wissenschaftler Paul Werbos. Ähnliche Algorithmen wurden wiederholt und unabhängig entwickelt, aber Werbos' Algorithmus war der erste mit großer Bedeutung.\footnote[9]{\cite[]{paulwerbosbackpropagation}} Das Prinzip des Algorithmus wird auch heute noch verwendet, es ist dieser Algorithmus der dem Neuronalen Netzwerk das selbstständige Lernen ermöglicht.\footnote[10]{Genaueres in Kapitel \ref{funktionsweise}}
-\subsubsection{Zeitstrahl}
+Im Jahr 1943 wurde die erste Arbeit darüber geschrieben, wie Neuronen im Gehirn funktionieren könnten und die Autoren Warren McCulloch und Walter Pitts experimentierten sogar damit diese mit elektronischen Schaltkreisen nachzubauen.\footnote{\cite[]{alogicalcalculus}} In den 1950er Jahren haben Forscher von IBM daran gearbeitet ein NN\footnote{Kurzform für "`Neuronales Netzwerk"', wird ab jetzt weiterhin verwendet.} mit einem Computer zu simulieren. Der Versuch scheiterte allerdings.\footnote{\cite[Absatz 3]{nnhistory}} Immer wieder gab es kleinere Forschungsprojekte, ein sehr großer Durchbruch war aber 1975 die Entwicklung eines "`Backpropagation"' Algorithmus durch den Wissenschaftler Paul Werbos. Ähnliche Algorithmen wurden wiederholt und unabhängig entwickelt, aber Werbos' Algorithmus war der erste mit großer Bedeutung.\footnote{\cite[]{paulwerbosbackpropagation}} Das Prinzip des Algorithmus wird auch heute noch verwendet, es ist dieser Algorithmus der dem Neuronalen Netzwerk das selbstständige Lernen ermöglicht.\footnote{Genaueres in Kapitel \ref{funktionsweise}} In 1998 veröffentlichte Yann LeCun und sein Team eine Arbeit über die Anwendung eines "`Convolutional Neural Networks\footnote{Ab jetzt als CNN bezeichnet}"' zur Erkennung von geschriebenen Zeichen in einem Dokument.\footnote{\cite[]{cnnhistory}} Diese Arbeit gilt als Ursprung des, für beispielsweise Bilderkennungs Software gut geeignete, CNNs und Weiterentwicklungen werden auch heute noch verwendet. Obwohl ein großes Potenzial erkannt wurde, war es über die nächsten Jahre wieder recht still. Der nächste große Durchbruch passierte in 2012 als Geoffrey Hinton ein Modell entwickelte, was die Fehlerquote in einer öffentlichen Challenge für Bilderkennung beinahe halbierte.\footnote{\cite[]{geoffrey}} Der Grund dafür waren mehrere fundamentale Neuerungen aus dem Bereich Deep Learning; die wahrscheinlich größte Änderung: Starke Parallelisierung des Backpropagation-Prozesses, durch Verschiebung der Last von der CPU auf die GPU. Aufgrund der starken Überlegenheit eines Grafikprozessors in parallelisierten Prozessen, wie die benötigten Tensormultiplikationen durch die deutlich größere Anzahl an (dafür schwächeren) Kernen im Vergleich zu einer herkömmlichen CPU, kann ein NN mehrere hundertmal schneller trainiert werden. Heute gibt es (vergleichsweise) simple Frameworks, wie das im Jahr 2015 erschienende TensorFlow oder PyTorch aus 2016, welche das erstellen, trainieren und verwenden von NN enorm vereinfachen. Ihr Funktionsumfang wächst durch die große Open-Source Community ständig.
 
-\begin{chronology}[10]{1940}{2020}{\textwidth}
-    \event{1943}{Erste Arbeit und Experimente}
-    \event[1950]{1960}{Bemühungen, ein NN digital umzusetzen}
-    \event{1975}{Backpropagation Algorithmus}
-\end{chronology}
+%Sind die Zitate okay?
+
+\begin{figure}[h]
+    \begin{chronology}[10]{1940}{2020}{\textwidth}
+        \event{1943}{Erste Arbeit und Experimente}
+        \event[1950]{1960}{Bemühungen, ein NN digital umzusetzen}
+        \event{1975}{Backpropagation Algorithmus}
+        \event{1998}{Erfindung des CNNs}
+        \event[2015]{2020}{Entwicklung versch. Frameworks}
+    \end{chronology}
+    \caption[Zeitstrahl]{Zeitstrahl von 1940 bis 2020 mit den wichtigsten Ereignissen der Entwicklung künstlicher Neuronaler Netzwerke}
+\end{figure}
 
 \subsection{Aufbau}
 
-\begin{center}
-    \begin{tikzpicture}[x=1.5cm, y=1.5cm, >=stealth]
+% \begin{figure}[h]
+%     \begin{center}
+%         \begin{tikzpicture}[x=1.5cm, y=1.5cm, >=stealth]
 
-        \foreach \m/\l [count=\y] in {1,2,3,missing,4}
-        \node [every neuron/.try, neuron \m/.try] (input-\m) at (0,2.5-\y) {};
+%             \foreach \m/\l [count=\y] in {1,2,3,missing,4}
+%             \node [every neuron/.try, neuron \m/.try] (input-\m) at (0,2.5-\y) {};
 
-        \foreach \m [count=\y] in {1,missing,2}
-        \node [every neuron/.try, neuron \m/.try ] (hidden-\m) at (2,2-\y*1.25) {};
+%             \foreach \m [count=\y] in {1,missing,2}
+%             \node [every neuron/.try, neuron \m/.try ] (hidden-\m) at (2,2-\y*1.25) {};
 
-        \foreach \m [count=\y] in {1,missing,2}
-        \node [every neuron/.try, neuron \m/.try ] (output-\m) at (4,1.5-\y) {};
+%             \foreach \m [count=\y] in {1,missing,2}
+%             \node [every neuron/.try, neuron \m/.try ] (output-\m) at (4,1.5-\y) {};
 
-        \foreach \l [count=\i] in {1,2,3,n}
-        \draw [<-] (input-\i) -- ++(-1,0)
-        node [above, midway] {$I_\l$};
+%             \foreach \l [count=\i] in {1,2,3,n}
+%             \draw [<-] (input-\i) -- ++(-1,0)
+%             node [above, midway] {$I_\l$};
 
-        \foreach \l [count=\i] in {1,n}
-        \node [above] at (hidden-\i.north) {$H_\l$};
+%             \foreach \l [count=\i] in {1,n}
+%             \node [above] at (hidden-\i.north) {$H_\l$};
 
-        \foreach \l [count=\i] in {1,n}
-        \draw [->] (output-\i) -- ++(1,0)
-        node [above, midway] {$O_\l$};
+%             \foreach \l [count=\i] in {1,n}
+%             \draw [->] (output-\i) -- ++(1,0)
+%             node [above, midway] {$O_\l$};
 
-        \foreach \i in {1,...,4}
-        \foreach \j in {1,...,2}
-        \draw [->] (input-\i) -- (hidden-\j);
+%             \foreach \i in {1,...,4}
+%             \foreach \j in {1,...,2}
+%             \draw [->] (input-\i) -- (hidden-\j);
 
-        \foreach \i in {1,...,2}
-        \foreach \j in {1,...,2}
-        \draw [->] (hidden-\i) -- (output-\j);
+%             \foreach \i in {1,...,2}
+%             \foreach \j in {1,...,2}
+%             \draw [->] (hidden-\i) -- (output-\j);
 
-        \foreach \l [count=\x from 0] in {Input, Hidden, Output}
-        \node [align=center, above] at (\x*2,2) {\l \\ Layer};
+%             \foreach \l [count=\x from 0] in {Input, Hidden, Output}
+%             \node [align=center, above] at (\x*2,2) {\l \\ Layer};
 
-    \end{tikzpicture}
-\end{center}
+%         \end{tikzpicture}
+%     \end{center}
+% \end{figure}
 
 \subsection{Funktionsweise} \label{funktionsweise}
 

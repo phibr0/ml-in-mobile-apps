@@ -54,28 +54,28 @@
 %\color{white}
 
 \begin{document}
-  \AddToShipoutPicture*{\BackgroundPic}
-  \maketitle
-  \pagenumbering{gobble}
-  \begin{center}
-   \includegraphics[totalheight=10cm]{titlepage.png}
-   \cite{titlepageimage}
-  \end{center}
+\AddToShipoutPicture*{\BackgroundPic}
+\maketitle
+\pagenumbering{gobble}
+\begin{center}
+    \includegraphics[totalheight=10cm]{titlepage.png}
+    \cite{titlepageimage}
+\end{center}
 
-  \newpage
-  \vspace*{\fill}
-  \input{lib/erklärung.tex}
-  \vspace*{\fill}
+\newpage
+\vspace*{\fill}
+\input{lib/erklärung.tex}
+\vspace*{\fill}
 
-  \newpage
-  \pagenumbering{arabic}
-  \tableofcontents
+\newpage
+\pagenumbering{arabic}
+\tableofcontents
 
-  \newpage
-  \input{lib/einführung.tex}%TODO: Kapitel der App einfügen
+\newpage
+\input{lib/einführung.tex}%TODO: Kapitel der App einfügen
 
-  \input{lib/neuronalenetzwerke.tex}
+\input{lib/neuronalenetzwerke.tex}
 
-  \newpage
-  \printbibliography[heading=bibintoc, title={Literaturverzeichnis}]
+\newpage
+\printbibliography[heading=bibintoc, title={Literaturverzeichnis}]
 \end{document}
