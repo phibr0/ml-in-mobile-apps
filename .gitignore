@@ -9,3 +9,5 @@
 *.bcf
 *.blg
 *.run.xml
+
+code/venv/
