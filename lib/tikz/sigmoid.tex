@@ -14,8 +14,8 @@ sigmap(\x)=sigma(\x)*(1-sigma(\x));}]
     domain=-6:6,
     legend style={at={(1,0.9)}}     
 ]
-    \addplot[blue,mark=none]   (x,{sigma(x)});
-    \addplot[blue,dotted,mark=none]   (x,{sigmap(x)});
+    \addplot[red,mark=none]   (x,{sigma(x)});
+    \addplot[red,dotted,mark=none]   (x,{sigmap(x)});
     \legend{$\sigma(x)$,$\sigma'(x)$}
 \end{axis}
 \end{tikzpicture}

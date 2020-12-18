@@ -28,6 +28,8 @@
 
 \usepackage{chronology}
 
+\usepackage{subfig}
+
 \usepackage{pgfplots}
 
 \usepackage[onehalfspacing]{setspace}
@@ -38,36 +40,16 @@
 
 \usepackage{xcolor}
 
-\usepackage{listings}
+\usepackage{minted}
+\usemintedstyle{monokai}
+\definecolor{bg}{HTML}{282828}
+\renewcommand\listoflistingscaption{Quellcodeverzeichnis}
 
-\definecolor{codegreen}{rgb}{0,0.6,0.4}
-\definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{codepurple}{rgb}{0.15,0.4,0.7}
-\definecolor{backcolour}{rgb}{0.1,0.1,0.2}
-\definecolor{codecolour}{rgb}{0.75,0.1,0.3}
-
-\lstdefinestyle{mystyle}{
-    backgroundcolor=\color{backcolour},   
-    commentstyle=\color{codegreen},
-    keywordstyle=\color{codecolour},
-    numberstyle=\tiny\color{codegray},
-    stringstyle=\color{codepurple},
-    basicstyle=\linespread{1.1}\ttfamily\footnotesize,
-    breakatwhitespace=false,         
-    breaklines=true,                 
-    captionpos=b,                    
-    keepspaces=true,                 
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false,                
-    showstringspaces=false,
-    showtabs=false,                  
-    tabsize=2
-}
-
-\lstset{style=mystyle}
 
 \usepackage{tikz}
+\usetikzlibrary{matrix,calc}
+
+\usepackage{ifthen}
 
 \title{Machine Learning in Smartphone Apps}
 \date{Phillip Bronzel \today}
@@ -100,5 +82,9 @@
 \input{lib/neuronalenetzwerke.tex}
 
 \newpage
+\listoflistings
+
+\newpage
 \printbibliography[heading=bibintoc, title={Literaturverzeichnis}]
+
 \end{document}
