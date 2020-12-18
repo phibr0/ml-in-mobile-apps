@@ -34,7 +34,7 @@ Heute gibt es (vergleichsweise) simple Frameworks, wie das im Jahr 2015 erschien
     \caption[Aufbau]{Vereinfachter Aufbau eines NN}
 \end{wrapfigure}
 
-In Abbildung 2 sieht man den Aufbau eines herkömmlichen künstlichen Neuronalen Netzwerks, so wie es noch vor 40 Jahren verwendet wurde. In der Grafik erkennt man drei Layer mit einer x-beliebigen Anzahl Neuronen, welche untereinander mit jeweils allen Neuronen der vorigen und nächsten Layer verbunden sind. Jede Verbindung hat ein weight zwischen $-1 \leq  w \leq 1$ und auch jedes Neuron hat einen Bias, ebenfalls zwischen $-1 \leq  b \leq 1$. Die Anzahl der Hidden Layer kann an das Ziel angepasst und ausgewählt werden und auch die Anzahl der einzelnen Neuronen ist erstmal beliebig, als Faustregel für gute Ergebnisse gilt aber:
+In Abbildung 2 sieht man den Aufbau eines herkömmlichen künstlichen Neuronalen Netzwerks, so wie es noch vor 40 Jahren verwendet wurde. In der Grafik erkennt man drei Layer mit einer x-beliebigen Anzahl Neuronen, welche untereinander mit jeweils allen Neuronen der vorigen und nächsten Layer verbunden sind. Jede Verbindung hat einen Weight Paramter und auch jedes Neuron hat einen Bias. Die Anzahl der Hidden Layer kann an das Ziel angepasst und ausgewählt werden und auch die Anzahl der einzelnen Neuronen ist erstmal beliebig, als Faustregel für gute Ergebnisse gilt aber:
 
 \begin{itemize}
     \item Die Anzahl der Neuronen in dem Hidden Layer sollte zwischen der Größe des Input und Output Layers liegen.
@@ -46,18 +46,21 @@ In Abbildung 2 sieht man den Aufbau eines herkömmlichen künstlichen Neuronalen
 
 Als Beispiel für ein NN, welches darauf ausgelegt ist, geschriebene Ziffern aus Bildern mit 16x16 Pixeln und nur Graustufen zu erkennen wäre dann: Ein Input Layer mit $16^2$ Neuronen, jeweils für jeden Pixel, welcher einen Wert zwischen 0 (komplett weiß) und 1 (komplett schwarz) haben kann, eines. Genau 10 Neuronen im Output Layer, für jedes Zahlzeichen eines. Schließlich muss die Anzahl der Hidden Layer und Neuronen festgelegt werden. Ich wähle als Beispiel 2 Layer mit jeweils 16 Neuronen, die Neuronen-Anzahl kann aber auch unterschiedlich sein.
 
-\begin{lstlisting}[language=Python, title=Python Code um ...]
-def fib(n):
-    a, b = 0, 1
-    while a < n:
-        print(a, end=' ')
-        a, b = b, a+b
-    print()
-fib(1000) # Druckt alle Fibonacci Zahlen bis 1000
-\end{lstlisting}
+% \color{white}
+% \begin{lstlisting}[language=Python, title=Python Code um ...]
+% def fib(n):
+%     a, b = 0, 1
+%     while a < n:
+%         print(a, end='\n')
+%         a, b = b, a+b
+%     print()
+% fib(1000) # Druckt alle Fibonacci Zahlen bis 1000
+% \end{lstlisting}
+% \color{black}
 
 \subsection{Funktionsweise} \label{funktionsweise}
 
 \input{lib/tikz/sigmoid.tex}
+\input{lib/tikz/3dcost.tex}
 
 \subsubsection{Trainieren - Backpropagation}

@@ -1,0 +1,5 @@
+\begin{tikzpicture}
+    \begin{axis}[domain=-1:1, y domain=-1:1,  colormap/viridis]
+        \addplot3[surf] {x*y*exp(x+2*y-9*x^2-9*y^2)};
+    \end{axis}
+\end{tikzpicture}

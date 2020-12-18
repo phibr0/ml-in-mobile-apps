@@ -37,20 +37,22 @@
 \usepackage{wrapfig}
 
 \usepackage{xcolor}
+
 \usepackage{listings}
 
-\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegreen}{rgb}{0,0.6,0.4}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{codepurple}{rgb}{0.15,0.4,0.7}
+\definecolor{backcolour}{rgb}{0.1,0.1,0.2}
+\definecolor{codecolour}{rgb}{0.75,0.1,0.3}
 
 \lstdefinestyle{mystyle}{
     backgroundcolor=\color{backcolour},   
     commentstyle=\color{codegreen},
-    keywordstyle=\color{magenta},
+    keywordstyle=\color{codecolour},
     numberstyle=\tiny\color{codegray},
     stringstyle=\color{codepurple},
-    basicstyle=\ttfamily\footnotesize,
+    basicstyle=\linespread{1.1}\ttfamily\footnotesize,
     breakatwhitespace=false,         
     breaklines=true,                 
     captionpos=b,                    
@@ -66,19 +68,6 @@
 \lstset{style=mystyle}
 
 \usepackage{tikz}
-\tikzset{%
-    every neuron/.style={
-            circle,
-            draw,
-            minimum size=1cm
-        },
-    neuron missing/.style={
-            draw=none,
-            scale=4,
-            text height=0.333cm,
-            execute at begin node=\color{black}$\vdots$
-        },
-}
 
 \title{Machine Learning in Smartphone Apps}
 \date{Phillip Bronzel \today}
