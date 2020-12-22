@@ -4,22 +4,22 @@
 
 Im Jahr 1943 wurde die erste Arbeit darüber geschrieben, wie Neuronen im Gehirn funktionieren könnten und die Autoren Warren McCulloch und Walter Pitts experimentierten sogar damit diese mit elektronischen Schaltkreisen nachzubauen.\footnote{\cite[]{alogicalcalculus}}
 
-In den 1950er Jahren haben Forscher von IBM daran gearbeitet ein NN\footnote{Kurzform für "`Neuronales Netzwerk"', wird ab jetzt weiterhin verwendet.} mit einem Computer zu simulieren. Der Versuch scheiterte allerdings.\footnote{\cite[Absatz 3]{nnhistory}}
+In den 1950er Jahren haben Forscher von IBM daran gearbeitet ein Neuronales Netzwerk mit einem Computer zu simulieren. Der Versuch scheiterte allerdings.\footnote{\cite[Absatz 3]{nnhistory}}
 
 Immer wieder gab es kleinere Forschungsprojekte, ein sehr großer Durchbruch war aber 1975 die Entwicklung eines "`Backpropagation"' Algorithmus durch den Wissenschaftler Paul Werbos. Ähnliche Algorithmen wurden wiederholt und unabhängig entwickelt, aber Werbos' Algorithmus war der erste mit großer Bedeutung.\footnote{\cite[]{paulwerbosbackpropagation}} Das Prinzip des Algorithmus wird auch heute noch verwendet, es ist dieser Algorithmus der dem Neuronalen Netzwerk das selbstständige Lernen ermöglicht.\footnote{Genaueres in Kapitel \ref{funktionsweise}}
 
 In 1998 veröffentlichte Yann LeCun und sein Team eine Arbeit über die Anwendung eines "`Convolutional Neural Networks\footnote{Ab jetzt als CNN bezeichnet}"' zur Erkennung von geschriebenen Zeichen in einem Dokument.\footnote{\cite[]{cnnhistory}} Diese Arbeit gilt als Ursprung des, für beispielsweise Bilderkennungs Software gut geeignete, CNNs und Weiterentwicklungen werden auch heute noch verwendet.
 
-Obwohl ein großes Potenzial erkannt wurde, war es über die nächsten Jahre wieder recht still. Der nächste große Durchbruch passierte in 2012 als Geoffrey Hinton ein Modell entwickelte, was die Fehlerquote in einer öffentlichen Challenge für Bilderkennung beinahe halbierte.\footnote{\cite[]{geoffrey}} Der Grund dafür waren mehrere fundamentale Neuerungen aus dem Bereich Deep Learning; die wahrscheinlich größte Änderung: Starke Parallelisierung des Backpropagation-Prozesses, durch Verschiebung der Last von der CPU auf die GPU. Aufgrund der starken Überlegenheit eines Grafikprozessors in parallelisierten Prozessen, wie die benötigten Tensormultiplikationen durch die deutlich größere Anzahl an (dafür schwächeren) Kernen im Vergleich zu einer herkömmlichen CPU, kann ein NN mehrere hundertmal schneller trainiert werden.
+Obwohl ein großes Potenzial erkannt wurde, war es über die nächsten Jahre wieder recht still. Der nächste große Durchbruch passierte in 2012 als Geoffrey Hinton ein Modell entwickelte, was die Fehlerquote in einer öffentlichen Challenge für Bilderkennung beinahe halbierte.\footnote{\cite[]{geoffrey}} Der Grund dafür waren mehrere fundamentale Neuerungen aus dem Bereich Deep Learning; die wahrscheinlich größte Änderung: Starke Parallelisierung des Backpropagation-Prozesses, durch Verschiebung der Last von der CPU auf die GPU. Aufgrund der starken Überlegenheit eines Grafikprozessors in parallelisierten Prozessen, wie die benötigten Tensormultiplikationen durch die deutlich größere Anzahl an (dafür schwächeren) Kernen im Vergleich zu einer herkömmlichen CPU, kann ein Neuronales Netzwerk mehrere hundertmal schneller trainiert werden.
 
-Heute gibt es (vergleichsweise) simple Frameworks, wie das im Jahr 2015 erschienende TensorFlow oder PyTorch aus 2016, welche das erstellen, trainieren und verwenden von NN enorm vereinfachen. Ihr Funktionsumfang wächst durch die große Open-Source Community ständig.
+Heute gibt es (vergleichsweise) simple Frameworks, wie das im Jahr 2015 erschienende TensorFlow oder PyTorch aus 2016, welche das erstellen, trainieren und verwenden von Neuronales Netzwerk enorm vereinfachen. Ihr Funktionsumfang wächst durch die große Open-Source Community ständig.
 
 %Sind die Zitate okay?
 
 \begin{figure}[h]
     \begin{chronology}[10]{1940}{2020}{\textwidth}
         \event{1943}{Erste Arbeit und Experimente}
-        \event[1950]{1960}{Bemühungen, ein NN digital umzusetzen}
+        \event[1950]{1960}{Bemühungen, ein NN\footnote{Kurzform für "`Neuronales Netzwerk"'} digital umzusetzen}
         \event{1975}{Backpropagation Algorithmus}
         \event{1998}{Erfindung des CNNs}
         \event[2015]{2020}{Entwicklung versch. Frameworks}
@@ -31,7 +31,7 @@ Heute gibt es (vergleichsweise) simple Frameworks, wie das im Jahr 2015 erschien
 
 \begin{wrapfigure}{r}{87mm}
     \input{lib/tikz/nn.tex}
-    \caption[Aufbau]{Vereinfachter Aufbau eines NN}
+    \caption[Aufbau]{Vereinfachter Aufbau eines Neuronales Netzwerk}
 \end{wrapfigure}
 
 In Abbildung 2 sieht man den Aufbau eines herkömmlichen künstlichen Neuronalen Netzwerks, so wie es noch vor 40 Jahren verwendet wurde. In der Grafik erkennt man drei Layer mit einer x-beliebigen Anzahl Neuronen, welche untereinander mit jeweils allen Neuronen der vorigen und nächsten Layer verbunden sind. Im Gegensatz zu einem biologischen Neuron, welches nur aktiv oder inaktiv sein kann, kann ein künstliches Neuron einen Zustand in Form eines Wertes von ${0 \leq x \leq 1}$ haben. Jede Verbindung hat einen Weight Paramter und auch jedes Neuron hat einen Bias. Die Anzahl der Hidden Layer kann an das Ziel angepasst und ausgewählt werden und auch die Anzahl der einzelnen Neuronen ist erstmal beliebig, als Faustregel für gute Ergebnisse gilt aber:
@@ -42,43 +42,50 @@ In Abbildung 2 sieht man den Aufbau eines herkömmlichen künstlichen Neuronalen
     \item Die Anzahl der Neuronen in einem Hidden Layer sollte weniger als die Hälfte der Größe des Input Layers sein.\footnote{\cite[Alle drei Faustregeln]{heaton}}
 \end{itemize}
 
-\subsubsection{Erstellung eines NN anhand eines Beispiels}
+\subsubsection{Erstellung eines Neuronalen Netzwerks anhand eines Beispiels}
 
-Als Beispiel für ein NN, welches darauf ausgelegt ist, geschriebene Ziffern aus Bildern mit 24x24 Pixeln und nur Graustufen zu erkennen wäre dann: Ein Input Layer mit $24^2$ Neuronen, jeweils für jeden Pixel, welche jeweils eine Aktivierung zwischen 0 (komplett weiß) und 1 (komplett schwarz) haben können, eines. Genau 10 Neuronen im Output Layer, für jedes Zahlzeichen eines. Schließlich muss die Anzahl der Hidden Layer und Neuronen festgelegt werden. Ich wähle als Beispiel 2 Layer mit jeweils 16 Neuronen, die Neuronen-Anzahl kann aber auch unterschiedlich sein. Auch die Weights und Biases werden zunächst zufällig ausgewählt, die Werte werden dann später im Trainingsprozess\footnote{siehe Kapitel \ref{backpropagation}} angepasst.
+Als Beispiel für ein Neuronales Netzwerk, welches darauf ausgelegt ist, geschriebene Ziffern aus Bildern mit 24x24 Pixeln und nur Graustufen zu erkennen wäre dann: Ein Input Layer mit $24^2$ Neuronen, jeweils für jeden Pixel, welche jeweils eine Aktivierung zwischen 0 (komplett weiß) und 1 (komplett schwarz) haben können, eines. Genau 10 Neuronen im Output Layer, für jedes Zahlzeichen eines. Schließlich muss die Anzahl der Hidden Layer und Neuronen festgelegt werden. Ich wähle als Beispiel 2 Layer mit jeweils 16 Neuronen, die Neuronen-Anzahl kann aber auch unterschiedlich sein. Auch die Weights und Biases werden zunächst zufällig ausgewählt, die Werte werden dann später im Trainingsprozess\footnote{siehe Kapitel \ref{backpropagation}} angepasst.
 
 % \begin{listing}[ht]
-% \begin{minted}[fontsize=\footnotesize,linenos,bgcolor=bg]{python}
-%     import numpy as np
-        
-%     def incmatrix(genl1,genl2):
-%         m = len(genl1)
-%         n = len(genl2)
-%         M = None #to become the incidence matrix
-%         VT = np.zeros((n*m,1), int)  #dummy variable
-        
-%         #compute the bitwise xor matrix
-%         M1 = bitxormatrix(genl1)
-%         M2 = np.triu(bitxormatrix(genl2),1) 
-    
-%         for i in range(m-1):
-%             for j in range(i+1, m):
-%                 [r,c] = np.where(M2 == M1[i,j])
-%                 for k in range(len(r)):
-%                     VT[(i)*n + r[k]] = 1;
-%                     VT[(i)*n + c[k]] = 1;
-%                     VT[(j)*n + r[k]] = 1;
-%                     VT[(j)*n + c[k]] = 1;
-                    
-%                     if M is None:
-%                         M = np.copy(VT)
-%                     else:
-%                         M = np.concatenate((M, VT), 1)
-                    
-%                     VT = np.zeros((n*m,1), int)
-        
-%         return M
-% \end{minted}
-% \caption{Example from numpy}
+%     \begin{minted}[fontsize=\scriptsize,linenos]{python}
+%     import tensorflow as tf
+
+%     mnist = tf.keras.datasets.mnist
+
+%     (x_train, y_train), (x_test, y_test) = mnist.load_data()
+%     x_train, x_test = x_train / 255.0, x_test / 255.0
+
+%     model = tf.keras.models.Sequential([
+%         tf.keras.layers.Flatten(input_shape=(28, 28)),
+%         tf.keras.layers.Dense(128, activation='relu'),
+%         tf.keras.layers.Dropout(0.2),
+%         tf.keras.layers.Dense(10)
+%     ])
+
+%     predictions = model(x_train[:1]).numpy()
+
+%     tf.nn.softmax(predictions).numpy()
+
+%     loss_fn = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
+
+%     loss_fn(y_train[:1], predictions).numpy()
+
+%     model.compile(optimizer='adam',
+%         loss=loss_fn,
+%         metrics=['accuracy'])
+
+%     model.fit(x_train, y_train, epochs=5)
+
+%     model.evaluate(x_test,  y_test, verbose=2)
+
+%     probability_model = tf.keras.Sequential([
+%         model,
+%         tf.keras.layers.Softmax()
+%     ])
+%     probability_model(x_test[:5])
+
+%     \end{minted}
+%     \caption{Example from numpy}
 % \end{listing}
 
 \subsection{Funktionsweise} \label{funktionsweise}
@@ -90,13 +97,43 @@ Als Beispiel für ein NN, welches darauf ausgelegt ist, geschriebene Ziffern aus
 \end{wrapfigure}
 
 
-Ein Neuronales Netzwerk kann man sich eigentlich als eine große Mathematische Funktion vorstellen. In dem zuvor genannten Beispiel wäre es eine Funktion mit 576 Variablen und 10 Ergebnissen. Gibt man dieser Funktion nun ein Bild, beziehungsweise 576 Werte als Input, so werden von links nach rechts alle Weights $w$ und Biases $b$ zusammen mit dem vorigen Aktivierungswerten $a$ berechnet. Da ein Neuron aber nur Werte im Bereich $[0,1]$ haben kann, so wird das Ergebniss noch mithilfe einer weiteren Funktion in diesen Bereich umgewandelt. Eine Häufig verwendete Funktion ist dabei die Sigmoidfunktion, siehe Abbildung \ref{sigmoid}.\footnote{\cite{3blue1brown}}
+Ein Neuronales Netzwerk kann man sich eigentlich als eine große Mathematische Funktion vorstellen. In dem zuvor genannten Beispiel wäre es eine Funktion mit 576 Variablen und 10 Ergebnissen. Gibt man dieser Funktion nun ein Bild, beziehungsweise 576 Werte als Input, so werden von links nach rechts alle Weights $w$ und Biases $b$ zusammen mit dem vorigen Aktivierungswerten $a$ berechnet. Da ein Neuron aber nur Werte im Bereich $0\leq x \leq 1$ haben kann, so wird das Ergebniss noch mithilfe einer Aktivierungsfunktion in diesen Bereich umgewandelt. Eine Häufig verwendete Funktion ist dabei die Sigmoidfunktion, siehe Abbildung \ref{sigmoid}.\footnote{\cite{3blue1brown}} Es gibt aber auch noch eine Vielzahl weiterer Funktionen.\footnote{siehe Anhang \ref{anhang:weitereaktivierungsfunktionen}} Die daraus resultierende Funktion würde in etwa so aussehen:\footnote{\cite{3blue1brown}}
 
-\begin{equation}
-    \sigma(w_1a_1+w_2a_2+w_3a_3+\cdot \cdot \cdot +w_{576}a_{576}-b)
+\begin{equation}\label{funktion1}
+    \sigma(w_1a_1+w_2a_2+w_3a_3+ \ldots +w_na_n+b)
 \end{equation}
 
-Theoretisch wenn ein Neuron einen hohen Aktivierungswert haben soll, wenn beispielsweise eine gerade Linie erkannt wird (um mit anderen Neuronen zusammen im späteren Verlauf aus den Mustern ganze Ziffern zu erkennen), so müssen die Weights der zu dem Neuron führenden Verbingungen alle möglichst kleine Werte haben, ausser an den Stellen an denen die Linie sich befinden soll. Um sicherzustellen, dass es sich wirklich um eine gerade Linie handelt befindet sich direkt über dem Strich ein Bereich in dem keine Aktivierungen sein sollten, dieser ist rot markiert. Das erkennt man in Abbildung \ref{examples} sehr gut. In a erkennt man die zu erkennende Linie und in b sieht man die zugehörigen Weights der Input Nodes zu dem Neuron. Dabei stellt grün positive Weights da, rot negative und Weiß/Transparent ist 0. Der Bias des Neurons stellt eine Zusätzliche Hürde oder eine Verstärkung da.
+Um mit dieser Formel alle Aktivierungen auf einmal berechnen zu können verwendet man folgende Funktion, in welcher alle Weights und Biases in Spalten-Vektoren zusammengefasst werden. Die Hochzeichen sind keine Exponenten sondern gelten als Bezeichnung für den Layer, hier beispielsweise 0 und 1. Das Ergebniss dieser Funktion ist ein Vektor mit allen Aktivierungen des darauf folgenden Layers.
+
+\begin{equation}\label{funktion2}
+    \sigma
+    \begin{pmatrix}
+        \begin{bmatrix}
+            w_{0,0} & w_{0,1} & \ldots & w_{0,n} \\
+            w_{1,0} & w_{1,1} & \ldots & w_{1,n} \\
+            \vdots  & \vdots  & \ddots & \vdots  \\
+            w_{k,0} & w_{k,1} & \ldots & w_{k,n}
+        \end{bmatrix}
+        \cdot
+        \begin{bmatrix}
+            a_0^{(0)} \\a_1^{(0)}\\\vdots\\a_n^{(0)}
+        \end{bmatrix}
+        +
+        \begin{bmatrix}
+            b_0 \\b_1\\\vdots\\b_n
+        \end{bmatrix}
+    \end{pmatrix}
+    =
+    a^{(1)}
+\end{equation}
+
+Auch diese Funktion kann wiederrum kompakter formuliert werden:
+
+\begin{equation}
+    \sigma(W\cdot a^{(0)}+b)=a^{(1)}
+\end{equation}
+
+Theoretisch wenn ein Neuron einen hohen Aktivierungswert haben soll, wenn beispielsweise eine gerade Linie erkannt wird (um mit anderen Neuronen zusammen im späteren Verlauf aus den Mustern ganze Ziffern zu erkennen), so müssen die Weights der zu dem Neuron führenden Verbindungen alle möglichst niedrige Aktivierungen haben, ausser an den Stellen an denen die Linie sich befinden soll. Um sicherzustellen, dass es sich wirklich um eine gerade Linie handelt befindet sich direkt über dem Strich ein Bereich in dem keine Aktivierungen sein sollten, dieser ist rot markiert. Das erkennt man in Abbildung \ref{examples} sehr gut. In a erkennt man die zu erkennende Linie und in b sieht man die zugehörigen Weights der Input Nodes zu dem Neuron. Dabei stellt grün positive Weights da, rot negative und Weiß/Transparent ist 0. Der Bias des Neurons stellt eine Zusätzliche Hürde oder eine Verstärkung da, was auch in Formel \ref{funktion1} als $b$ sichtbar ist.
 
 \begin{figure}[h]
     \centering

@@ -5,7 +5,6 @@
 \usepackage[headheight=15pt, a4paper, left=40mm, top=20mm, bottom=20mm, right=20mm]{geometry}
 \usepackage[]{fontspec}
 \setmonofont{CascadiaCode.ttf}
-%\setmainfont{Inter.ttf}
 \usepackage[]{fancyhdr}
 \pagestyle{fancy}
 %\setlength{\headheight}{16pt}
@@ -41,10 +40,10 @@
 \usepackage{xcolor}
 
 \usepackage{minted}
-\usemintedstyle{monokai}
-\definecolor{bg}{HTML}{282828}
+\usemintedstyle{pastie}
 \renewcommand\listoflistingscaption{Quellcodeverzeichnis}
 
+\usepackage{amsmath}
 
 \usepackage{tikz}
 \usetikzlibrary{matrix,calc}
@@ -82,7 +81,7 @@
 \input{lib/neuronalenetzwerke.tex}
 
 \newpage
-\listoflistings
+\input{lib/anhang.tex}
 
 \newpage
 \printbibliography[heading=bibintoc, title={Literaturverzeichnis}]
