@@ -97,7 +97,7 @@ Als Beispiel für ein Neuronales Netzwerk, welches darauf ausgelegt ist, geschri
 \end{wrapfigure}
 
 
-Ein Neuronales Netzwerk kann man sich eigentlich als eine große Mathematische Funktion vorstellen. In dem zuvor genannten Beispiel wäre es eine Funktion mit 576 Variablen und 10 Ergebnissen. Gibt man dieser Funktion nun ein Bild, beziehungsweise 576 Werte als Input, so werden von links nach rechts alle Weights $w$ und Biases $b$ zusammen mit dem vorigen Aktivierungswerten $a$ berechnet. Da ein Neuron aber nur Werte im Bereich $0\leq x \leq 1$ haben kann, so wird das Ergebniss noch mithilfe einer Aktivierungsfunktion in diesen Bereich umgewandelt. Eine Häufig verwendete Funktion ist dabei die Sigmoidfunktion, siehe Abbildung \ref{sigmoid}.\footnote{\cite{3blue1brown}} Es gibt aber auch noch eine Vielzahl weiterer Funktionen.\footnote{siehe Anhang \ref{anhang:weitereaktivierungsfunktionen}} Die daraus resultierende Funktion würde in etwa so aussehen:\footnote{\cite{3blue1brown}}
+Ein Neuronales Netzwerk kann man sich eigentlich als eine große Mathematische Funktion vorstellen. In dem zuvor genannten Beispiel wäre es eine Funktion mit 576 Variablen und 10 Ergebnissen. Gibt man dieser Funktion nun ein Bild, beziehungsweise 576 Werte als Input, so werden von links nach rechts alle Weights $w$ und Biases $b$ zusammen mit dem vorigen Aktivierungswerten $a$ berechnet. Da ein Neuron aber nur Werte im Bereich $0\leq x \leq 1$ haben kann, so wird das Ergebniss noch mithilfe einer Aktivierungsfunktion in diesen Bereich umgewandelt. Eine früher Häufig verwendete Funktion ist dabei die Sigmoidfunktion, siehe Abbildung \ref{sigmoid}.\footnote{\cite{3blue1brown}} Es gibt aber auch noch eine Vielzahl weiterer Funktionen, wie die heute häufig verwendete ReLU Funktion\footnote{siehe Anhang \ref{anhang:weitereaktivierungsfunktionen}}, welche den Trainingprozess durch die einfachere Funktion beschleunigt.\footnote{\cite{3blue1brown}} Die daraus resultierende Funktion würde in etwa so aussehen:\footnote{\cite{3blue1brown}}
 
 \begin{equation}\label{funktion1}
     \sigma(w_1a_1+w_2a_2+w_3a_3+ \ldots +w_na_n+b)
@@ -130,7 +130,7 @@ Um mit dieser Formel alle Aktivierungen auf einmal berechnen zu können verwende
 Auch diese Funktion kann wiederrum kompakter formuliert werden:
 
 \begin{equation}
-    \sigma(W\cdot a^{(0)}+b)=a^{(1)}
+    a^{(1)}=\sigma(W\cdot a^{(0)}+b)
 \end{equation}
 
 Theoretisch wenn ein Neuron einen hohen Aktivierungswert haben soll, wenn beispielsweise eine gerade Linie erkannt wird (um mit anderen Neuronen zusammen im späteren Verlauf aus den Mustern ganze Ziffern zu erkennen), so müssen die Weights der zu dem Neuron führenden Verbindungen alle möglichst niedrige Aktivierungen haben, ausser an den Stellen an denen die Linie sich befinden soll. Um sicherzustellen, dass es sich wirklich um eine gerade Linie handelt befindet sich direkt über dem Strich ein Bereich in dem keine Aktivierungen sein sollten, dieser ist rot markiert. Das erkennt man in Abbildung \ref{examples} sehr gut. In a erkennt man die zu erkennende Linie und in b sieht man die zugehörigen Weights der Input Nodes zu dem Neuron. Dabei stellt grün positive Weights da, rot negative und Weiß/Transparent ist 0. Der Bias des Neurons stellt eine Zusätzliche Hürde oder eine Verstärkung da, was auch in Formel \ref{funktion1} als $b$ sichtbar ist.
