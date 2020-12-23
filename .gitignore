@@ -12,3 +12,6 @@
 *.lol
 
 code/venv/
+
+.vscode/
+_minted-main/
