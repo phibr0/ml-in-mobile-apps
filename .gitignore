@@ -9,5 +9,6 @@
 *.bcf
 *.blg
 *.run.xml
+*.lol
 
 code/venv/
