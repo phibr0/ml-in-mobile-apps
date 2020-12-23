@@ -7,3 +7,5 @@
 - <https://stats.stackexchange.com/questions/115258/comprehensive-list-of-activation-functions-in-neural-networks-with-pros-cons>
 
 Sind diese Formeln richtig?
+
+ALLE EIGENEN LINKS ÜBERPRÜFEN

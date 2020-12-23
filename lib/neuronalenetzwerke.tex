@@ -46,48 +46,6 @@ In Abbildung 2 sieht man den Aufbau eines herkömmlichen künstlichen Neuronalen
 
 Als Beispiel für ein Neuronales Netzwerk, welches darauf ausgelegt ist, geschriebene Ziffern aus Bildern mit 24x24 Pixeln und nur Graustufen zu erkennen wäre dann: Ein Input Layer mit $24^2$ Neuronen, jeweils für jeden Pixel, welche jeweils eine Aktivierung zwischen 0 (komplett weiß) und 1 (komplett schwarz) haben können, eines. Genau 10 Neuronen im Output Layer, für jedes Zahlzeichen eines. Schließlich muss die Anzahl der Hidden Layer und Neuronen festgelegt werden. Ich wähle als Beispiel 2 Layer mit jeweils 16 Neuronen, die Neuronen-Anzahl kann aber auch unterschiedlich sein. Auch die Weights und Biases werden zunächst zufällig ausgewählt, die Werte werden dann später im Trainingsprozess\footnote{siehe Kapitel \ref{backpropagation}} angepasst.
 
-% \begin{listing}[ht]
-%     \begin{minted}[fontsize=\scriptsize,linenos]{python}
-%     import tensorflow as tf
-
-%     mnist = tf.keras.datasets.mnist
-
-%     (x_train, y_train), (x_test, y_test) = mnist.load_data()
-%     x_train, x_test = x_train / 255.0, x_test / 255.0
-
-%     model = tf.keras.models.Sequential([
-%         tf.keras.layers.Flatten(input_shape=(28, 28)),
-%         tf.keras.layers.Dense(128, activation='relu'),
-%         tf.keras.layers.Dropout(0.2),
-%         tf.keras.layers.Dense(10)
-%     ])
-
-%     predictions = model(x_train[:1]).numpy()
-
-%     tf.nn.softmax(predictions).numpy()
-
-%     loss_fn = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
-
-%     loss_fn(y_train[:1], predictions).numpy()
-
-%     model.compile(optimizer='adam',
-%         loss=loss_fn,
-%         metrics=['accuracy'])
-
-%     model.fit(x_train, y_train, epochs=5)
-
-%     model.evaluate(x_test,  y_test, verbose=2)
-
-%     probability_model = tf.keras.Sequential([
-%         model,
-%         tf.keras.layers.Softmax()
-%     ])
-%     probability_model(x_test[:5])
-
-%     \end{minted}
-%     \caption{Example from numpy}
-% \end{listing}
-
 \subsection{Funktionsweise} \label{funktionsweise}
 
 \begin{wrapfigure}{r}{75mm}
@@ -97,7 +55,7 @@ Als Beispiel für ein Neuronales Netzwerk, welches darauf ausgelegt ist, geschri
 \end{wrapfigure}
 
 
-Ein Neuronales Netzwerk kann man sich eigentlich als eine große Mathematische Funktion vorstellen. In dem zuvor genannten Beispiel wäre es eine Funktion mit 576 Variablen und 10 Ergebnissen. Gibt man dieser Funktion nun ein Bild, beziehungsweise 576 Werte als Input, so werden von links nach rechts alle Weights $w$ und Biases $b$ zusammen mit dem vorigen Aktivierungswerten $a$ berechnet. Da ein Neuron aber nur Werte im Bereich $0\leq x \leq 1$ haben kann, so wird das Ergebniss noch mithilfe einer Aktivierungsfunktion in diesen Bereich umgewandelt. Eine früher Häufig verwendete Funktion ist dabei die Sigmoidfunktion, siehe Abbildung \ref{sigmoid}.\footnote{\cite{3blue1brown}} Es gibt aber auch noch eine Vielzahl weiterer Funktionen, wie die heute häufig verwendete ReLU Funktion\footnote{siehe Anhang \ref{anhang:weitereaktivierungsfunktionen}}, welche den Trainingprozess durch die einfachere Funktion beschleunigt.\footnote{\cite{3blue1brown}} Die daraus resultierende Funktion würde in etwa so aussehen:\footnote{\cite{3blue1brown}}
+Ein Neuronales Netzwerk kann man sich eigentlich als eine große Mathematische Funktion vorstellen. In dem zuvor genannten Beispiel wäre es eine Funktion mit 576 Variablen und 10 Ergebnissen. Gibt man dieser Funktion nun ein Bild, beziehungsweise 576 Werte als Input, so werden von links nach rechts alle Weights $w$ und Biases $b$ zusammen mit dem vorigen Aktivierungswerten $a$ berechnet. Da ein Neuron aber nur Werte im Bereich $0\leq x \leq 1$ haben kann, so wird das Ergebniss noch mithilfe einer Aktivierungsfunktion in diesen Bereich umgewandelt. Eine früher Häufig verwendete Funktion ist dabei die Sigmoidfunktion, siehe Abbildung \ref{sigmoid}.\footnote{\cite{3blue1brown}} Es gibt aber auch noch eine Vielzahl weiterer Funktionen, wie die heute häufig verwendete ReLU Funktion\footnote{siehe Anhang \ref{anhang:weitereaktivierungsfunktionen}}, welche den Trainingprozess durch die einfachere Funktion beschleunigt.\footnote{\cite{nnfs} Seite 76 folgende} Die daraus resultierende Funktion würde in etwa so aussehen:\footnote{\cite{nnfs} Seite 185}
 
 \begin{equation}\label{funktion1}
     \sigma(w_1a_1+w_2a_2+w_3a_3+ \ldots +w_na_n+b)
@@ -120,22 +78,22 @@ Um mit dieser Formel alle Aktivierungen auf einmal berechnen zu können verwende
         \end{bmatrix}
         +
         \begin{bmatrix}
-            b_0 \\b_1\\\vdots\\b_n
+            b_0 \\b_1\\\vdots\\b_k
         \end{bmatrix}
     \end{pmatrix}
     =
     a^{(1)}
-\end{equation}
+\end{equation}\footnote{Gleichungen \ref{funktion2} und \ref{funktion3} von \cite{3blue1brown}}
 
-Auch diese Funktion kann wiederrum kompakter formuliert werden:
+Auch diese Funktion kann wiederrum kompakter formuliert werden und diese Schreibweise wird auch für gewöhnlich verwendet:
 
-\begin{equation}
+\begin{equation}\label{funktion3}
     a^{(1)}=\sigma(W\cdot a^{(0)}+b)
-\end{equation}
+\end{equation}\footnotemark[20]%TODO ist die Zahl noch richtig?
 
 Theoretisch wenn ein Neuron einen hohen Aktivierungswert haben soll, wenn beispielsweise eine gerade Linie erkannt wird (um mit anderen Neuronen zusammen im späteren Verlauf aus den Mustern ganze Ziffern zu erkennen), so müssen die Weights der zu dem Neuron führenden Verbindungen alle möglichst niedrige Aktivierungen haben, ausser an den Stellen an denen die Linie sich befinden soll. Um sicherzustellen, dass es sich wirklich um eine gerade Linie handelt befindet sich direkt über dem Strich ein Bereich in dem keine Aktivierungen sein sollten, dieser ist rot markiert. Das erkennt man in Abbildung \ref{examples} sehr gut. In a erkennt man die zu erkennende Linie und in b sieht man die zugehörigen Weights der Input Nodes zu dem Neuron. Dabei stellt grün positive Weights da, rot negative und Weiß/Transparent ist 0. Der Bias des Neurons stellt eine Zusätzliche Hürde oder eine Verstärkung da, was auch in Formel \ref{funktion1} als $b$ sichtbar ist.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \subfloat[\centering Zu erkennendes Bild]{\input{lib/tikz/sevenexample.tex}}%
     \qquad
@@ -144,6 +102,15 @@ Theoretisch wenn ein Neuron einen hohen Aktivierungswert haben soll, wenn beispi
     \label{examples}%
 \end{figure}
 
-%\input{lib/tikz/3dcost.tex}
-
 \subsubsection{Trainieren - Backpropagation} \label{backpropagation}
+
+Dieser Prozess ist der wichtigste. Durch das Trainieren erzielt ein Neuronales Netzwerk den Effekt des selbstständigen Lernens. Und da die Werte der Weights und Biases zunächst zufällig ausgewählt wurden, muss das Netzwerk trainiert werden um nicht völligen Unsinn auszugeben.
+
+Um herauszufinden wie gut oder schlecht ein Neuronales Netzwerk arbeitet, also auf das Beispiel bezogen wie genau oder ungenau es Ziffern erkennen kann, gibt es die Cost Function. Es gibt verschiedene Arten und Möglichkeiten ähnliche Funktionen anzuwenden, hier werde ich mich allerdings auf die Minimalisierung der Cost Function beziehen. Diese Funktion ergibt sich aus den Ergebnissen des Netzwerks aus den Trainingsdaten und allen Werten der Weights und Biases. Als Ergebniss kommt eine einzige Zahl heraus welche hoch ist, wenn das Netzwerk schlechte Ergebnisse erzielt und gegen 0 läuft, wenn das Netzwerk sehr gute Ergebnisse liefert. Es geht also darum
+
+\begin{equation}\label{costfunction}
+    costfunction
+\end{equation}
+
+%\footnote{Ein Code Beispiel, wie man ein solches Netzwerk mit modernen Frameworks erstellen und trainieren würde befindet sich im Anhang \ref{anhang:colab1}.}
+%\input{lib/tikz/3dcost.tex}

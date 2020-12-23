@@ -5,14 +5,14 @@
             xmin=-3,
             xmax=3,
             axis x line=bottom,
-            ytick={-1,0,1,2},
-            ymax=1.5,
-            ymin=-1.5,
+            ytick={0,1,2},
+            ymax=2.5,
+            ymin=-0.5,
             axis y line=middle,
             legend pos=outer north east
         ]
         \addplot[red,mark=none]{(x>=0)*x};
-        \addplot[blue, mark=none]{tanh(\x)};
-        \legend{ReLU - $\max{(0,x)}$, Hyperbolische Tangente - $\tanh{(x)}$}
+        \addplot[blue, mark=none]{tanh(\x)+1};
+        \legend{ReLU - $\max{(0,x)}$, Hyperbolische Tangente - $\tanh{(x)}+1$}
     \end{axis}
 \end{tikzpicture}
