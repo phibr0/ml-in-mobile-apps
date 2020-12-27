@@ -4,7 +4,7 @@
 \usepackage[ngerman]{babel}%Sprache Deutsch einstellen
 \usepackage[headheight=15pt, a4paper, left=40mm, top=20mm, bottom=20mm, right=20mm]{geometry}
 \usepackage[]{fontspec}
-\setmonofont{CascadiaCode.ttf}[Scale=0.9]
+\setmonofont{CascadiaCode.ttf}[Scale=0.88]
 \usepackage[]{fancyhdr}
 \pagestyle{fancy}
 %\setlength{\headheight}{16pt}
@@ -48,16 +48,13 @@
 \usepackage{amsmath}
 
 \usepackage{tikz}
-\usetikzlibrary{matrix,calc}
+\usetikzlibrary{matrix,calc,arrows.meta,bending}
 
 \usepackage{ifthen}
 
 \title{Machine Learning in Smartphone Apps}
 \date{Phillip Bronzel \today}
 \author{ASGSG Informatik, 2020/2021}
-
-%\pagecolor{black}
-%\color{white}
 
 \begin{document}
 \AddToShipoutPicture*{\BackgroundPic}
@@ -83,6 +80,7 @@
 \input{lib/anhang.tex}
 
 \newpage
+\pagenumbering{roman}
 \printbibliography[heading=bibintoc, title={Literaturverzeichnis}]
 
 \end{document}
