@@ -107,11 +107,13 @@ Theoretisch wenn ein Neuron einen hohen Aktivierungswert haben soll, wenn beispi
 Dieser Prozess ist der wichtigste. Durch das Trainieren erzielt ein Neuronales Netzwerk den Effekt des selbstständigen Lernens. Und da die Werte der Weights und Biases zunächst zufällig ausgewählt wurden, muss das Netzwerk trainiert werden um nicht völligen Unsinn auszugeben.\footnote{Ein Code Beispiel, wie man ein solches Netzwerk mit modernen Frameworks erstellen und trainieren würde befindet sich im Anhang \ref{anhang:colab1}.}
 
 
-Um herauszufinden wie gut oder schlecht ein Neuronales Netzwerk arbeitet, also auf das Beispiel bezogen wie genau oder ungenau es Ziffern erkennen kann, gibt es die Cost Function. Es gibt verschiedene Arten und Möglichkeiten ähnliche Funktionen anzuwenden, hier werde ich mich allerdings auf die Minimalisierung der Cost Function beziehen. Diese Funktion ergibt sich aus den Ergebnissen des Netzwerks aus den Trainingsdaten und allen Werten der Weights und Biases. Als Ergebniss kommt eine einzige Zahl heraus welche hoch ist, wenn das Netzwerk schlechte Ergebnisse erzielt und gegen 0 läuft, wenn das Netzwerk sehr gute Ergebnisse liefert. Es gibt mehrere verschiedene Cost Functions, aber ich fokussiere mich erstmal auf die MSE Funktion. MSE steht für "`Mean squared Error"', sie berechnet den Cost Wert\footnote{Manchmal auch Loss genannt, meint das gleiche.} aus dem durchschnitt der Vorhersage und dem erwarteten Ergebniss zum Quadrat:
+Um herauszufinden wie gut oder schlecht ein Neuronales Netzwerk arbeitet, also auf das Beispiel bezogen wie genau oder ungenau es Ziffern erkennen kann, gibt es die Cost Function. Es gibt verschiedene Arten und Möglichkeiten ähnliche Funktionen anzuwenden, hier werde ich mich allerdings auf die Minimierung der Cost Function beziehen. Als Ergebniss kommt eine einzige Zahl heraus welche hoch ist, wenn das Netzwerk schlechte Ergebnisse erzielt und gegen 0 läuft, wenn das Netzwerk sehr gute Ergebnisse liefert. Es gibt mehrere verschiedene Cost Functions, aber ich fokussiere mich erstmal auf die MSE Funktion. MSE steht für "`Mean squared Error"', sie berechnet den Cost Wert\footnote{Manchmal auch Loss genannt, meint das gleiche.} aus dem durchschnitt der Summe der Vorhersagen und den erwarteten Ergebnissen zum Quadrat:
 
 \begin{equation}\label{costfunction}
     MSE = \frac{1}{2m} \sum^{m}_{i=1}(x^{(i)}-y^{(i)})^2
 \end{equation}
+
+Wenn:
 
 \begin{itemize}
     \item i = Index der Trainingsdaten
@@ -134,4 +136,4 @@ Leider ist es bei solch großen Funktionen nicht mehr möglich (stimmt das? !TOD
     \label{2dcost}
 \end{wrapfigure}
 
-Bei mehrdimensionalen Funktionen, wie auch den Neuronalen Netzwerken, gibt es mehr Möglichkeiten in welche Richtung der Graph am schnellsten Fallen könnte. Eine Technik die dafür verwendet wird nennt sich Gradient Descent
+Bei mehrdimensionalen Funktionen, wie auch den Neuronalen Netzwerken, gibt es mehr Möglichkeiten in welche Richtung der Graph am schnellsten Fallen könnte. Eine Technik die dafür verwendet wird nennt sich Gradient Descent.
