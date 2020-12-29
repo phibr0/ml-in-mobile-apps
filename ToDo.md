@@ -9,3 +9,5 @@
 Sind diese Formeln richtig?
 
 ALLE EIGENEN LINKS ÜBERPRÜFEN
+
+Abbildung 6 / Gradient Descent dings

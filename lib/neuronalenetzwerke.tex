@@ -55,7 +55,7 @@ Als Beispiel für ein Neuronales Netzwerk, welches darauf ausgelegt ist, geschri
 \end{wrapfigure}
 
 
-Ein Neuronales Netzwerk kann man sich eigentlich als eine große Mathematische Funktion vorstellen. In dem zuvor genannten Beispiel wäre es eine Funktion mit 576 Variablen und 10 Ergebnissen. Gibt man dieser Funktion nun ein Bild, beziehungsweise 576 Werte als Input, so werden von links nach rechts alle Weights $w$ und Biases $b$ zusammen mit dem vorigen Aktivierungswerten $a$ berechnet. Da ein Neuron aber nur Werte im Bereich $0\leq x \leq 1$ haben kann\footnote{\cite{3blue1brown}}, so wird das Ergebniss noch mithilfe einer Aktivierungsfunktion in diesen Bereich umgewandelt.\footnote{\cite{googleMlGlossar}} Eine früher Häufig verwendete Funktion ist dabei die Sigmoidfunktion, siehe Abbildung \ref{sigmoid}.\footnote{\cite{3blue1brown}} Es gibt aber auch noch eine Vielzahl weiterer Funktionen, wie die heute häufig verwendete ReLU Funktion\footnote{siehe Anhang \ref{anhang:weitereaktivierungsfunktionen}}, welche den Trainingprozess durch die einfachere Funktion beschleunigt.\footnote{\cite{nnfs} Seite 76 folgende} Die daraus resultierende Funktion würde in etwa so aussehen:\footnote{\cite{nnfs} Seite 185}
+Ein Neuronales Netzwerk kann man sich eigentlich als eine große Mathematische Funktion vorstellen. In dem zuvor genannten Beispiel wäre es eine Funktion mit 576 Variablen und 10 Ergebnissen. Gibt man dieser Funktion nun ein Bild, beziehungsweise 576 Werte als Input, so werden von links nach rechts alle Weights $w$ und Biases $b$ zusammen mit dem vorigen Aktivierungswerten $a$ berechnet. Da ein Neuron aber nur Werte im Bereich $0\leq x \leq 1$ haben kann\footnote{\cite{3blue1brown}}, so wird das Ergebniss noch mithilfe einer Aktivierungsfunktion in diesen Bereich umgewandelt.\footnote{\cite{googleMlGlossar} Schlüsselwort: Activation Function} Eine früher Häufig verwendete Funktion ist dabei die Sigmoidfunktion, siehe Abbildung \ref{sigmoid}.\footnote{\cite{3blue1brown}} Es gibt aber auch noch eine Vielzahl weiterer Funktionen, wie die heute häufig verwendete ReLU Funktion\footnote{siehe Anhang \ref{anhang:weitereaktivierungsfunktionen}}, welche den Trainingprozess durch die einfachere Funktion beschleunigt.\footnote{\cite{nnfs} Seite 76 folgende} Die daraus resultierende Funktion würde in etwa so aussehen:\footnote{\cite{nnfs} Seite 185}
 
 \begin{equation}\label{funktion1}
     \sigma(w_1a_1+w_2a_2+w_3a_3+ \ldots +w_na_n+b)
@@ -110,7 +110,7 @@ Dieser Prozess ist der wichtigste. Durch das Trainieren erzielt ein Neuronales N
 Um herauszufinden wie gut oder schlecht ein Neuronales Netzwerk arbeitet, also auf das Beispiel bezogen wie genau oder ungenau es Ziffern erkennen kann, gibt es die Cost Function. Es gibt verschiedene Arten und Möglichkeiten ähnliche Funktionen anzuwenden, hier werde ich mich allerdings auf die Minimierung der Cost Function beziehen. Als Ergebniss kommt eine einzige Zahl heraus welche hoch ist, wenn das Netzwerk schlechte Ergebnisse erzielt und gegen 0 läuft, wenn das Netzwerk sehr gute Ergebnisse liefert. Es gibt mehrere verschiedene Cost Functions, aber ich fokussiere mich erstmal auf die MSE Funktion. MSE steht für "`Mean squared Error"', sie berechnet den Cost Wert\footnote{Manchmal auch Loss genannt, meint das gleiche.} aus dem durchschnitt der Summe der Vorhersagen und den erwarteten Ergebnissen zum Quadrat:
 
 \begin{equation}\label{costfunction}
-    MSE = \frac{1}{2m} \sum^{m}_{i=1}(x^{(i)}-y^{(i)})^2
+    MSE = \frac{1}{m} \sum^{m}_{i=1}(x^{(i)}-y^{(i)})^2
 \end{equation}
 
 Wenn:
@@ -128,12 +128,12 @@ Wenn:
     \label{2dcost}
 \end{wrapfigure}
 
-Leider ist es bei solch großen Funktionen nicht mehr möglich (stimmt das? !TODO!) das Globale Minimum explizit zu bestimmen. Daher berechnet man die Steigung der Funktion und bestimmt anschließend die Richtung in welche der Graph sinkt. In Abbildung \ref{2dcost} ist der Graph nur Zweidimensional und daher gibt es nur eine Richtung in welcher der Graph fallen kann. So wird die Eingabe immer weiter so verändert, dass sich die Cost Function minimiert. Dies passiert in mehreren Iterationen oder auch Epochen, in welchen die Veränderungen, in Abhänigkeit von der Steigung, immer kleiner werden um einen Überschuss zu verhindern.\footnote{\cite{3blue1brown}} Das ist auch der Grund weswegen Trainingszeiten exponentiell zur Genauigkeit ansteigen.
+Leider ist es bei solch großen Funktionen nicht mehr möglich (stimmt das? !TODO!) das Globale Minimum explizit zu bestimmen. Daher berechnet man die Steigung der Funktion und bestimmt anschließend die Richtung in welche der Graph sinkt. In Abbildung \ref{2dcost} ist der Graph nur Zweidimensional und daher gibt es nur eine Richtung in welcher der Graph fallen kann. So wird die Eingabe immer weiter so verändert, dass sich die Cost Function minimiert. Dies passiert in mehreren Iterationen oder auch Epochen, in welchen die Veränderungen, in Abhänigkeit von der Steigung, immer kleiner werden um einen Überschuss zu verhindern.\footnote{\cite{3blue1brown}} Das ist auch der Grund weswegen Trainingszeiten exponentiell zur Genauigkeit ansteigen. Die Größe dieser Schritte wird auch Lernrate / Learning Rate genannt.\footnote{\cite{readthedocsgradientdescent}}
 
 \begin{wrapfigure}{r}{80mm}
     \input{lib/tikz/3dcost.tex}
-    \caption[3dcost]{Visualisierung von Gradient Descent}
-    \label{2dcost}
+    \caption[3dcost]{Visualisierung von Gradient Descent im dreidimensionalen Raum (nicht fertig !TODO!)}
+    \label{3dcost}
 \end{wrapfigure}
 
-Bei mehrdimensionalen Funktionen, wie auch den Neuronalen Netzwerken, gibt es mehr Möglichkeiten in welche Richtung der Graph am schnellsten Fallen könnte. Eine Technik die dafür verwendet wird nennt sich Gradient Descent.
+Bei mehrdimensionalen Funktionen, wie auch den Neuronalen Netzwerken, gibt es mehr Möglichkeiten in welche Richtung der Graph am schnellsten Fallen könnte. Die oben beschriebene Technik die dafür verwendet wird nennt sich Gradient Descent. Damit der Trainingsprozess nicht in einem noch recht hohen lokalen Minimum "`stecken bleibt"', verwendet man meistens abgewandelte Formen von Gradient Descent, zum Beispiel mit einem Modifikator für Momentum. So fällt unter Umständen "`der Ball"' weiter in ein tieferes Minimum, was in Abbildung \ref{3dcost} zu erkennen ist.

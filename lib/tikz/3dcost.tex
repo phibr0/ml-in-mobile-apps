@@ -1,5 +1,5 @@
 \begin{tikzpicture}
     \begin{axis}[domain=-1:1, y domain=-1:1,  colormap/hot,samples=32]
-        \addplot3[surf, fill opacity=0.7,] {x*y*exp(x+2*y-9*x^2-9*y^2)};
+        \addplot3[surf, fill] {x*y*exp(x*y-12*x^2-5*y^2)};
     \end{axis}
 \end{tikzpicture}
