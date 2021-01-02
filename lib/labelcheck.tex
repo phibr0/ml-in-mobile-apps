@@ -6,9 +6,9 @@ In diesem Kapitel wird mithilfe von Python und Tensorflow ein Netzwerk erstellt 
 
 Die Idee ist, dass die App es ermöglicht im Supermarkt die verschiedenen Label der Produkte zu scannen und dem Nutzer dann Auskunft über die Vertrauenswürdigkeit und generelle Aussage des Labels gibt.
 
-Der Name der App "`Labelcheck"' setzt sich ganz einfach aus den Wörtern "`Label"' und "`Check"' zusammen $\rightarrow$ "`Label überprüfen"'.
+Der Name bedeutet einfach nur "`Label überprüfen"'
 
-\subsection{Erstellen des Models}
+\subsection{Erstellen des Models}\label{erstellen des modells}
 
 Zum erstellen und trainieren des Modells werde ich die Sprache Python und das Framework Tensorflow verwenden.
 
@@ -22,9 +22,9 @@ Zum entwickeln der App verwende ich die Sprache Dart und das zugehörige Framewo
 
 \subsubsection{Das Framework: Flutter}
 
-Flutter Apps funktionieren anders als Nativ entwickelte Apps. Herkömmliche native Apps verwenden die UI Komponenten des Betriebssystems und sehen daher auf jedem Gerät mit unterschiedlichen Betriebssystemversionen leicht unterschiedlich aus. Flutter hingegen stellt ein "`Canvas"' Element bereit, welches als unterliegende Grafik-Engine Google's Skia nutzt. In Flutter stehen eine Menge UI Komponenten zur verfügung die entweder Googles Material Design guidelines oder Apples Human interface guidelines folgen. Der Dart Code stellt dann als Einzigen Eintrittspunkt die \mintinline{Dart}{main()} Methode bereit, aus welchem dann die App gestartet wird. Das Framework wird mit der Methode \mintinline{Dart}{runApp(Widget)} initialisert. In Flutter ist jedes UI Element ein "`Widget"', wodurch sich dann in Kombination in einer App große Widgethierarchien erstellen lassen. Der Code einer simplen App, welche nur den Text "`Hello World!"' in der Mitte des Bildschirms anzeigen würde, sehe demnach so aus:
+Flutter Apps funktionieren anders als nativ entwickelte Apps. Herkömmliche native Apps verwenden die UI\footnote{User Interface; deutsch: Benutzeroberfläche} Komponenten des Betriebssystems und sehen daher auf jedem Gerät mit unterschiedlichen Betriebssystemversionen leicht unterschiedlich aus. Flutter hingegen stellt ein "`Canvas"' Element bereit, welches als unterliegende Grafik-Engine Google's Skia nutzt. In Flutter stehen eine Menge UI Komponenten zur verfügung die entweder Googles Material Design guidelines oder Apples Human interface guidelines folgen. Der Dart Code stellt dann als Einzigen Eintrittspunkt die \mintinline{Dart}{main()} Methode bereit, aus welchem dann die App gestartet wird. Das Framework wird mit der Methode \mintinline{Dart}{runApp(Widget)} initialisert. In Flutter ist jedes UI Element ein "`Widget"', wodurch sich dann in Kombination in einer App große Widgethierarchien erstellen lassen. Der Code einer simplen App, welche nur den Text "`Hello World!"' in der Mitte des Bildschirms anzeigen würde, sehe demnach so aus:
 
-\begin{wrapfigure}{l}{70mm}
+\begin{wrapfigure}{l}{75mm}
     \begin{minted}[fontsize=\footnotesize,linenos]{Dart}
 import 'package:flutter/widgets.dart';
 
@@ -38,16 +38,18 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-    \end{minted}
+\end{minted}
 \end{wrapfigure}
 
 Zeile 1: Importieren der Widgets aus dem Framework zum bereitstellen der Klassen, wie \mintinline{Dart}{Stateless}- und \mintinline{Dart}{StatefulWidget} und den Methoden, wie \mintinline{Dart}{runApp()}.
 
 Zeile 3: Die \mintinline{Dart}{main()} Methode mit dem einzigen Aufruf \mintinline{Dart}{runApp()}, was die Klasse \mintinline{Dart}{MyApp} als Flutter App initialisert.
 
-Zeile 5f.: \mintinline{Dart}{MyApp} erweitert die Klasse \mintinline{Dart}{StatelessWidget}, überschreibt die \mintinline{Dart}{build()} Methode und gibt eine Widgethierarchie zurück.
+Zeile 5f.: \mintinline{Dart}{MyApp} erbt die Klasse \mintinline{Dart}{StatelessWidget}, überschreibt die \mintinline{Dart}{build()} Methode und gibt eine Widgethierarchie zurück.
 
-Zeile 8f.: Das \mintinline{Dart}{Center} Widget nimmt als einzigen benannten Parameter ein weiteres (child) Widget an, was in diesem Fall ein \mintinline{Dart}{Text} Widget ist.
+Zeile 8f.: Das \mintinline{Dart}{Center} Widget nimmt als einzigen benannten Parameter ein weiteres (child) Widget an, was in diesem Fall ein \mintinline{Dart}{Text} Widget ist. Stateless bedeutet hier, dass sich der Zustand des Widgets nicht während der Laufzeit verändern kann. Im Gegensatz dazu gibt es auch noch \mintinline{Dart}{StatefulWidget}'s welche die Möglichkeit haben bei Bedarf das UI zu "`rebuilden"'.
+
+Um der App das Aussehen von nativen Apps zu verleihen, verwendet man üblicherweise ein \mintinline{Dart}{MaterialApp} (Material Design / Android) oder \mintinline{Dart}{CupertinoApp} (Human Interface / iOS) Widget, was zudem noch wichtige Variablen, wie \mintinline{Dart}{ThemeData} für verschiedene Farben, die in der App einfach verwendet werden können oder \mintinline{Dart}{LocalizationsDelegate} welche für die Bereitstellung verschiedener Sprachen gebraucht werden, beinhaltet.
 
 \subsubsection{Importieren des Models}
 

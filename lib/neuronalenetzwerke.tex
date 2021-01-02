@@ -53,6 +53,8 @@ Als Beispiel für ein Neuronales Netzwerk, welches darauf ausgelegt ist, geschri
         i_{23,0} & \ldots & i_{23,23}
     \end{bmatrix}
     \Longrightarrow
+    \text{Hidden Layer}
+    \Longrightarrow
     \begin{bmatrix}
         o_0 \\
         \vdots \\
@@ -162,10 +164,10 @@ Bei mehrdimensionalen Funktionen, wie auch den Neuronalen Netzwerken, gibt es me
 Die Kettenregel vereinfacht das Ableiten von komplizierten Funktionen mit Logarithmen und Wurzeln, E-Funktionen und auch Klammern. Wie man diese anwendet sieht man in Formel \ref{kettenregel}.\footnote{\cite{kettenregel}}
 
 \begin{equation}\label{kettenregel}
-    \begin{split}
+    \begin{matrix}
         f(x) = u(g(x))\\
         f'(x) = u'(g(x)) \cdot g'(x)
-    \end{split}
+    \end{matrix}
 \end{equation}
 
 Dieses Verfahren wird verwendet um die Ableitungen der Cost Function und des Netzwerks zu finden.
@@ -176,7 +178,7 @@ Jetzt ist klar was das Ziel des Trainingsprozesses ist, aber wie wird die Cost F
 
 \subsection{Abwandlungen}
 
-Heute gibt es sehr viele verschiedene Abwandlungen von diesen Techniken und auch Neuronale Netzwerke, die zwar ähnlich aufgebaut sind, die besser für manche Zwecke sind als andere. Da gibt es zum Beispiel "`Convolutional Neural Networks"'\footnote{auch CNN; deutsch: \textbf{faltendes} neuronales Netzwerk}, welche besonders gut zum erkennen von Objekten in Bildern geeignet sind und daher auch in (!TODO! app kapitel einfügen) verwendet wird. Oder "`Long short Term memory Networks"'\footnote{auch LSTMN; deutsch: Langes \textbf{Kurzzeitgedächtnis} Netzwerk}, welche speziell auf das erkennen von Stimmen ausgelegt sind.
+Heute gibt es sehr viele verschiedene Abwandlungen von diesen Techniken und auch Neuronale Netzwerke, die zwar ähnlich aufgebaut sind, die besser für manche Zwecke sind als andere. Da gibt es zum Beispiel "`Convolutional Neural Networks"'\footnote{auch CNN; deutsch: \textbf{faltendes} neuronales Netzwerk}, welche besonders gut zum erkennen von Objekten in Bildern geeignet sind und daher auch eins in \ref{erstellen des modells} verwendet wird. Oder "`Long short Term memory Networks"'\footnote{auch LSTMN; deutsch: Langes \textbf{Kurzzeitgedächtnis} Netzwerk}, welche speziell auf das erkennen von Stimmen ausgelegt sind.
 
 \subsubsection{Convolutional Neural Networks}
 
