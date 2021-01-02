@@ -1,0 +1,58 @@
+\section{Labelcheck als Smartphone App}
+
+In diesem Kapitel wird mithilfe von Python und Tensorflow ein Netzwerk erstellt und trainiert, sowie anschließend eine mobile App mit Dart und Flutter entwickelt, welche dann öffentlich für den Download bereit stehen soll.
+
+\subsection{Die Idee}
+
+Die Idee ist, dass die App es ermöglicht im Supermarkt die verschiedenen Label der Produkte zu scannen und dem Nutzer dann Auskunft über die Vertrauenswürdigkeit und generelle Aussage des Labels gibt.
+
+Der Name der App "`Labelcheck"' setzt sich ganz einfach aus den Wörtern "`Label"' und "`Check"' zusammen $\rightarrow$ "`Label überprüfen"'.
+
+\subsection{Erstellen des Models}
+
+Zum erstellen und trainieren des Modells werde ich die Sprache Python und das Framework Tensorflow verwenden.
+
+\subsubsection{Die Trainingsdaten}
+
+\subsubsection{Trainieren des Modells mit Tensorflow und Python}
+
+\subsection{Entwickeln der App}
+
+Zum entwickeln der App verwende ich die Sprache Dart und das zugehörige Framework Flutter. Im Gegensatz zu nativ geschriebenen Apps bietet Flutter die möglichkeit nur einmal den Code in Dart zu schreiben und anschließend kann die App für alle großen Platformen kompiliert werden, dazu zählen iOS, Android, aber auch Linux, Windows, MacOS und Web/Javascript. Nun muss die App ja Zugriff auf die Kamera haben und auch in die Supermärkte "`mitgebracht"' werden, weshalb nur iOS und Android relevant sind.
+
+\subsubsection{Das Framework: Flutter}
+
+Flutter Apps funktionieren anders als Nativ entwickelte Apps. Herkömmliche native Apps verwenden die UI Komponenten des Betriebssystems und sehen daher auf jedem Gerät mit unterschiedlichen Betriebssystemversionen leicht unterschiedlich aus. Flutter hingegen stellt ein "`Canvas"' Element bereit, welches als unterliegende Grafik-Engine Google's Skia nutzt. In Flutter stehen eine Menge UI Komponenten zur verfügung die entweder Googles Material Design guidelines oder Apples Human interface guidelines folgen. Der Dart Code stellt dann als Einzigen Eintrittspunkt die \mintinline{Dart}{main()} Methode bereit, aus welchem dann die App gestartet wird. Das Framework wird mit der Methode \mintinline{Dart}{runApp(Widget)} initialisert. In Flutter ist jedes UI Element ein "`Widget"', wodurch sich dann in Kombination in einer App große Widgethierarchien erstellen lassen. Der Code einer simplen App, welche nur den Text "`Hello World!"' in der Mitte des Bildschirms anzeigen würde, sehe demnach so aus:
+
+\begin{wrapfigure}{l}{70mm}
+    \begin{minted}[fontsize=\footnotesize,linenos]{Dart}
+import 'package:flutter/widgets.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Hello World!'),
+    );
+  }
+}
+    \end{minted}
+\end{wrapfigure}
+
+Zeile 1: Importieren der Widgets aus dem Framework zum bereitstellen der Klassen, wie \mintinline{Dart}{Stateless}- und \mintinline{Dart}{StatefulWidget} und den Methoden, wie \mintinline{Dart}{runApp()}.
+
+Zeile 3: Die \mintinline{Dart}{main()} Methode mit dem einzigen Aufruf \mintinline{Dart}{runApp()}, was die Klasse \mintinline{Dart}{MyApp} als Flutter App initialisert.
+
+Zeile 5f.: \mintinline{Dart}{MyApp} erweitert die Klasse \mintinline{Dart}{StatelessWidget}, überschreibt die \mintinline{Dart}{build()} Methode und gibt eine Widgethierarchie zurück.
+
+Zeile 8f.: Das \mintinline{Dart}{Center} Widget nimmt als einzigen benannten Parameter ein weiteres (child) Widget an, was in diesem Fall ein \mintinline{Dart}{Text} Widget ist.
+
+\subsubsection{Importieren des Models}
+
+\subsubsection{Veröffentlichen der App}
+
+\subsection{Testen der App}
+
+\subsection{Fazit}

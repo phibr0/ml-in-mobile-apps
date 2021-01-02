@@ -1,6 +1,6 @@
 \section{Neuronale Netzwerke}
 
-\subsection{Geschichte}
+\subsection{Wichtigste Ereignisse in der Geschichte}
 
 Im Jahr 1943 wurde die erste Arbeit darüber geschrieben, wie Neuronen im Gehirn funktionieren könnten und die Autoren Warren McCulloch und Walter Pitts experimentierten sogar damit diese mit elektronischen Schaltkreisen nachzubauen.\footnote{\cite[]{alogicalcalculus}}
 
@@ -44,12 +44,26 @@ In Abbildung 2 sieht man den Aufbau eines herkömmlichen künstlichen Neuronalen
 
 \subsubsection{Erstellung eines Neuronalen Netzwerks anhand eines Beispiels}
 
-Als Beispiel für ein Neuronales Netzwerk, welches darauf ausgelegt ist, geschriebene Ziffern aus Bildern mit 24x24 Pixeln und nur Graustufen zu erkennen wäre dann: Ein Input Layer mit $24^2$ Neuronen, jeweils für jeden Pixel, welche jeweils eine Aktivierung zwischen 0 (komplett weiß) und 1 (komplett schwarz) haben können, eines. Genau 10 Neuronen im Output Layer, für jedes Zahlzeichen eines. Schließlich muss die Anzahl der Hidden Layer und Neuronen festgelegt werden. Ich wähle als Beispiel 2 Layer mit jeweils 16 Neuronen, die Neuronen-Anzahl kann aber auch unterschiedlich sein. Auch die Weights und Biases werden zunächst zufällig ausgewählt, die Werte werden dann später im Trainingsprozess\footnote{siehe Kapitel \ref{backpropagation}} angepasst.
+Als Beispiel für ein Neuronales Netzwerk, welches darauf ausgelegt ist, geschriebene Ziffern aus Bildern mit 24x24 Pixeln und nur Graustufen zu erkennen wäre dann: Ein Input Layer mit $24^2$ Neuronen, jeweils für jeden Pixel, welche jeweils eine Aktivierung zwischen 0 (komplett weiß) und 1 (komplett schwarz) haben können, eines. Genau 10 Neuronen im Output Layer, für jedes Zahlzeichen eines. Schließlich muss die Anzahl der Hidden Layer und Neuronen festgelegt werden. Ich wähle als Beispiel 2 Layer mit jeweils 16 Neuronen, die Neuronen-Anzahl kann aber auch unterschiedlich sein. Auch die Weights und Biases werden zunächst zufällig ausgewählt, die Werte werden dann später im Trainingsprozess\footnote{siehe Kapitel \ref{backpropagation}} angepasst. Die Eingabe in das Netzwerk ist also ein Zweidimensionaler Tensor, oder auch eine Matrix, mit den Bilddaten und die Ausgabe des Netzwerks ist ein eindimensionaler Tensor, oder auch ein Vektor, mit den Prognosen.
+
+\begin{equation}
+    \begin{bmatrix}
+        i_{0,0} & \ldots & i_{0,23} \\
+        \vdots  & \ddots & \vdots  \\
+        i_{23,0} & \ldots & i_{23,23}
+    \end{bmatrix}
+    \Longrightarrow
+    \begin{bmatrix}
+        o_0 \\
+        \vdots \\
+        o_9
+    \end{bmatrix}
+\end{equation}
 
 \subsection{Funktionsweise} \label{funktionsweise}
 
-\begin{wrapfigure}{r}{75mm}
-    \input{lib/tikz/sigmoid.tex}
+\begin{wrapfigure}{r}{60mm}
+    \resizebox{6cm}{!}{\input{lib/tikz/sigmoid.tex}}
     \caption[Sigmoid]{Die Sigmoidfunktion}
     \label{sigmoid}
 \end{wrapfigure}
@@ -106,7 +120,7 @@ Theoretisch wenn ein Neuron einen hohen Aktivierungswert haben soll, wenn beispi
 
 Dieser Prozess ist der wichtigste. Durch das Trainieren erzielt ein Neuronales Netzwerk den Effekt des selbstständigen Lernens. Und da die Werte der Weights und Biases zunächst zufällig ausgewählt wurden, muss das Netzwerk trainiert werden um nicht völligen Unsinn auszugeben.\footnote{Ein Code Beispiel, wie man ein solches Netzwerk mit modernen Frameworks erstellen und trainieren würde befindet sich im Anhang \ref{anhang:colab1}.}
 
-\paragraph{Die Cost Function}
+\paragraph{Die Cost Function}\label{paracost}
 
 Um herauszufinden wie gut oder schlecht ein Neuronales Netzwerk arbeitet, also auf das Beispiel bezogen wie genau oder ungenau es Ziffern erkennen kann, gibt es die Cost Function. Es gibt verschiedene Arten und Möglichkeiten ähnliche Funktionen anzuwenden, hier werde ich mich allerdings auf die Minimierung der Cost Function beziehen. Als Ergebniss kommt eine einzige Zahl heraus welche hoch ist, wenn das Netzwerk schlechte Ergebnisse erzielt und gegen 0 läuft, wenn das Netzwerk sehr gute Ergebnisse liefert. Es gibt mehrere verschiedene Cost Functions, aber ich fokussiere mich erstmal auf die MSE Funktion. MSE steht für "`Mean squared Error"', sie berechnet den Cost Wert\footnote{Manchmal auch Loss genannt, meint das gleiche.} aus dem durchschnitt der Summe der Vorhersagen und den erwarteten Ergebnissen zum Quadrat:
 
@@ -123,7 +137,7 @@ Wenn:
     \item m = Anzahl der Trainingsdaten\footnote{Formel \ref{costfunction} und Erklärung vergleiche \cite{towardsds}}
 \end{itemize}
 
-\paragraph{Gradientenabstiegsverfahren}
+\paragraph{Gradientenabstiegsverfahren}\label{paragrad}
 
 Leider ist es bei solch großen Funktionen nicht mehr möglich (stimmt das? !TODO!) das Globale Minimum explizit zu bestimmen.
 
@@ -133,7 +147,7 @@ Leider ist es bei solch großen Funktionen nicht mehr möglich (stimmt das? !TOD
     \label{2dcost}
 \end{wrapfigure}
 
-Daher berechnet man die Steigung der Funktion und bestimmt anschließend die Richtung in welche der Graph sinkt. In Abbildung \ref{2dcost} ist der Graph nur Zweidimensional und daher gibt es nur eine Richtung in welcher der Graph fallen kann. So wird die Eingabe immer weiter so verändert, dass sich die Cost Function minimiert. Dies passiert in mehreren Iterationen oder auch Epochen, in welchen die Veränderungen, in Abhänigkeit von der Steigung, immer kleiner werden um einen Überschuss zu verhindern.\footnote{\cite{3blue1brown}} Das ist auch der Grund weswegen Trainingszeiten exponentiell zur Genauigkeit ansteigen. Die Größe dieser Schritte wird auch Lernrate / Learning Rate genannt.\footnote{\cite{readthedocsgradientdescent}}
+Daher berechnet man die Steigung $\Delta C$\footnote{$C$ bezieht sich hier auf die \textbf{C}ost function} der Funktion und bestimmt anschließend die Richtung $-\Delta C$ in welche der Graph sinkt. In Abbildung \ref{2dcost} ist der Graph nur Zweidimensional und daher gibt es nur eine Richtung in welcher der Graph fallen kann. So wird die Eingabe immer weiter so verändert, dass sich die Cost Function minimiert. Dies passiert in mehreren Iterationen oder auch Epochen, in welchen die Veränderungen, also Schritte in Richtung $-\Delta C$, in Abhänigkeit von der Steigung, immer kleiner werden um einen Überschuss zu verhindern.\footnote{\cite{3blue1brown}} Das ist auch der Grund weswegen Trainingszeiten exponentiell zur Genauigkeit ansteigen. Die Größe dieser Schritte wird auch Lernrate / Learning Rate genannt.\footnote{\cite{readthedocsgradientdescent}}
 
 \begin{wrapfigure}{r}{80mm}
     \includegraphics[totalheight=9cm]{GradientDescent.png}
@@ -141,10 +155,29 @@ Daher berechnet man die Steigung der Funktion und bestimmt anschließend die Ric
     \label{3dcost}
 \end{wrapfigure}
 
-Bei mehrdimensionalen Funktionen, wie auch den Neuronalen Netzwerken, gibt es mehr Möglichkeiten in welche Richtung der Graph am schnellsten Fallen könnte. Die oben beschriebene Technik die dafür verwendet wird nennt sich das Gradientenabstiegsverfahren. Da die Funktionen in echt allerdings deutlich komplizierter sind, gibt es sehr viele Extrema und da das Ziel ein möglichst tiefer Extrempunkt ist, versucht man zu verhindern, dass man in einem solcher hohen Minima "`stecken bleibt"'. Deswegen verwendet man meistens abgewandelte Formen des Gradientenabstiegsverfahrens, zum Beispiel mit einem Modifikator für Momentum. So fällt unter Umständen "`der Ball"' weiter in ein tieferes Minimum, was in Abbildung \ref{3dcost} zu erkennen ist. Desweiteren wird für Machine Learning fast ausschließlich "`Stochastic gradient descent"' verwendet, da das Gradientenabstiegsverfahren viel zu aufwendig ist. Mit dieser Form verliert man etwas Genauigkeit, der Prozess geht aber ein vielfaches schneller vonstatten. Anstatt den Gradienten von allen Trainingsdaten zusammen zu suchen, teilt man die Trainingsdaten in mehrere "`Batches"' auf und wendet auf diesen das Gradientenabstiegsverfahren an. So werden häufiger/schneller Schritte richtung Extrempunkt gemacht, diese sind dafür aber ungenauer (sie repräsentieren nicht den schnellsten Weg).\footnote{\cite{3blue1brown} und \cite{mitstochasticgd}}
+Bei mehrdimensionalen Funktionen, wie auch den Neuronalen Netzwerken, gibt es mehr Möglichkeiten in welche Richtung der Graph am schnellsten Fallen könnte. Die oben beschriebene Technik die dafür verwendet wird nennt sich das Gradientenabstiegsverfahren. Da die Funktionen in echt allerdings deutlich komplizierter sind, gibt es sehr viele Extrema und da das Ziel ein möglichst tiefer Extrempunkt ist, versucht man zu verhindern, dass man in einem solcher hohen Minima "`stecken bleibt"'. Deswegen verwendet man meistens abgewandelte Formen des Gradientenabstiegsverfahrens, zum Beispiel mit einem Modifikator für Momentum. So fällt unter Umständen "`der Ball"' weiter in ein tieferes Minimum, was in Abbildung \ref{3dcost} zu erkennen ist. Desweiteren wird für Machine Learning fast ausschließlich "`Stochastic gradient descent"' verwendet, da das Gradientenabstiegsverfahren allein viel zu aufwendig ist. Mit dieser Form verliert man etwas Genauigkeit, der Prozess geht aber ein vielfaches schneller vonstatten. Anstatt den Gradienten von allen Trainingsdaten zusammen zu suchen, teilt man die Trainingsdaten in mehrere "`Batches"' auf und wendet auf diesen das Gradientenabstiegsverfahren an. So werden häufiger/schneller Schritte richtung Extrempunkt gemacht, diese sind dafür aber ungenauer (sie repräsentieren nicht den schnellsten Weg).\footnote{\cite{3blue1brown} und \cite{mitstochasticgd}}
 
-\paragraph{Ketten Regel}
+\paragraph{Ketten Regel}\label{parachain}
+
+Die Kettenregel vereinfacht das Ableiten von komplizierten Funktionen mit Logarithmen und Wurzeln, E-Funktionen und auch Klammern. Wie man diese anwendet sieht man in Formel \ref{kettenregel}.\footnote{\cite{kettenregel}}
+
+\begin{equation}\label{kettenregel}
+    \begin{split}
+        f(x) = u(g(x))\\
+        f'(x) = u'(g(x)) \cdot g'(x)
+    \end{split}
+\end{equation}
+
+Dieses Verfahren wird verwendet um die Ableitungen der Cost Function und des Netzwerks zu finden.
 
 \paragraph{Backpropagation}
 
-Jetzt ist klar was das Ziel des Trainingsprozesses ist, aber wie wird die Cost Function minimiert? Hier kommt der Backpropagation Algorithmus ins Spiel. In Kombination
+Jetzt ist klar was das Ziel des Trainingsprozesses ist, aber wie wird die Cost Function minimiert? Hier kommt der Backpropagation Algorithmus ins Spiel. In Kombination mit der Cost Function aus und den soeben besprochenen Verfahren bestimmt dieser Algorithmus welche und um wie viel die Weights und Biases des Neuronalen Netzwerks angepasst werden müssen.
+
+\subsection{Abwandlungen}
+
+Heute gibt es sehr viele verschiedene Abwandlungen von diesen Techniken und auch Neuronale Netzwerke, die zwar ähnlich aufgebaut sind, die besser für manche Zwecke sind als andere. Da gibt es zum Beispiel "`Convolutional Neural Networks"'\footnote{auch CNN; deutsch: \textbf{faltendes} neuronales Netzwerk}, welche besonders gut zum erkennen von Objekten in Bildern geeignet sind und daher auch in (!TODO! app kapitel einfügen) verwendet wird. Oder "`Long short Term memory Networks"'\footnote{auch LSTMN; deutsch: Langes \textbf{Kurzzeitgedächtnis} Netzwerk}, welche speziell auf das erkennen von Stimmen ausgelegt sind.
+
+\subsubsection{Convolutional Neural Networks}
+
+Convolutional Neural Networks versuchen ein Problem der normalen Neuronalen Netzwerke im Bereich der Bilderkennung zu lösen. Während in einem normalen Netzwerk die Position des zu erkennenden Objektes im Bild eine Rolle spielt, wird dies zum Großteil in einem Convolutional Neural Network durch die veränderte Funktionsweise behoben/verbessert.
