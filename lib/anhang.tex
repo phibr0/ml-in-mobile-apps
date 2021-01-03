@@ -52,3 +52,15 @@ model.save('beispielModel_MNIST') # Speichern des Modells
     \caption{Umsetzung mit Python und Tensorflow}
 \end{listing}
 Ein interaktives Beispiel gibt es zusätzlich hier in meinem Colab Notebook: \url{https://bit.ly/34Ggfuh}\footnote{Ungekürzter Link: \url{https://colab.research.google.com/drive/1ty_QQlL038YT6KpBjSdqGvIGyH0YXwxW}}
+
+\subsection{Die Flutter Architektur}\label{anhang:flutterarc}
+
+\begin{figure}[H]
+    \centering
+    \resizebox{\textwidth}{!}{
+    \includesvg{assets/flutterarchitecture}
+    }
+    \caption{Flutter's Architektur (\cite{flutterarchitecture})}
+\end{figure}
+
+Flutters Architektur ist in drei Ebenen unterteilt. Als Basis die "`Embedder Ebene"', welche für jede Platform angepasst werden muss und zum Beispiel für das Thread Management zuständig ist. Dadrüber liegt die "`Engine Ebene"', welche zu einem Großteil in C++ geschrieben ist und zu welcher auch die Grafikengine Skia gehört. Dadrüber liegt die "`Framework Ebene"', welche zum Beispiel die UI Komponenten beinhaltet und komplett in Dart entwickelt wird.\footnote{\cite{flutterarchitecture}}

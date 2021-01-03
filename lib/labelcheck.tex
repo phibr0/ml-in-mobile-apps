@@ -1,6 +1,6 @@
 \section{Labelcheck als Smartphone App}
 
-In diesem Kapitel wird mithilfe von Python und Tensorflow ein Netzwerk erstellt und trainiert, sowie anschließend eine mobile App mit Dart und Flutter entwickelt, welche dann öffentlich für den Download bereit stehen soll.
+In diesem Kapitel wird mithilfe von Python und TensorFlow ein Netzwerk erstellt und trainiert, sowie anschließend eine mobile App mit Dart und Flutter entwickelt, welche dann öffentlich für den Download bereit stehen soll.
 
 \subsection{Die Idee}
 
@@ -10,11 +10,11 @@ Der Name bedeutet einfach nur "`Label überprüfen"'
 
 \subsection{Erstellen des Models}\label{erstellen des modells}
 
-Zum erstellen und trainieren des Modells werde ich die Sprache Python und das Framework Tensorflow verwenden.
+Zum erstellen und trainieren des Modells werde ich die Sprache Python und das Framework TensorFlow verwenden.
 
 \subsubsection{Die Trainingsdaten}
 
-\subsubsection{Trainieren des Modells mit Tensorflow und Python}
+\subsubsection{Trainieren des Modells mit TensorFlow und Python}
 
 \subsection{Entwickeln der App}
 
@@ -22,9 +22,9 @@ Zum entwickeln der App verwende ich die Sprache Dart und das zugehörige Framewo
 
 \subsubsection{Das Framework: Flutter}
 
-Flutter Apps funktionieren anders als nativ entwickelte Apps. Herkömmliche native Apps verwenden die UI\footnote{User Interface; deutsch: Benutzeroberfläche} Komponenten des Betriebssystems und sehen daher auf jedem Gerät mit unterschiedlichen Betriebssystemversionen leicht unterschiedlich aus. Flutter hingegen stellt ein "`Canvas"' Element bereit, welches als unterliegende Grafik-Engine Google's Skia nutzt. In Flutter stehen eine Menge UI Komponenten zur verfügung die entweder Googles Material Design guidelines oder Apples Human interface guidelines folgen. Der Dart Code stellt dann als Einzigen Eintrittspunkt die \mintinline{Dart}{main()} Methode bereit, aus welchem dann die App gestartet wird. Das Framework wird mit der Methode \mintinline{Dart}{runApp(Widget)} initialisert. In Flutter ist jedes UI Element ein "`Widget"', wodurch sich dann in Kombination in einer App große Widgethierarchien erstellen lassen. Der Code einer simplen App, welche nur den Text "`Hello World!"' in der Mitte des Bildschirms anzeigen würde, sehe demnach so aus:
+Flutter Apps funktionieren anders als nativ entwickelte Apps. Herkömmliche native Apps verwenden die UI\footnote{User Interface; deutsch: Benutzeroberfläche} Komponenten des Betriebssystems und sehen daher auf jedem Gerät mit unterschiedlichen Betriebssystemversionen leicht unterschiedlich aus. Flutter hingegen stellt ein "`Canvas"' Element bereit, welches als unterliegende Grafik-Engine Google's Skia nutzt.\footnote{\cite{flutterarchitecture}; mehr dazu im Anhang \ref{anhang:flutterarc}} In Flutter stehen eine Menge UI Komponenten zur verfügung die entweder Googles Material Design guidelines oder Apples Human interface guidelines folgen. Der Dart Code stellt dann als Einzigen Eintrittspunkt die \mintinline{Dart}{main()} Methode bereit, aus welchem dann die App gestartet wird. Das Framework wird mit der Methode \mintinline{Dart}{runApp(Widget)} initialisert. In Flutter ist jedes UI Element ein "`Widget"', wodurch sich dann in Kombination in einer App große Widgethierarchien erstellen lassen. Der Code einer simplen App, welche nur den Text "`Hello World!"' in der Mitte des Bildschirms anzeigen würde, sehe demnach so aus:
 
-\begin{wrapfigure}{l}{75mm}
+\begin{wrapfigure}{l}{75mm} 
     \begin{minted}[fontsize=\footnotesize,linenos]{Dart}
 import 'package:flutter/widgets.dart';
 
@@ -53,7 +53,13 @@ Um der App das Aussehen von nativen Apps zu verleihen, verwendet man üblicherwe
 
 \subsubsection{Importieren des Models}
 
+Es gibt eine speziell für mobile Geräte angepasste Version von TensorFlow mit dem Namen TensorFlow Lite. TFLite hat einen geringeren Speicherbedarf kann dafür aber auch weniger als das herkömmliche Framework.\footnote{\cite{tflite}} Implementationen dafür gibt es allerdings nicht in Dart, stattdessen verwendet PlatformChannel's in Flutter, welche die Möglichkeit bieten platformspezifischen Code aus einer Flutter App auszuführen (Java/Kotlin für Android und Objective-C/Swift für iOS).\footnote{\cite{flutterplatformcode}}
+
+Desweiteren muss das zuvor erstellte TensorFlow Model in ein TensorFlow Lite Model umgewandelt werden.
+
 \subsubsection{Veröffentlichen der App}
+
+Ich habe die App im Google PlayStore veröffentlicht, theoretisch wäre es auch möglich die App für iOS im Appstore anzubieten, leider ist ein Apple Entwicklerkonto mit höheren Kosten verbunden.
 
 \subsection{Testen der App}
 
