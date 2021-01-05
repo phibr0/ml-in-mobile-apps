@@ -44,7 +44,7 @@ In Abbildung 2 sieht man den Aufbau eines herkömmlichen künstlichen Neuronalen
 
 \subsubsection{Erstellung eines Neuronalen Netzwerks anhand eines Beispiels}
 
-Als Beispiel für ein Neuronales Netzwerk, welches darauf ausgelegt ist, geschriebene Ziffern aus Bildern mit 24x24 Pixeln und nur Graustufen zu erkennen wäre dann: Ein Input Layer mit $24^2$ Neuronen, jeweils für jeden Pixel, welche jeweils eine Aktivierung zwischen 0 (komplett weiß) und 1 (komplett schwarz) haben können, eines. Genau 10 Neuronen im Output Layer, für jedes Zahlzeichen eines. Schließlich muss die Anzahl der Hidden Layer und Neuronen festgelegt werden. Ich wähle als Beispiel 2 Layer mit jeweils 16 Neuronen, die Neuronen-Anzahl kann aber auch unterschiedlich sein. Auch die Weights und Biases werden zunächst zufällig ausgewählt, die Werte werden dann später im Trainingsprozess\footnote{siehe Kapitel \ref{backpropagation}} angepasst. Die Eingabe in das Netzwerk ist also ein Zweidimensionaler Tensor, oder auch eine Matrix, mit den Bilddaten und die Ausgabe des Netzwerks ist ein eindimensionaler Tensor, oder auch ein Vektor, mit den Prognosen.
+Als Beispiel für ein Neuronales Netzwerk, welches darauf ausgelegt ist, geschriebene Ziffern aus Bildern mit 24x24 Pixeln und nur Graustufen zu erkennen wäre dann: Ein Input Layer mit $24^2$ Neuronen, jeweils für jeden Pixel, welche jeweils eine Aktivierung zwischen 0 (komplett weiß) und 1 (komplett schwarz) haben können, eines. Genau 10 Neuronen im Output Layer, für jedes Zahlzeichen eines. Schließlich muss die Anzahl der Hidden Layer und Neuronen festgelegt werden. Ich wähle als Beispiel 2 Layer mit jeweils 16 Neuronen, die Neuronen-Anzahl kann aber auch unterschiedlich sein. Auch die Weights und Biases werden zunächst zufällig ausgewählt, die Werte werden dann später im Trainingsprozess\footnote{siehe Kapitel \ref{backpropagation}} angepasst. Die Eingabe in das Netzwerk ist also ein zweidimensionaler Tensor, oder auch eine Matrix, mit den Bilddaten und die Ausgabe des Netzwerks ist ein eindimensionaler Tensor, oder auch ein Vektor, mit den Prognosen.
 
 \begin{equation}
     \begin{bmatrix}
@@ -174,7 +174,7 @@ Dieses Verfahren wird verwendet um die Ableitungen der Cost Function und des Net
 
 \paragraph{Backpropagation}
 
-Jetzt ist klar was das Ziel des Trainingsprozesses ist, aber wie wird die Cost Function minimiert? Hier kommt der Backpropagation Algorithmus ins Spiel. In Kombination mit der Cost Function und den soeben besprochenen Verfahren bestimmt dieser Algorithmus welche und um wie viel die Weights und Biases des Neuronalen Netzwerks angepasst werden müssen.
+Jetzt ist klar was das Ziel des Trainingsprozesses ist, aber wie wird die Cost Function minimiert? Hier kommt der Backpropagation Algorithmus ins Spiel. In Kombination mit der Cost Function und den soeben besprochenen Verfahren bestimmt dieser Algorithmus welche und um wie viel die Weights und Biases des Neuronalen Netzwerks angepasst werden müssen. Dies passiert, wie der Name schon impliziert, rückwärts.
 
 \subsection{Abwandlungen}
 
