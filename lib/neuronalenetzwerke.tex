@@ -48,15 +48,15 @@ Als Beispiel für ein Neuronales Netzwerk, welches darauf ausgelegt ist, geschri
 
 \begin{equation}
     \begin{bmatrix}
-        i_{0,0} & \ldots & i_{0,23} \\
-        \vdots  & \ddots & \vdots  \\
+        i_{0,0}  & \ldots & i_{0,23}  \\
+        \vdots   & \ddots & \vdots    \\
         i_{23,0} & \ldots & i_{23,23}
     \end{bmatrix}
     \Longrightarrow
     \text{Hidden Layer}
     \Longrightarrow
     \begin{bmatrix}
-        o_0 \\
+        o_0    \\
         \vdots \\
         o_9
     \end{bmatrix}
@@ -64,14 +64,15 @@ Als Beispiel für ein Neuronales Netzwerk, welches darauf ausgelegt ist, geschri
 
 \subsection{Funktionsweise} \label{funktionsweise}
 
+\setlength{\belowcaptionskip}{-10pt}
 \begin{wrapfigure}{r}{60mm}
     \resizebox{6cm}{!}{\input{lib/tikz/sigmoid.tex}}
     \caption[Sigmoid]{Die Sigmoidfunktion}
     \label{sigmoid}
 \end{wrapfigure}
+\setlength{\belowcaptionskip}{0pt}
 
-
-Ein Neuronales Netzwerk kann man sich eigentlich als eine große Mathematische Funktion vorstellen. In dem zuvor genannten Beispiel wäre es eine Funktion mit 576 Variablen und 10 Ergebnissen. Gibt man dieser Funktion nun ein Bild, beziehungsweise 576 Werte als Input, so werden von links nach rechts alle Weights $w$ und Biases $b$ zusammen mit dem vorigen Aktivierungswerten $a$ berechnet. Da ein Neuron aber nur Werte im Bereich $0\leq x \leq 1$ haben kann\footnote{\cite{3blue1brown}}, so wird das Ergebniss noch mithilfe einer Aktivierungsfunktion in diesen Bereich umgewandelt.\footnote{\cite{googleMlGlossar} Schlüsselwort: Activation Function} Eine früher Häufig verwendete Funktion ist dabei die Sigmoidfunktion, siehe Abbildung \ref{sigmoid}.\footnote{\cite{3blue1brown}} Es gibt aber auch noch eine Vielzahl weiterer Funktionen, wie die heute häufig verwendete ReLU Funktion\footnote{siehe Anhang \ref{anhang:weitereaktivierungsfunktionen}}, welche den Trainingprozess durch die einfachere Funktion beschleunigt.\footnote{\cite{nnfs} Seite 76 folgende} Die daraus resultierende Funktion würde in etwa so aussehen:\footnote{\cite{nnfs} Seite 185}
+Ein Neuronales Netzwerk kann man sich eigentlich als eine große verschachtelte mathematische Funktion vorstellen. In dem zuvor genannten Beispiel wäre es eine Funktion mit 576 Variablen und 10 Ergebnissen. Gibt man dieser Funktion nun ein Bild, beziehungsweise 576 Werte als Input, so werden von links nach rechts alle Weights $w$ und Biases $b$ zusammen mit dem vorigen Aktivierungswerten $a$ berechnet. Da ein Neuron aber nur Werte im Bereich $0\leq x \leq 1$ haben kann\footnote{\cite{3blue1brown}}, so wird das Ergebniss noch mithilfe einer Aktivierungsfunktion in diesen Bereich umgewandelt.\footnote{\cite{googleMlGlossar} Schlüsselwort: Activation Function} Eine früher Häufig verwendete Funktion ist dabei die Sigmoidfunktion, siehe Abbildung \ref{sigmoid}.\footnote{\cite{3blue1brown}} Es gibt aber auch noch eine Vielzahl weiterer Funktionen, wie die heute häufig verwendete ReLU Funktion\footnote{siehe Anhang \ref{anhang:weitereaktivierungsfunktionen}}, welche den Trainingprozess durch die einfachere Funktion beschleunigt.\footnote{\cite{nnfs} Seite 76 folgende} Die daraus resultierende Funktion würde in etwa so aussehen:\footnote{\cite{nnfs} Seite 185}
 
 \begin{equation}\label{funktion1}
     \sigma(w_1a_1+w_2a_2+w_3a_3+ \ldots +w_na_n+b)
@@ -127,16 +128,16 @@ Dieser Prozess ist der wichtigste. Durch das Trainieren erzielt ein Neuronales N
 Um herauszufinden wie gut oder schlecht ein Neuronales Netzwerk arbeitet, also auf das Beispiel bezogen wie genau oder ungenau es Ziffern erkennen kann, gibt es die Cost Function. Es gibt verschiedene Arten und Möglichkeiten ähnliche Funktionen anzuwenden, hier werde ich mich allerdings auf die Minimierung der Cost Function beziehen. Als Ergebniss kommt eine einzige Zahl heraus welche hoch ist, wenn das Netzwerk schlechte Ergebnisse erzielt und gegen 0 läuft, wenn das Netzwerk sehr gute Ergebnisse liefert. Es gibt mehrere verschiedene Cost Functions, aber ich fokussiere mich erstmal auf die MSE Funktion. MSE steht für "`Mean squared Error"', sie berechnet den Cost Wert\footnote{Manchmal auch Loss genannt, meint das gleiche.} aus dem durchschnitt der Summe der Vorhersagen und den erwarteten Ergebnissen zum Quadrat:
 
 \begin{equation}\label{costfunction}
-    MSE = \frac{1}{m} \sum^{m}_{i=1}(x^{(i)}-y^{(i)})^2
+    C = \frac{1}{m} \sum^{m}_{i=1}(x^{(i)}-y^{(i)})^2
 \end{equation}
 
 Wenn:
 
 \begin{itemize}
-    \item i = Index der Trainingsdaten
-    \item x = Vorhersage des Netzwerks
-    \item y = Erwartetes (richtiges) Ergebniss
-    \item m = Anzahl der Trainingsdaten\footnote{Formel \ref{costfunction} und Erklärung vergleiche \cite{towardsds}}
+    \item $i$ = Index der Trainingsdate
+    \item $x$ = Vorhersage des Netzwerk
+    \item $y$ = Erwartetes (richtiges) Ergebnis
+    \item $m$ = Anzahl der Trainingsdaten\footnote{Formel \ref{costfunction} und Erklärung vergleiche \cite{towardsds}}
 \end{itemize}
 
 \paragraph{Gradientenabstiegsverfahren}\label{paragrad}
@@ -149,11 +150,13 @@ Leider ist es bei solch großen Funktionen nicht mehr möglich (stimmt das? !TOD
     \label{2dcost}
 \end{wrapfigure}
 
-Daher berechnet man die Steigung $\Delta C$\footnote{$C$ bezieht sich hier auf die \textbf{C}ost function} der Funktion und bestimmt anschließend die Richtung $-\Delta C$ in welche der Graph sinkt. In Abbildung \ref{2dcost} ist der Graph nur Zweidimensional und daher gibt es nur eine Richtung in welcher der Graph fallen kann. So wird die Eingabe immer weiter so verändert, dass sich die Cost Function minimiert. Dies passiert in mehreren Iterationen oder auch Epochen, in welchen die Veränderungen, also Schritte in Richtung $-\Delta C$, in Abhänigkeit von der Steigung, immer kleiner werden um einen Überschuss zu verhindern.\footnote{\cite{3blue1brown}} Das ist auch der Grund weswegen Trainingszeiten exponentiell zur Genauigkeit ansteigen. Die Größe dieser Schritte wird auch Lernrate / Learning Rate genannt.\footnote{\cite{readthedocsgradientdescent}}
+Daher berechnet man die Steigung $\Delta C$\footnote{$C$ bezieht sich hier auf die \textbf{C}ost function} der Funktion und bestimmt anschließend die Richtung $-\Delta C$ in welche der Graph sinkt. In Abbildung \ref{2dcost} ist der Graph nur Zweidimensional und daher gibt es nur eine Richtung in welcher der Graph fallen kann. So wird die Eingabe immer weiter so verändert, dass sich die Cost Function minimiert. Dies passiert in mehreren Iterationen oder auch Epochen, in welchen die Veränderungen, also Schritte in Richtung $-\Delta C$, in Abhänigkeit von der Steigung, immer kleiner werden um einen Überschuss zu verhindern.\footnote{\cite{3blue1brown}} Das ist auch der Grund weswegen, wie in dem Ergebniss des Trainings von \ref{anhang:colab1} zu erkennen, Trainingszeiten exponentiell zur Genauigkeit ansteigen. Die Größe dieser Schritte wird auch Lernrate / Learning Rate genannt.\footnote{\cite{readthedocsgradientdescent}}
+
+%\newpage
 
 \begin{wrapfigure}{r}{80mm}
     \includegraphics[totalheight=9cm]{GradientDescent.png}
-    \caption[3dcost]{Visualisierung des Gradientenabstiegsverfahren im dreidimensionalen Raum \cite{3blue1brown})}
+    \caption[3dcost]{Visualisierung des Gradientenabstiegsverfahren im dreidimensionalen Raum (\cite{3blue1brown})}
     \label{3dcost}
 \end{wrapfigure}
 
@@ -161,20 +164,22 @@ Bei mehrdimensionalen Funktionen, wie auch den Neuronalen Netzwerken, gibt es me
 
 \paragraph{Ketten Regel}\label{parachain}
 
-Die Kettenregel vereinfacht das Ableiten von komplizierten Funktionen mit Logarithmen und Wurzeln, E-Funktionen und auch Klammern. Wie man diese anwendet sieht man in Formel \ref{kettenregel}.\footnote{\cite{kettenregel}}
+Die Kettenregel vereinfacht das Ableiten von komplizierten Funktionen, zum Beispiel mit weiteren Funktionen im inneren. Wie man diese anwendet sieht man in Formel \ref{kettenregel}.\footnote{\cite{kettenregel}}
 
 \begin{equation}\label{kettenregel}
     \begin{matrix}
-        f(x) = u(g(x))\\
+        f(x) = u(g(x)) \\
         f'(x) = u'(g(x)) \cdot g'(x)
     \end{matrix}
 \end{equation}
 
-Dieses Verfahren wird verwendet um die Ableitungen der Cost Function und des Netzwerks zu finden.
+Dieses Verfahren wird verwendet um die Ableitungen "`verschachtelter"' Funktionen zu finden, in diesem Fall wird hiermit die Ableitung des Netzwerks und in späteren Schritten auch die Ableitung von Anteilen des Netzwerks gesucht.\footnote{\cite{chainruleml}}
 
-\paragraph{Backpropagation}
+\paragraph{Backpropagation}\label{backprop}
 
-Jetzt ist klar was das Ziel des Trainingsprozesses ist, aber wie wird die Cost Function minimiert? Hier kommt der Backpropagation Algorithmus ins Spiel. In Kombination mit der Cost Function und den soeben besprochenen Verfahren bestimmt dieser Algorithmus welche und um wie viel die Weights und Biases des Neuronalen Netzwerks angepasst werden müssen. Dies passiert, wie der Name schon impliziert, rückwärts.
+Jetzt ist klar was das Ziel des Trainingsprozesses ist, aber wie wird die Cost Function minimiert? Hier kommt der Backpropagation Algorithmus ins Spiel. In Kombination mit der Cost Function und den soeben besprochenen Verfahren bestimmt dieser Algorithmus welche und um wie viel die Weights und Biases des Neuronalen Netzwerks angepasst werden müssen. Dies passiert, wie der Name schon impliziert, rückwärts. Ziel ist es hier also den Einfluss der einzelnen Weights und Biases auf das Endergebniss herauszufinden, um so dann diese Werte anzupassen.
+
+Der Algorithmus berechnet also die Ableitungen der einzelnen Teilstücke des Netzwerks mithilfe der Kettenregel und ist somit in der Lage herauszufinden welche Variablen (Weights und Biases) welchen Einfluss auf das Endergebniss haben.
 
 \subsection{Abwandlungen}
 
@@ -182,4 +187,39 @@ Heute gibt es sehr viele verschiedene Abwandlungen von diesen Techniken und auch
 
 \subsubsection{Convolutional Neural Networks}
 
+\begin{wrapfigure}{r}{58mm}
+    \includegraphics[totalheight=3cm]{cnn2.png}
+    \caption[cnn2]{Repräsentationen zweier Kreuze durch zweidimensionale Arrays}
+    \label{cnn2}
+    \vspace{5mm}
+    \includegraphics[totalheight=3cm]{cnn3.png}
+    \caption[cnn3]{Vorgehen eines CNN's}
+    \label{cnn3}
+    \vspace{5mm}
+    \center{\includegraphics[totalheight=15mm]{filter.png}}
+    \caption[filter]{Ein Filter innerhalbt eines CNN's}
+    \label{filter}
+    \vspace{5mm}
+    \center{\includegraphics[totalheight=22mm]{cnnmatrix.png}}
+    \caption[matrix]{Resultierende Matrix (Abbildungen \ref{cnn2} bis \ref{cnnmatrix} von \cite{cnnexplanation})}
+    \label{cnnmatrix}
+\end{wrapfigure}
+
 Convolutional Neural Networks versuchen ein Problem der normalen Neuronalen Netzwerke im Bereich der Bilderkennung zu lösen. Während in einem normalen Netzwerk die Position des zu erkennenden Objektes im Bild eine Rolle spielt, wird dies zum Großteil in einem Convolutional Neural Network durch die veränderte Funktionsweise behoben/verbessert.
+
+Während ein Mensch diese beiden Bilder aus Abbildung \ref{cnn2} direkt und ohne jegliche Mühen als Kreuz erkennen kann, ist dies für einen Computer eine große Schwierigkeit, auch für ein herkömmliches Neuronales Netzwerk. Die Werte gleichen sich schließlich nicht wirklich.
+
+Hier kommt dann das CNN ins Spiel welches grob beschrieben nach Eigenschaften innerhalb des Bildes sucht, dieses Vorgehen ist in Abbildung \ref{cnn3} visualisiert. Convolutional NN's nutzen "`Filtering"', ein Filter, wie in Abbildung \ref{filter} zu sehen, bewegt sich über das Bild und berechnet zu wie viel Prozent das Bild mit dem Filter übereinstimmt. Wendet man diese Berechnung, die auch "`Convolution"' genannt wird, auf das erste Bild von Abbildung \ref{cnn3} an, so resultiert eine neue kleinere Matrix, wie in Abbildung \ref{cnnmatrix} zu erkennen. Diese Matrix hat dort Werte nahe 1, wo der Filter zu 100\% mit dem Bild übereinstimmt und kleine oder sogar negative Werte in Bereichen, in denen der Filter wenig oder keine Übereinstimmung mit dem Bild aufweist.\footnote{\cite{cnnexplanation}} Zusammen mit mehreren anderen Convolutions (und daher auch Filtern) bildet sich ein Convolution Layer, welcher dann mit anderen Layern kombiniert wird, zum Beispiel herkömmliche Aktivierungsfunktionen\footnote{Bei CNN's zählen Aktivierungsfunkionen als eigene Layer; nicht zwangsläufig Teil eines Layers}, untereinander verbundene Layer\footnote{Normale Layer aus normalen NNs; Auch Dense Layer genannt} oder auch Pooling und Normalisierungs Layer, in letzterem werden einfach alle negativen Werte durch 0 ersetzt.\footnote{\cite{cnnexplanation}}
+
+\paragraph{Pooling}
+
+Pooling wird verwendet um die aus einem Convolutional Layer resultierende Matrix weiter zu verkleinern, um so eine Beschleunigung des Trainings und auch der Anwendung zu erzielen.
+
+Es gibt verschiedene Arten von Pooling, zum Beispiel das maxPooling, welches immer das Maximum eines bestimmten Bereichs übernimmt. Für das Pooling muss eine "`Windows Size"' und ein "`Stride"' Wert festgelegt werden. Window Size bestimmt die Größe des Bereichs in welchem das Pooling jeweils durchgeführt wird und Stride bestimmt wie weit dieser Bereich nach jedem mal verschoben wird.
+Führt man nun Pooling mit einer Window Size von 2 und einem Stride Wert von 2 auf der Matrix aus Abbildung \ref{cnnmatrix} aus, so werden zuerst die Werte aus einem 2$\cdot$2 Bereich oben links in der Matrix ausgewählt und das Maximum (hier: 1) in eine neue Matrix übernommen. Anschließend verschiebt sich der Bereich um 2 nach rechts und das Maximum wird erneut übernommen, das wird über die gesamte Matrix gemacht.\footnote{\cite{cnnexplanation}} Daraus resultiert dann folgende Matrix:
+
+\begin{figure}[H]
+    \center{\includegraphics[totalheight=3cm]{pooling.png}}
+    \caption[poolingmatrix]{Resultierende Matrix des Poolings (\cite{cnnexplanation})}
+    \label{poolingmatrix}
+\end{figure}

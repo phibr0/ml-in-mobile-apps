@@ -4,17 +4,19 @@ In diesem Kapitel wird mithilfe von Python und TensorFlow ein Netzwerk erstellt 
 
 \subsection{Die Idee}
 
-Die Idee ist, dass die App es ermöglicht im Supermarkt die verschiedenen Label der Produkte zu scannen und dem Nutzer dann Auskunft über die Vertrauenswürdigkeit und generelle Aussage des Labels gibt.
+Die Ziel ist es, dass die App es ermöglicht im Supermarkt die verschiedenen Label der Produkte zu scannen und dem Nutzer dann Auskunft über die Vertrauenswürdigkeit und generelle Aussage des Labels gibt. Die Idee habe ich in meinem Erdkunde Leistungskurs bekommen als wir über die Problematik gestoßen sind, dass die Bedeutung der verschiedenen Label eher untransparent gegenüber dem Verbraucher ist.
 
-Der Name bedeutet einfach nur "`Label überprüfen"'
+\subsection{Die Label/Siegel}
 
 \subsection{Erstellen des Models}\label{erstellen des modells}
 
-Zum erstellen und trainieren des Modells werde ich die Sprache Python und das Framework TensorFlow verwenden.
-
-\subsubsection{Die Trainingsdaten}
+Zum erstellen und trainieren des Modells werde ich die Sprache Python und das Framework TensorFlow verwenden. 
 
 \subsubsection{Trainieren des Modells mit TensorFlow und Python}
+
+\emph{Vollständiger Code in meinem Colab Notebook: \url{https://bit.ly/34Ggfuh}\footnote{Ungekürzter Link: \url{https://colab.research.google.com/drive/1ty_QQlL038YT6KpBjSdqGvIGyH0YXwxW}} und im Anhang \ref{anhang:labelchecktf}}
+
+
 
 \subsection{Entwickeln der App}
 
@@ -47,13 +49,13 @@ Zeile 3: Die \mintinline{Dart}{main()} Methode mit dem einzigen Aufruf \mintinli
 
 Zeile 5f.: \mintinline{Dart}{MyApp} erbt die Klasse \mintinline{Dart}{StatelessWidget}, überschreibt die \mintinline{Dart}{build()} Methode und gibt eine Widgethierarchie zurück.
 
-Zeile 8f.: Das \mintinline{Dart}{Center} Widget nimmt als einzigen benannten Parameter ein weiteres (child) Widget an, was in diesem Fall ein \mintinline{Dart}{Text} Widget ist. Stateless bedeutet hier, dass sich der Zustand des Widgets nicht während der Laufzeit verändern kann. Im Gegensatz dazu gibt es auch noch \mintinline{Dart}{StatefulWidget}'s welche die Möglichkeit haben bei Bedarf das UI zu "`rebuilden"'.
+Zeile 8f.: Das \mintinline{Dart}{Center} Widget nimmt als einzigen benannten Parameter ein weiteres (child) Widget an, welches in diesem Fall ein \mintinline{Dart}{Text} Widget ist. Stateless bedeutet hier, dass sich der Zustand des Widgets nicht während der Laufzeit verändern kann. Im Gegensatz dazu gibt es auch noch \mintinline{Dart}{StatefulWidget}'s welche die Möglichkeit haben bei Bedarf das UI zu "`rebuilden"'.
 
 Um der App das Aussehen von nativen Apps zu verleihen, verwendet man üblicherweise ein \mintinline{Dart}{MaterialApp} (Material Design / Android) oder \mintinline{Dart}{CupertinoApp} (Human Interface / iOS) Widget, was zudem noch wichtige Variablen, wie \mintinline{Dart}{ThemeData} für verschiedene Farben, die in der App einfach verwendet werden können oder \mintinline{Dart}{LocalizationsDelegate} welche für die Bereitstellung verschiedener Sprachen gebraucht werden, beinhaltet.
 
 \subsubsection{Importieren des Models}
 
-Es gibt eine speziell für mobile Geräte angepasste Version von TensorFlow mit dem Namen TensorFlow Lite. TFLite hat einen geringeren Speicherbedarf kann dafür aber auch weniger als das herkömmliche Framework.\footnote{\cite{tflite}} Implementationen dafür gibt es allerdings nicht in Dart, stattdessen verwendet PlatformChannel's in Flutter, welche die Möglichkeit bieten platformspezifischen Code aus einer Flutter App auszuführen (Java/Kotlin für Android und Objective-C/Swift für iOS).\footnote{\cite{flutterplatformcode}}
+Es gibt eine speziell für mobile Geräte angepasste Version von TensorFlow mit dem Namen TensorFlow Lite. TFLite hat einen geringeren Speicherbedarf kann dafür aber auch weniger als das herkömmliche Framework.\footnote{\cite{tflite}} Implementationen dafür gibt es allerdings nicht in Dart, stattdessen verwendet man PlatformChannel's in Flutter, welche die Möglichkeit bieten platformspezifischen Code aus einer Flutter App auszuführen (Java/Kotlin für Android und Objective-C/Swift für iOS).\footnote{\cite{flutterplatformcode}}
 
 Desweiteren muss das zuvor erstellte TensorFlow Model in ein TensorFlow Lite Model umgewandelt werden.
 
@@ -65,4 +67,4 @@ Ich habe die App im Google PlayStore veröffentlicht, theoretisch wäre es auch 
 
 \subsection{Fazit}
 
-Ich habe in den letzen Monaten viel über die App entwicklung mit Flutter gelernt, leider habe ich mit dieser App schon etwas früher begonnen, weswegen ich heute wahrscheinlich viele Dinge anders gemacht hätte. Ich habe nicht viel darauf geachtet den UI Code von dem Logik Code zu trennen und jetzt kommt es häufig vor, dass ich lange nach etwas suchen muss. Ich plane allerdings dies noch zu beheben. Auch habe ich viele Variablen als dynamisch deklariert, was ich auch noch verbessern sollte.
+Ich habe in den letzen Monaten viel über die App entwicklung mit Flutter gelernt, leider habe ich mit dieser App schon etwas früher begonnen, weswegen ich heute wahrscheinlich viele Dinge anders gemacht hätte. Ich habe nicht viel darauf geachtet den UI Code von dem Logik Code zu trennen und jetzt kommt es häufig vor, dass ich lange nach etwas suchen muss. Ich plane allerdings dies noch zu beheben. Auch habe ich viele Variablen als dynamisch deklariert, was ich auch noch verbessern sollte. Das beeinträchtigt allerdings nicht die Funktionalität, beziehungsweise den Nutzer sondern nur mich, solange ich noch weiter an der App arbeiten möchte.
