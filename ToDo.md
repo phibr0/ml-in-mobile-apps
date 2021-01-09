@@ -13,3 +13,5 @@ ALLE EIGENEN LINKS ÜBERPRÜFEN
 Abbildung 6 / Gradient Descent dings
 
 Backpropagation und CNN erklären
+
+ist es okay das quellenverzeichniss nach dem anhang zu platzieren?

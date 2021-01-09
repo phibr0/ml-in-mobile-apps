@@ -177,9 +177,9 @@ Dieses Verfahren wird verwendet um die Ableitungen "`verschachtelter"' Funktione
 
 \paragraph{Backpropagation}\label{backprop}
 
-Jetzt ist klar was das Ziel des Trainingsprozesses ist, aber wie wird die Cost Function minimiert? Hier kommt der Backpropagation Algorithmus ins Spiel. In Kombination mit der Cost Function und den soeben besprochenen Verfahren bestimmt dieser Algorithmus welche und um wie viel die Weights und Biases des Neuronalen Netzwerks angepasst werden müssen. Dies passiert, wie der Name schon impliziert, rückwärts. Ziel ist es hier also den Einfluss der einzelnen Weights und Biases auf das Endergebniss herauszufinden, um so dann diese Werte anzupassen.
+Jetzt ist klar was das Ziel des Trainingsprozesses ist, aber wie wird die Cost Function minimiert? Hier kommt der Backpropagation Algorithmus ins Spiel. In Kombination mit der Cost Function und den soeben besprochenen Verfahren bestimmt dieser Algorithmus welche und um wie viel die Weights und Biases des Neuronalen Netzwerks angepasst werden müssen. Dies passiert, wie der Name schon impliziert, rückwärts. Ziel ist es hier also den Einfluss der einzelnen Weights und Biases auf das Endergebniss herauszufinden, um so dann diese Werte anzupassen.\footnote{\cite{3blue1brown}}
 
-Der Algorithmus berechnet also die Ableitungen der einzelnen Teilstücke des Netzwerks mithilfe der Kettenregel und ist somit in der Lage herauszufinden welche Variablen (Weights und Biases) welchen Einfluss auf das Endergebniss haben.
+Der Algorithmus berechnet also die Ableitungen der einzelnen Teilstücke des Netzwerks mithilfe der Kettenregel und ist somit in der Lage herauszufinden welche Variablen (Weights und Biases) welchen Einfluss auf das Endergebniss haben.\footnote{\cite{3blue1brown}}
 
 \subsection{Abwandlungen}
 
@@ -197,7 +197,7 @@ Heute gibt es sehr viele verschiedene Abwandlungen von diesen Techniken und auch
     \label{cnn3}
     \vspace{5mm}
     \center{\includegraphics[totalheight=15mm]{filter.png}}
-    \caption[filter]{Ein Filter innerhalbt eines CNN's}
+    \caption[filter]{Ein Filter innerhalb eines CNN's}
     \label{filter}
     \vspace{5mm}
     \center{\includegraphics[totalheight=22mm]{cnnmatrix.png}}

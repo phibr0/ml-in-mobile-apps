@@ -149,20 +149,20 @@ der Hidden Layer und Neuronen festgelegt werden. Ich wähle als Beispiel
 unterschiedlich sein. Auch die Weights und Biases werden zunächst
 zufällig ausgewählt, die Werte werden dann später im
 Trainingsprozess[^14] angepasst. Die Eingabe in das Netzwerk ist also
-ein Zweidimensionaler Tensor, oder auch eine Matrix, mit den Bilddaten
+ein zweidimensionaler Tensor, oder auch eine Matrix, mit den Bilddaten
 und die Ausgabe des Netzwerks ist ein eindimensionaler Tensor, oder auch
 ein Vektor, mit den Prognosen.
 
 $$\begin{bmatrix}
-        i_{0,0} & \ldots & i_{0,23} \\
-        \vdots  & \ddots & \vdots  \\
+        i_{0,0}  & \ldots & i_{0,23}  \\
+        \vdots   & \ddots & \vdots    \\
         i_{23,0} & \ldots & i_{23,23}
     \end{bmatrix}
     \Longrightarrow
     \text{Hidden Layer}
     \Longrightarrow
     \begin{bmatrix}
-        o_0 \\
+        o_0    \\
         \vdots \\
         o_9
     \end{bmatrix}$$
@@ -172,19 +172,20 @@ $$\begin{bmatrix}
 r60mm
 
 Ein Neuronales Netzwerk kann man sich eigentlich als eine große
-Mathematische Funktion vorstellen. In dem zuvor genannten Beispiel wäre
-es eine Funktion mit 576 Variablen und 10 Ergebnissen. Gibt man dieser
-Funktion nun ein Bild, beziehungsweise 576 Werte als Input, so werden
-von links nach rechts alle Weights $w$ und Biases $b$ zusammen mit dem
-vorigen Aktivierungswerten $a$ berechnet. Da ein Neuron aber nur Werte
-im Bereich $0\leq x \leq 1$ haben kann[^15], so wird das Ergebniss noch
-mithilfe einer Aktivierungsfunktion in diesen Bereich umgewandelt.[^16]
-Eine früher Häufig verwendete Funktion ist dabei die Sigmoidfunktion,
-siehe Abbildung [\[sigmoid\]](#sigmoid){reference-type="ref"
-reference="sigmoid"}.[^17] Es gibt aber auch noch eine Vielzahl weiterer
-Funktionen, wie die heute häufig verwendete ReLU Funktion[^18], welche
-den Trainingprozess durch die einfachere Funktion beschleunigt.[^19] Die
-daraus resultierende Funktion würde in etwa so aussehen:[^20]
+verschachtelte mathematische Funktion vorstellen. In dem zuvor genannten
+Beispiel wäre es eine Funktion mit 576 Variablen und 10 Ergebnissen.
+Gibt man dieser Funktion nun ein Bild, beziehungsweise 576 Werte als
+Input, so werden von links nach rechts alle Weights $w$ und Biases $b$
+zusammen mit dem vorigen Aktivierungswerten $a$ berechnet. Da ein Neuron
+aber nur Werte im Bereich $0\leq x \leq 1$ haben kann[^15], so wird das
+Ergebniss noch mithilfe einer Aktivierungsfunktion in diesen Bereich
+umgewandelt.[^16] Eine früher Häufig verwendete Funktion ist dabei die
+Sigmoidfunktion, siehe Abbildung
+[\[sigmoid\]](#sigmoid){reference-type="ref" reference="sigmoid"}.[^17]
+Es gibt aber auch noch eine Vielzahl weiterer Funktionen, wie die heute
+häufig verwendete ReLU Funktion[^18], welche den Trainingprozess durch
+die einfachere Funktion beschleunigt.[^19] Die daraus resultierende
+Funktion würde in etwa so aussehen:[^20]
 
 $$\label{funktion1}
     \sigma(w_1a_1+w_2a_2+w_3a_3+ \ldots +w_na_n+b)$$
@@ -263,17 +264,17 @@ durchschnitt der Summe der Vorhersagen und den erwarteten Ergebnissen
 zum Quadrat:
 
 $$\label{costfunction}
-    MSE = \frac{1}{m} \sum^{m}_{i=1}(x^{(i)}-y^{(i)})^2$$
+    C = \frac{1}{m} \sum^{m}_{i=1}(x^{(i)}-y^{(i)})^2$$
 
 Wenn:
 
--   i = Index der Trainingsdaten
+-   $i$ = Index der Trainingsdate
 
--   x = Vorhersage des Netzwerks
+-   $x$ = Vorhersage des Netzwerk
 
--   y = Erwartetes (richtiges) Ergebniss
+-   $y$ = Erwartetes (richtiges) Ergebnis
 
--   m = Anzahl der Trainingsdaten[^24]
+-   $m$ = Anzahl der Trainingsdaten[^24]
 
 #### Gradientenabstiegsverfahren {#paragrad}
 
@@ -291,9 +292,11 @@ immer weiter so verändert, dass sich die Cost Function minimiert. Dies
 passiert in mehreren Iterationen oder auch Epochen, in welchen die
 Veränderungen, also Schritte in Richtung $-\Delta C$, in Abhänigkeit von
 der Steigung, immer kleiner werden um einen Überschuss zu
-verhindern.[^26] Das ist auch der Grund weswegen Trainingszeiten
-exponentiell zur Genauigkeit ansteigen. Die Größe dieser Schritte wird
-auch Lernrate / Learning Rate genannt.[^27]
+verhindern.[^26] Das ist auch der Grund weswegen, wie in dem Ergebniss
+des Trainings von [4.2](#anhang:colab1){reference-type="ref"
+reference="anhang:colab1"} zu erkennen, Trainingszeiten exponentiell zur
+Genauigkeit ansteigen. Die Größe dieser Schritte wird auch Lernrate /
+Learning Rate genannt.[^27]
 
 r80mm ![image](GradientDescent.png)
 
@@ -321,49 +324,109 @@ repräsentieren nicht den schnellsten Weg).[^28]
 
 #### Ketten Regel {#parachain}
 
-Die Kettenregel vereinfacht das Ableiten von komplizierten Funktionen
-mit Logarithmen und Wurzeln, E-Funktionen und auch Klammern. Wie man
-diese anwendet sieht man in Formel
-[\[kettenregel\]](#kettenregel){reference-type="ref"
+Die Kettenregel vereinfacht das Ableiten von komplizierten Funktionen,
+zum Beispiel mit weiteren Funktionen im inneren. Wie man diese anwendet
+sieht man in Formel [\[kettenregel\]](#kettenregel){reference-type="ref"
 reference="kettenregel"}.[^29]
 
 $$\label{kettenregel}
     \begin{matrix}
-        f(x) = u(g(x))\\
+        f(x) = u(g(x)) \\
         f'(x) = u'(g(x)) \cdot g'(x)
     \end{matrix}$$
 
-Dieses Verfahren wird verwendet um die Ableitungen der Cost Function und
-des Netzwerks zu finden.
+Dieses Verfahren wird verwendet um die Ableitungen "verschachtelter"
+Funktionen zu finden, in diesem Fall wird hiermit die Ableitung des
+Netzwerks und in späteren Schritten auch die Ableitung von Anteilen des
+Netzwerks gesucht.[^30]
 
-#### Backpropagation {#backpropagation-1}
+#### Backpropagation {#backprop}
 
 Jetzt ist klar was das Ziel des Trainingsprozesses ist, aber wie wird
 die Cost Function minimiert? Hier kommt der Backpropagation Algorithmus
 ins Spiel. In Kombination mit der Cost Function und den soeben
 besprochenen Verfahren bestimmt dieser Algorithmus welche und um wie
 viel die Weights und Biases des Neuronalen Netzwerks angepasst werden
-müssen.
+müssen. Dies passiert, wie der Name schon impliziert, rückwärts. Ziel
+ist es hier also den Einfluss der einzelnen Weights und Biases auf das
+Endergebniss herauszufinden, um so dann diese Werte anzupassen.[^31]
+
+Der Algorithmus berechnet also die Ableitungen der einzelnen Teilstücke
+des Netzwerks mithilfe der Kettenregel und ist somit in der Lage
+herauszufinden welche Variablen (Weights und Biases) welchen Einfluss
+auf das Endergebniss haben.[^32]
 
 ## Abwandlungen
 
 Heute gibt es sehr viele verschiedene Abwandlungen von diesen Techniken
 und auch Neuronale Netzwerke, die zwar ähnlich aufgebaut sind, die
 besser für manche Zwecke sind als andere. Da gibt es zum Beispiel
-"Convolutional Neural Networks"[^30], welche besonders gut zum erkennen
+"Convolutional Neural Networks"[^33], welche besonders gut zum erkennen
 von Objekten in Bildern geeignet sind und daher auch eins in
-[3.2](#erstellen des modells){reference-type="ref"
+[3.3](#erstellen des modells){reference-type="ref"
 reference="erstellen des modells"} verwendet wird. Oder "Long short Term
-memory Networks"[^31], welche speziell auf das erkennen von Stimmen
+memory Networks"[^34], welche speziell auf das erkennen von Stimmen
 ausgelegt sind.
 
 ### Convolutional Neural Networks
+
+r58mm ![image](cnn2.png)
+
+![image](cnn3.png)
 
 Convolutional Neural Networks versuchen ein Problem der normalen
 Neuronalen Netzwerke im Bereich der Bilderkennung zu lösen. Während in
 einem normalen Netzwerk die Position des zu erkennenden Objektes im Bild
 eine Rolle spielt, wird dies zum Großteil in einem Convolutional Neural
 Network durch die veränderte Funktionsweise behoben/verbessert.
+
+Während ein Mensch diese beiden Bilder aus Abbildung
+[\[cnn2\]](#cnn2){reference-type="ref" reference="cnn2"} direkt und ohne
+jegliche Mühen als Kreuz erkennen kann, ist dies für einen Computer eine
+große Schwierigkeit, auch für ein herkömmliches Neuronales Netzwerk. Die
+Werte gleichen sich schließlich nicht wirklich.
+
+Hier kommt dann das CNN ins Spiel welches grob beschrieben nach
+Eigenschaften innerhalb des Bildes sucht, dieses Vorgehen ist in
+Abbildung [\[cnn3\]](#cnn3){reference-type="ref" reference="cnn3"}
+visualisiert. Convolutional NN's nutzen "Filtering", ein Filter, wie in
+Abbildung [\[filter\]](#filter){reference-type="ref" reference="filter"}
+zu sehen, bewegt sich über das Bild und berechnet zu wie viel Prozent
+das Bild mit dem Filter übereinstimmt. Wendet man diese Berechnung, die
+auch "Convolution" genannt wird, auf das erste Bild von Abbildung
+[\[cnn3\]](#cnn3){reference-type="ref" reference="cnn3"} an, so
+resultiert eine neue kleinere Matrix, wie in Abbildung
+[\[cnnmatrix\]](#cnnmatrix){reference-type="ref" reference="cnnmatrix"}
+zu erkennen. Diese Matrix hat dort Werte nahe 1, wo der Filter zu 100%
+mit dem Bild übereinstimmt und kleine oder sogar negative Werte in
+Bereichen, in denen der Filter wenig oder keine Übereinstimmung mit dem
+Bild aufweist.[^35] Zusammen mit mehreren anderen Convolutions (und
+daher auch Filtern) bildet sich ein Convolution Layer, welcher dann mit
+anderen Layern kombiniert wird, zum Beispiel herkömmliche
+Aktivierungsfunktionen[^36], untereinander verbundene Layer[^37] oder
+auch Pooling und Normalisierungs Layer, in letzterem werden einfach alle
+negativen Werte durch 0 ersetzt.[^38]
+
+#### Pooling
+
+Pooling wird verwendet um die aus einem Convolutional Layer
+resultierende Matrix weiter zu verkleinern, um so eine Beschleunigung
+des Trainings und auch der Anwendung zu erzielen.
+
+Es gibt verschiedene Arten von Pooling, zum Beispiel das maxPooling,
+welches immer das Maximum eines bestimmten Bereichs übernimmt. Für das
+Pooling muss eine "Windows Size" und ein "Stride" Wert festgelegt
+werden. Window Size bestimmt die Größe des Bereichs in welchem das
+Pooling jeweils durchgeführt wird und Stride bestimmt wie weit dieser
+Bereich nach jedem mal verschoben wird. Führt man nun Pooling mit einer
+Window Size von 2 und einem Stride Wert von 2 auf der Matrix aus
+Abbildung [\[cnnmatrix\]](#cnnmatrix){reference-type="ref"
+reference="cnnmatrix"} aus, so werden zuerst die Werte aus einem
+2$\cdot$2 Bereich oben links in der Matrix ausgewählt und das Maximum
+(hier: 1) in eine neue Matrix übernommen. Anschließend verschiebt sich
+der Bereich um 2 nach rechts und das Maximum wird erneut übernommen, das
+wird über die gesamte Matrix gemacht.[^39] Daraus resultiert dann
+folgende Matrix:
 
 # Labelcheck als Smartphone App
 
@@ -374,20 +437,26 @@ stehen soll.
 
 ## Die Idee
 
-Die Idee ist, dass die App es ermöglicht im Supermarkt die verschiedenen
-Label der Produkte zu scannen und dem Nutzer dann Auskunft über die
-Vertrauenswürdigkeit und generelle Aussage des Labels gibt.
+Die Ziel ist es, dass die App es ermöglicht im Supermarkt die
+verschiedenen Label der Produkte zu scannen und dem Nutzer dann Auskunft
+über die Vertrauenswürdigkeit und generelle Aussage des Labels gibt. Die
+Idee habe ich in meinem Erdkunde Leistungskurs bekommen als wir über die
+Problematik gestoßen sind, dass die Bedeutung der verschiedenen Label
+eher untransparent gegenüber dem Verbraucher ist.
 
-Der Name bedeutet einfach nur "Label überprüfen"
+## Die Label/Siegel
 
 ## Erstellen des Models {#erstellen des modells}
 
 Zum erstellen und trainieren des Modells werde ich die Sprache Python
 und das Framework TensorFlow verwenden.
 
-### Die Trainingsdaten
-
 ### Trainieren des Modells mit TensorFlow und Python
+
+*Vollständiger Code in meinem Colab Notebook:
+<https://bit.ly/34Ggfuh>[^40] und im Anhang
+[4.3](#anhang:labelchecktf){reference-type="ref"
+reference="anhang:labelchecktf"}*
 
 ## Entwickeln der App
 
@@ -403,11 +472,11 @@ Android relevant sind.
 ### Das Framework: Flutter
 
 Flutter Apps funktionieren anders als nativ entwickelte Apps.
-Herkömmliche native Apps verwenden die UI[^32] Komponenten des
+Herkömmliche native Apps verwenden die UI[^41] Komponenten des
 Betriebssystems und sehen daher auf jedem Gerät mit unterschiedlichen
 Betriebssystemversionen leicht unterschiedlich aus. Flutter hingegen
 stellt ein "Canvas" Element bereit, welches als unterliegende
-Grafik-Engine Google's Skia nutzt.[^33] In Flutter stehen eine Menge UI
+Grafik-Engine Google's Skia nutzt.[^42] In Flutter stehen eine Menge UI
 Komponenten zur verfügung die entweder Googles Material Design
 guidelines oder Apples Human interface guidelines folgen. Der Dart Code
 stellt dann als Einzigen Eintrittspunkt die `main()`{.Dart} Methode
@@ -448,7 +517,7 @@ Zeile 5f.: `MyApp`{.Dart} erbt die Klasse `StatelessWidget`{.Dart},
 zurück.
 
 Zeile 8f.: Das `Center`{.Dart} Widget nimmt als einzigen benannten
-Parameter ein weiteres (child) Widget an, was in diesem Fall ein
+Parameter ein weiteres (child) Widget an, welches in diesem Fall ein
 `Text`{.Dart} Widget ist. Stateless bedeutet hier, dass sich der Zustand
 des Widgets nicht während der Laufzeit verändern kann. Im Gegensatz dazu
 gibt es auch noch `StatefulWidget`{.Dart}'s welche die Möglichkeit haben
@@ -467,11 +536,11 @@ verschiedener Sprachen gebraucht werden, beinhaltet.
 Es gibt eine speziell für mobile Geräte angepasste Version von
 TensorFlow mit dem Namen TensorFlow Lite. TFLite hat einen geringeren
 Speicherbedarf kann dafür aber auch weniger als das herkömmliche
-Framework.[^34] Implementationen dafür gibt es allerdings nicht in Dart,
-stattdessen verwendet PlatformChannel's in Flutter, welche die
+Framework.[^43] Implementationen dafür gibt es allerdings nicht in Dart,
+stattdessen verwendet man PlatformChannel's in Flutter, welche die
 Möglichkeit bieten platformspezifischen Code aus einer Flutter App
 auszuführen (Java/Kotlin für Android und Objective-C/Swift für
-iOS).[^35]
+iOS).[^44]
 
 Desweiteren muss das zuvor erstellte TensorFlow Model in ein TensorFlow
 Lite Model umgewandelt werden.
@@ -493,6 +562,9 @@ habe nicht viel darauf geachtet den UI Code von dem Logik Code zu
 trennen und jetzt kommt es häufig vor, dass ich lange nach etwas suchen
 muss. Ich plane allerdings dies noch zu beheben. Auch habe ich viele
 Variablen als dynamisch deklariert, was ich auch noch verbessern sollte.
+Das beeinträchtigt allerdings nicht die Funktionalität, beziehungsweise
+den Nutzer sondern nur mich, solange ich noch weiter an der App arbeiten
+möchte.
 
 [\[Anhang\]]{#Anhang label="Anhang"}
 
@@ -503,7 +575,7 @@ Variablen als dynamisch deklariert, was ich auch noch verbessern sollte.
 Die ReLU (Rectified linear Unit) Funktion ist im Vergleich zu anderen
 Aktivierungsfunktionen, wie der Sigmoidfunktion oder der Hyperbolischen
 Tangente, deutlich simpler, was sich in Leistungsansprüchen des
-Trainingsprozesses wiederspiegelt.[^36]
+Trainingsprozesses wiederspiegelt.[^45]
 
 ## Code für das Beispiel aus [2.3](#funktionsweise){reference-type="ref" reference="funktionsweise"} {#anhang:colab1}
 
@@ -541,7 +613,11 @@ model.save('beispielModel_MNIST') # Speichern des Modells
 ```
 
 Ein interaktives Beispiel gibt es zusätzlich hier in meinem Colab
-Notebook: <https://bit.ly/34Ggfuh>[^37]
+Notebook: <https://bit.ly/34Ggfuh>[^46]
+
+## Labelcheck Code {#anhang:labelchecktf}
+
+asdf
 
 ## Die Flutter Architektur {#anhang:flutterarc}
 
@@ -551,7 +627,7 @@ Beispiel für das Thread Management zuständig ist. Dadrüber liegt die
 "Engine Ebene", welche zu einem Großteil in C++ geschrieben ist und zu
 welcher auch die Grafikengine Skia gehört. Dadrüber liegt die "Framework
 Ebene", welche zum Beispiel die UI Komponenten beinhaltet und komplett
-in Dart entwickelt wird.[^38]
+in Dart entwickelt wird.[^47]
 
 [^1]: [@timcookquote Tim Cook (CEO von Apple) In einem Interview mit MIT
     Technology Review]
@@ -625,23 +701,43 @@ in Dart entwickelt wird.[^38]
 
 [^29]: [@kettenregel]
 
-[^30]: auch CNN; deutsch: **faltendes** neuronales Netzwerk
+[^30]: [@chainruleml]
 
-[^31]: auch LSTMN; deutsch: Langes **Kurzzeitgedächtnis** Netzwerk
+[^31]: [@3blue1brown]
 
-[^32]: User Interface; deutsch: Benutzeroberfläche
+[^32]: [@3blue1brown]
 
-[^33]: [@flutterarchitecture]; mehr dazu im Anhang
-    [4.3](#anhang:flutterarc){reference-type="ref"
-    reference="anhang:flutterarc"}
+[^33]: auch CNN; deutsch: **faltendes** neuronales Netzwerk
 
-[^34]: [@tflite]
+[^34]: auch LSTMN; deutsch: Langes **Kurzzeitgedächtnis** Netzwerk
 
-[^35]: [@flutterplatformcode]
+[^35]: [@cnnexplanation]
 
-[^36]: [@nnfs]
+[^36]: Bei CNN's zählen Aktivierungsfunkionen als eigene Layer; nicht
+    zwangsläufig Teil eines Layers
 
-[^37]: Ungekürzter Link:
+[^37]: Normale Layer aus normalen NNs; Auch Dense Layer genannt
+
+[^38]: [@cnnexplanation]
+
+[^39]: [@cnnexplanation]
+
+[^40]: Ungekürzter Link:
     <https://colab.research.google.com/drive/1ty_QQlL038YT6KpBjSdqGvIGyH0YXwxW>
 
-[^38]: [@flutterarchitecture]
+[^41]: User Interface; deutsch: Benutzeroberfläche
+
+[^42]: [@flutterarchitecture]; mehr dazu im Anhang
+    [4.4](#anhang:flutterarc){reference-type="ref"
+    reference="anhang:flutterarc"}
+
+[^43]: [@tflite]
+
+[^44]: [@flutterplatformcode]
+
+[^45]: [@nnfs]
+
+[^46]: Ungekürzter Link:
+    <https://colab.research.google.com/drive/1ty_QQlL038YT6KpBjSdqGvIGyH0YXwxW>
+
+[^47]: [@flutterarchitecture]

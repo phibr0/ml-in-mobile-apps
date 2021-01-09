@@ -1,12 +1,10 @@
-\section{Labelcheck als Smartphone App}
+\section{Labelcheck als Smartphone App}\label{labelcheck}
 
 In diesem Kapitel wird mithilfe von Python und TensorFlow ein Netzwerk erstellt und trainiert, sowie anschließend eine mobile App mit Dart und Flutter entwickelt, welche dann öffentlich für den Download bereit stehen soll.
 
 \subsection{Die Idee}
 
-Die Ziel ist es, dass die App es ermöglicht im Supermarkt die verschiedenen Label der Produkte zu scannen und dem Nutzer dann Auskunft über die Vertrauenswürdigkeit und generelle Aussage des Labels gibt. Die Idee habe ich in meinem Erdkunde Leistungskurs bekommen als wir über die Problematik gestoßen sind, dass die Bedeutung der verschiedenen Label eher untransparent gegenüber dem Verbraucher ist.
-
-\subsection{Die Label/Siegel}
+Die Ziel ist es, dass die App es ermöglicht im Supermarkt die verschiedenen Label der Produkte zu scannen und dem Nutzer dann Auskunft über die Vertrauenswürdigkeit und generelle Aussage des Labels gibt. Die Idee habe ich in meinem Erdkunde Leistungskurs bekommen als wir über die Problematik gestoßen sind, dass die Bedeutung der verschiedenen Label eher untransparent gegenüber dem Verbraucher ist. Ich habe alle Siegel einmal im Angang \ref{angang:label} vorgestellt, da sie nur indirekt mit dem Thema der Facharbeit zusammenhängen.
 
 \subsection{Erstellen des Models}\label{erstellen des modells}
 
@@ -16,11 +14,11 @@ Zum erstellen und trainieren des Modells werde ich die Sprache Python und das Fr
 
 \emph{Vollständiger Code in meinem Colab Notebook: \url{https://bit.ly/34Ggfuh}\footnote{Ungekürzter Link: \url{https://colab.research.google.com/drive/1ty_QQlL038YT6KpBjSdqGvIGyH0YXwxW}} und im Anhang \ref{anhang:labelchecktf}}
 
-
+\subsubsection{Ergebnisse des Models}
 
 \subsection{Entwickeln der App}
 
-Zum entwickeln der App verwende ich die Sprache Dart und das zugehörige Framework Flutter. Im Gegensatz zu nativ geschriebenen Apps bietet Flutter die möglichkeit nur einmal den Code in Dart zu schreiben und anschließend kann die App für alle großen Platformen kompiliert werden, dazu zählen iOS, Android, aber auch Linux, Windows, MacOS und Web/Javascript. Nun muss die App ja Zugriff auf die Kamera haben und auch in die Supermärkte "`mitgebracht"' werden, weshalb nur iOS und Android relevant sind.
+Zum entwickeln der App verwende ich die Sprache Dart und das zugehörige Framework Flutter. Im Gegensatz zu nativ geschriebenen Apps bietet Flutter die möglichkeit nur einmal den Code in Dart zu schreiben und anschließend kann die App für alle großen Platformen kompiliert werden, dazu zählen iOS, Android, aber auch Linux, Windows, MacOS und Web/Javascript. Nun muss die App ja Zugriff auf die Kamera haben und auch in die Supermärkte "`mitgebracht"' werden, weshalb nur iOS und Android relevant sind. Die App ist vollständig Quelloffen und kann auf GitHub unter \url{https://github.com/phibr0/labelcheck} eingesehen werden.
 
 \subsubsection{Das Framework: Flutter}
 
@@ -59,12 +57,35 @@ Es gibt eine speziell für mobile Geräte angepasste Version von TensorFlow mit 
 
 Desweiteren muss das zuvor erstellte TensorFlow Model in ein TensorFlow Lite Model umgewandelt werden.
 
+\subsubsection{Funktionsweise der App}
+
+
+
 \subsubsection{Veröffentlichen der App}
 
-Ich habe die App im Google PlayStore veröffentlicht, theoretisch wäre es auch möglich die App für iOS im Appstore anzubieten, leider ist ein Apple Entwicklerkonto mit höheren Kosten verbunden.
+Ich habe die App im Google PlayStore veröffentlicht\footnote{\url{https://play.google.com/store/apps/details?id=com.phillip.labelcheck}}, theoretisch wäre es auch möglich die App für iOS im Appstore anzubieten, leider ist ein Apple Entwicklerkonto aber mit höheren und jährlichen Kosten verbunden.
 
-\subsection{Testen der App}
+Auch musste ich eine Datenschutzerklärung bereitstellen, sie ist unter \url{https://labelcheck.phibr0.de} erreichbar. 
 
-\subsection{Fazit}
+\section{Fazit}
 
-Ich habe in den letzen Monaten viel über die App entwicklung mit Flutter gelernt, leider habe ich mit dieser App schon etwas früher begonnen, weswegen ich heute wahrscheinlich viele Dinge anders gemacht hätte. Ich habe nicht viel darauf geachtet den UI Code von dem Logik Code zu trennen und jetzt kommt es häufig vor, dass ich lange nach etwas suchen muss. Ich plane allerdings dies noch zu beheben. Auch habe ich viele Variablen als dynamisch deklariert, was ich auch noch verbessern sollte. Das beeinträchtigt allerdings nicht die Funktionalität, beziehungsweise den Nutzer sondern nur mich, solange ich noch weiter an der App arbeiten möchte.
+Ich habe in den letzen Monaten viel über die App entwicklung mit Flutter gelernt, leider habe ich mit dieser App schon etwas früher begonnen, weswegen ich heute wahrscheinlich viele Dinge anders gemacht hätte. Ich habe nicht viel darauf geachtet den UI Code von dem Logik Code zu trennen und jetzt kommt es häufig vor, dass ich lange nach etwas suchen muss. Ich plane allerdings dies noch zu beheben. Auch habe ich viele Variablen als dynamisch deklariert, was die Autovervollständigung beeinträchtigt und daher behoben werden sollte. Das beeinträchtigt allerdings nicht die Funktionalität, beziehungsweise den Nutzer sondern nur mich, solange ich noch weiter an der App arbeiten möchte. Desweiteren ist Dart in der neusten Version nun standardmäßig "`Null-Safe"'\footnote{Damit Variablen einen \mintinline{Dart}{null} Wert haben können, müssen sie speziell deklariert werden. Dies fängt viele Fehler bei Laufzeit ab.}, weswegen ich meine App auf diese Version manuell migrieren muss.
+
+Dennoch konnte ich folgende Funktionen erfolgreich implementieren:
+
+\begin{itemize}
+  \item Vollständige Übersetzungen für Englisch und Deutsch, sowie automatischem Anpassen an die Systemsprache
+  \item Modernes Design nach Material Design Guidelines
+  \begin{itemize}
+    \item Automatischer Wechsel zwischen hellem und dunklem Modus
+  \end{itemize}
+  \item Automatisches Sammeln von anonymisierten Nutzerstatistiken und Absturzberichten durch Google Analytics/Firebase Crashlytics
+  \begin{itemize}
+    \item Zusätzlich manuelle Fehlerberichterstattung durch den Nutzer via E-Mail
+  \end{itemize}
+  \item Integration der Wikipedia API für noch mehr Informationen über das Label
+  \item Klassifizieren von Fotos, entweder in der App aufgenommen oder aus einer Datei, mit (!TODO!)\% Genauigkeit
+  \item Hosten einer Website für die Datenschutzerklärung und Nutzungsbedingungen
+\end{itemize}
+
+Auch habe ich einen größeren Einblick in die unterliegende Mathematik von Neuronalen Netzen erhalten. Alles in einem würde ich sagen die Facharbeit war für mich ein Erfolg.
