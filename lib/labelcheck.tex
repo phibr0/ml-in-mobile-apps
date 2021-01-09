@@ -8,11 +8,11 @@ Die Ziel ist es, dass die App es ermöglicht im Supermarkt die verschiedenen Lab
 
 \subsection{Erstellen des Models}\label{erstellen des modells}
 
-Zum erstellen und trainieren des Modells werde ich die Sprache Python und das Framework TensorFlow verwenden. 
+Zum erstellen und trainieren des Modells werde ich die Sprache Python und das Framework TensorFlow verwenden.
 
 \subsubsection{Trainieren des Modells mit TensorFlow und Python}
 
-\emph{Vollständiger Code in meinem Colab Notebook: \url{https://bit.ly/34Ggfuh}\footnote{Ungekürzter Link: \url{https://colab.research.google.com/drive/1ty_QQlL038YT6KpBjSdqGvIGyH0YXwxW}} und im Anhang \ref{anhang:labelchecktf}}
+Der Code ist im Anhang unter \ref{tfcode} einsehbar.
 
 \subsubsection{Ergebnisse des Models}
 
@@ -24,8 +24,8 @@ Zum entwickeln der App verwende ich die Sprache Dart und das zugehörige Framewo
 
 Flutter Apps funktionieren anders als nativ entwickelte Apps. Herkömmliche native Apps verwenden die UI\footnote{User Interface; deutsch: Benutzeroberfläche} Komponenten des Betriebssystems und sehen daher auf jedem Gerät mit unterschiedlichen Betriebssystemversionen leicht unterschiedlich aus. Flutter hingegen stellt ein "`Canvas"' Element bereit, welches als unterliegende Grafik-Engine Google's Skia nutzt.\footnote{\cite{flutterarchitecture}; mehr dazu im Anhang \ref{anhang:flutterarc}} In Flutter stehen eine Menge UI Komponenten zur verfügung die entweder Googles Material Design guidelines oder Apples Human interface guidelines folgen. Der Dart Code stellt dann als Einzigen Eintrittspunkt die \mintinline{Dart}{main()} Methode bereit, aus welchem dann die App gestartet wird. Das Framework wird mit der Methode \mintinline{Dart}{runApp(Widget)} initialisert. In Flutter ist jedes UI Element ein "`Widget"', wodurch sich dann in Kombination in einer App große Widgethierarchien erstellen lassen. Der Code einer simplen App, welche nur den Text "`Hello World!"' in der Mitte des Bildschirms anzeigen würde, sehe demnach so aus:
 
-\begin{wrapfigure}{l}{75mm} 
-    \begin{minted}[fontsize=\footnotesize,linenos]{Dart}
+\begin{wrapfigure}{l}{75mm}
+  \begin{minted}[fontsize=\footnotesize,linenos]{Dart}
 import 'package:flutter/widgets.dart';
 
 void main() => runApp(MyApp());
@@ -59,13 +59,26 @@ Desweiteren muss das zuvor erstellte TensorFlow Model in ein TensorFlow Lite Mod
 
 \subsubsection{Funktionsweise der App}
 
+\setlength{\belowcaptionskip}{-10pt}
+\begin{wrapfigure}{r}{55mm}
+  \resizebox{55mm}{!}{\begin{annotatedFigure}
+      {\includegraphics[width=1.0\linewidth]{labelcheckscreenshot.png}}
+      \annotatedFigureBox{0.7735,0.8476}{0.8484,0.8899}{A}{0.7735,0.8476}%bl
+      \annotatedFigureBox{0.2617,0.27}{0.742,0.7233}{B}{0.2617,0.27}%bl
+      \annotatedFigureBox{0.432,0.076}{0.5679,0.1473}{C}{0.432,0.076}%bl
+    \end{annotatedFigure}}
+  \caption[]{Beispiel des Labelcheck UI's}
+  \label{screenshot}
+\end{wrapfigure}
+\setlength{\belowcaptionskip}{0pt}
 
+Nach dem \textbf{Start} der App werden das Model und die zugehörigen Label asynchron\footnote{hier: Im Hintergrund} geladen und anschließend TensorFlow-Lite initialisert. Der "`Floating Action Button"' \textbf{C} nimmt bei kurzem drücken ein Foto auf, speichert es temporär, schneidet es auf die Größe des "`Viewfinders'" \textbf{B} zu und ruft eine platformspezifische Methode von TensorFlow-Lite, mit dem Speicherort des Fotos als Parameter, auf. Wurde die Klassifizierung durchgeführt öffnet sich ein "`Bottom Sheet"', mit dem Namen des Labels, einer Beschreibung und einer farblichen Kennzeichnung der Wahrscheinlichkeit. Bei langem drücken von \textbf{C} passiert das gleiche, allerdings wird, anstatt des Aufnehmen eines Fotos, der Nutzer aufgefordert ein Foto aus seinen eigenen Dateien auszuwählen. Außerdem lässt sich der Knopf beliebig durch ziehen umpositionieren. Der Knopf \textbf{A} öffnet die "`Über"' Seite, auf welcher Informationen zur App, Lizenzen und Links zu dem Repository und der Datenschutzerklärung zu finden sind.
 
 \subsubsection{Veröffentlichen der App}
 
 Ich habe die App im Google PlayStore veröffentlicht\footnote{\url{https://play.google.com/store/apps/details?id=com.phillip.labelcheck}}, theoretisch wäre es auch möglich die App für iOS im Appstore anzubieten, leider ist ein Apple Entwicklerkonto aber mit höheren und jährlichen Kosten verbunden.
 
-Auch musste ich eine Datenschutzerklärung bereitstellen, sie ist unter \url{https://labelcheck.phibr0.de} erreichbar. 
+Auch musste ich eine Datenschutzerklärung bereitstellen, sie ist unter \url{https://labelcheck.phibr0.de} erreichbar.
 
 \section{Fazit}
 
@@ -76,13 +89,13 @@ Dennoch konnte ich folgende Funktionen erfolgreich implementieren:
 \begin{itemize}
   \item Vollständige Übersetzungen für Englisch und Deutsch, sowie automatischem Anpassen an die Systemsprache
   \item Modernes Design nach Material Design Guidelines
-  \begin{itemize}
-    \item Automatischer Wechsel zwischen hellem und dunklem Modus
-  \end{itemize}
+        \begin{itemize}
+          \item Automatischer Wechsel zwischen hellem und dunklem Modus
+        \end{itemize}
   \item Automatisches Sammeln von anonymisierten Nutzerstatistiken und Absturzberichten durch Google Analytics/Firebase Crashlytics
-  \begin{itemize}
-    \item Zusätzlich manuelle Fehlerberichterstattung durch den Nutzer via E-Mail
-  \end{itemize}
+        \begin{itemize}
+          \item Zusätzlich manuelle Fehlerberichterstattung durch den Nutzer via E-Mail
+        \end{itemize}
   \item Integration der Wikipedia API für noch mehr Informationen über das Label
   \item Klassifizieren von Fotos, entweder in der App aufgenommen oder aus einer Datei, mit (!TODO!)\% Genauigkeit
   \item Hosten einer Website für die Datenschutzerklärung und Nutzungsbedingungen

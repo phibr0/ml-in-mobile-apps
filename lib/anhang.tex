@@ -26,8 +26,8 @@ numOfEpochs = 5
 
 mnist = tf.keras.datasets.mnist
 
-(x_train, y_train), (x_test, y_test) = mnist.load_data() # Laden des MNIST Datasets
-# Und aufteilen in Trainigsdaten und Testdaten
+(x_train, y_train), (x_test, y_test) = mnist.load_data() # Laden des MNIST
+# Datasets und aufteilen in Trainigsdaten und Testdaten
 
 x_train = tf.keras.utils.normalize(x_train, axis=1) # Normalisieren des Datasets
 x_test = tf.keras.utils.normalize(x_test, axis=1)
@@ -41,7 +41,8 @@ model.add(layers.Dense(10, activation=tf.nn.softmax))
 
 model.compile(optimizer='adam',
               loss='sparse_categorical_crossentropy',
-              metrics=['accuracy']) # Kompilieren der Layer zu einem trainierfähigen Modell
+              metrics=['accuracy']) # Kompilieren der Layer zu einem
+                                    # trainierfähigen Modell
 
 model.fit(x_train, y_train, epochs=numOfEpochs)
 # Trainieren des Modells mit den Trainingsdaten und x Epochen
@@ -90,7 +91,46 @@ Ein interaktives Beispiel gibt es zusätzlich hier in meinem Colab Notebook: \ur
 
 \subsection{Labelcheck Code}\label{anhang:labelchecktf}
 
-asdf
+\subsubsection{Code für das Model}\label{tfcode}
+
+\emph{Interaktive Beispiele in meinem Colab Notebook: \url{https://bit.ly/34Ggfuh}\footnote{Ungekürzter Link: \url{https://colab.research.google.com/drive/1ty_QQlL038YT6KpBjSdqGvIGyH0YXwxW}}}.
+
+\subsubsection{Code für die App}
+
+\emph{Der Code hier ist nicht vollständig, ich habe nur die wichtigsten Teile aufgeführt. Der komplette Code ist unter meinem GitHub Repository \url{https://github.com/phibr0/labelcheck} verfügbar.}
+
+\begin{listing}[H]
+    \begin{minted}[fontsize=\footnotesize,linenos]{Dart}
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  cameras = await availableCameras();
+  await Tflite.loadModel(
+    model: "assets/model/converted_tflite/model.tflite",
+    labels: "assets/model/converted_tflite/labels.txt",
+    isAsset: true,
+  );
+  runApp(MyApp());
+}
+    \end{minted}
+    \caption{Die main Methode von Labelcheck}
+\end{listing}
+
+Diese Methode (\mintinline{Dart}{main}) wird beim Start der App aufgerufen, interessant sind hier vorallem Zeilen 3 \& 4, in welchen erstmal alle verfügbaren Kameras in einer Variable gespeichert werden. Dies ist notwendig, da heutzutage viele Smartphones mehrere Kamers verbaut haben. Ab Zeile 4 wird dann TensorFlow-Lite initialisiert\footnote{Die Methoden werden durch das tflite Paket bereitgestellt\cite{tflitepackage}}, indem das Model und die zugehörigen Labels als Parameter übergeben werden. Aufällig ist, dass kein Rückgabewert gespeichert wird. Das liegt daran, dass TensorFlow-Lite platformspezifisch "`unter"' der Flutter Engine liegt und dies automatisch handhabt.
+
+\begin{listing}[H]
+    \begin{minted}[fontsize=\footnotesize,linenos]{Dart}
+Future<dynamic> classifyImage(String path) async {
+    var output = await Tflite.runModelOnImage(
+      path: path,
+      numResults: 1,
+    );
+    return output;
+}
+    \end{minted}
+    \caption{Die Methode zum klassifizieren eines Bildes}
+\end{listing}
+
+Diese Methode (\mintinline{Dart}{classifyImage}) genügt um eine Klassifizierung durchzuführen. Als einzigen Parameter wird der Dateipfad des Bildes übergeben und dann wird das Bild asynchron klassifiziert, zurückgegeben wird ein Objekt des Typs \emph{Future<dynamic>}.
 
 \subsection{Die Flutter Architektur}\label{anhang:flutterarc}
 
