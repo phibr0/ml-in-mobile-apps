@@ -8,11 +8,14 @@ Die Ziel ist es, dass die App es ermöglicht im Supermarkt die verschiedenen Lab
 
 \subsection{Erstellen des Models}\label{erstellen des modells}
 
-Zum erstellen und trainieren des Modells werde ich die Sprache Python und das Framework TensorFlow verwenden.
+Zum erstellen und trainieren des Modells werde ich die Sprache Python und das
+Framework TensorFlow verwenden. Da sich, wie zuvor erklärt, Convolutional Neural Networks besonders gut zum Klassifiezieren von Bildern eignen werde ich im folgenden eines erstellen. 
+
+\emph{Der vollständige Code ist im Anhang unter \ref{anhang:tfcode} einsehbar.}
 
 \subsubsection{Trainieren des Modells mit TensorFlow und Python}
 
-Der Code ist im Anhang unter \ref{tfcode} einsehbar.
+Da ich zum trainieren des Models „supervised Learning“ anwenden werde, wird ein Dataset benötigt. Dieses Dataset besteht aus vielen verschiedenen Bildern von den jeweiligen Objekten die vom Netzwerk identifiziert werden sollen. Dafür habe ich über die letzten Monate hinweg immer wieder verschiedene Label auf verschiedenen Verpackungen fotografiert und sortiert. Am Ende habe ich mich einfach darauf festgelegt die 7 Label zu benutzen, von welchen ich die meisten Fotos hatte. Supervised Learning bedeutet, dass die Daten (hier Bilder) „labelled“ sind, also das das gewünschte Ergebniss bekannt ist.41 So kann dann, zum Beispiel mit der MSE Funktion, überprüft werden wie genau das Netzwerk klassifiziert.
 
 \subsubsection{Ergebnisse des Models}
 
@@ -82,7 +85,7 @@ Auch musste ich eine Datenschutzerklärung bereitstellen, sie ist unter \url{htt
 
 \section{Fazit}
 
-Ich habe in den letzen Monaten viel über die App entwicklung mit Flutter gelernt, leider habe ich mit dieser App schon etwas früher begonnen, weswegen ich heute wahrscheinlich viele Dinge anders gemacht hätte. Ich habe nicht viel darauf geachtet den UI Code von dem Logik Code zu trennen und jetzt kommt es häufig vor, dass ich lange nach etwas suchen muss. Ich plane allerdings dies noch zu beheben. Auch habe ich viele Variablen als dynamisch deklariert, was die Autovervollständigung beeinträchtigt und daher behoben werden sollte. Das beeinträchtigt allerdings nicht die Funktionalität, beziehungsweise den Nutzer sondern nur mich, solange ich noch weiter an der App arbeiten möchte. Desweiteren ist Dart in der neusten Version nun standardmäßig "`Null-Safe"'\footnote{Damit Variablen einen \mintinline{Dart}{null} Wert haben können, müssen sie speziell deklariert werden. Dies fängt viele Fehler bei Laufzeit ab.}, weswegen ich meine App auf diese Version manuell migrieren muss.
+Ich habe in den letzen Monaten viel über die App entwicklung mit Flutter gelernt, leider habe ich mit dieser App schon etwas früher begonnen, weswegen ich heute wahrscheinlich viele Dinge anders gemacht hätte. Ich habe nicht viel darauf geachtet den UI Code von dem Logik Code zu trennen und jetzt kommt es häufig vor, dass ich lange nach etwas suchen muss. Ich plane allerdings dies noch zu beheben. Auch habe ich viele Variablen als dynamisch deklariert, was die Autovervollständigung beeinträchtigt und daher behoben werden sollte. Das beeinträchtigt allerdings nicht die Funktionalität, beziehungsweise den Nutzer sondern nur mich, solange ich noch weiter an der App arbeiten möchte. Desweiteren ist Dart in der neusten Version nun standardmäßig "`Null-Safe"'\footnote{Damit Variablen \mintinline{Dart}{null} sein können können, müssen sie speziell deklariert werden. Dies fängt viele Fehler bei Laufzeit ab.}, weswegen ich meine App auf diese Version manuell migrieren muss.
 
 Dennoch konnte ich folgende Funktionen erfolgreich implementieren:
 
