@@ -11,7 +11,7 @@ Die Ziel ist es, dass die App es ermöglicht im Supermarkt die verschiedenen Lab
 Zum erstellen und trainieren des Modells werde ich die Sprache Python und das
 Framework TensorFlow verwenden. Da sich, wie zuvor erklärt, Convolutional Neural Networks besonders gut zum Klassifiezieren von Bildern eignen werde ich im folgenden eines erstellen. 
 
-\emph{Der vollständige Code ist im Anhang unter \ref{anhang:tfcode} einsehbar.}
+\emph{Der vollständige Code ist im Anhang unter \ref{tfcode} einsehbar.}
 
 \subsubsection{Trainieren des Modells mit TensorFlow und Python}
 
@@ -75,7 +75,7 @@ Desweiteren muss das zuvor erstellte TensorFlow Model in ein TensorFlow Lite Mod
 \end{wrapfigure}
 \setlength{\belowcaptionskip}{0pt}
 
-Nach dem \textbf{Start} der App werden das Model und die zugehörigen Label asynchron\footnote{hier: Im Hintergrund} geladen und anschließend TensorFlow-Lite initialisert. Der "`Floating Action Button"' \textbf{C} nimmt bei kurzem drücken ein Foto auf, speichert es temporär, schneidet es auf die Größe des "`Viewfinders'" \textbf{B} zu und ruft eine platformspezifische Methode von TensorFlow-Lite, mit dem Speicherort des Fotos als Parameter, auf. Wurde die Klassifizierung durchgeführt öffnet sich ein "`Bottom Sheet"', mit dem Namen des Labels, einer Beschreibung und einer farblichen Kennzeichnung der Wahrscheinlichkeit. Bei langem drücken von \textbf{C} passiert das gleiche, allerdings wird, anstatt des Aufnehmen eines Fotos, der Nutzer aufgefordert ein Foto aus seinen eigenen Dateien auszuwählen. Außerdem lässt sich der Knopf beliebig durch ziehen umpositionieren. Der Knopf \textbf{A} öffnet die "`Über"' Seite, auf welcher Informationen zur App, Lizenzen und Links zu dem Repository und der Datenschutzerklärung zu finden sind.
+Nach dem \textbf{Start} der App werden das Model und die zugehörigen Label asynchron\footnote{hier: Im Hintergrund} geladen und anschließend TensorFlow-Lite initialisert. Der "`Floating Action Button"' \textbf{C} nimmt bei kurzem drücken ein Foto auf, speichert es temporär, schneidet es auf die Größe des "`Viewfinders"' \textbf{B} zu und ruft eine platformspezifische Methode von TensorFlow-Lite, mit dem Speicherort des Fotos als Parameter, auf. Wurde die Klassifizierung durchgeführt öffnet sich ein "`Bottom Sheet"', mit dem Namen des Labels, einer Beschreibung und einer farblichen Kennzeichnung der Wahrscheinlichkeit. Bei langem drücken von \textbf{C} passiert das gleiche, allerdings wird, anstatt des Aufnehmen eines Fotos, der Nutzer aufgefordert ein Foto aus seinen eigenen Dateien auszuwählen. Außerdem lässt sich der Knopf beliebig durch ziehen umpositionieren. Der Knopf \textbf{A} öffnet die "`Über"' Seite, auf welcher Informationen zur App, Lizenzen und Links zu dem Repository und der Datenschutzerklärung zu finden sind.
 
 \subsubsection{Veröffentlichen der App}
 

@@ -1,4 +1,0 @@
-\begin{multline}
-  d = \sqrt{ (x'-x)^2 }  \\
-  = f(x,x')
-\end{multline}
