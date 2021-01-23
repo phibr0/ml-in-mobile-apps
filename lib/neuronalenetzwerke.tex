@@ -1,4 +1,4 @@
-\section{Neuronale Netzwerke}
+\section{Neuronale Netzwerke}\label{neuronalenetzwerkekapitel}
 
 \subsection{Wichtigste Ereignisse in der Geschichte}
 
@@ -13,8 +13,6 @@ In 1998 veröffentlichte Yann LeCun und sein Team eine Arbeit über die Anwendun
 Obwohl ein großes Potenzial erkannt wurde, war es über die nächsten Jahre wieder recht still. Der nächste große Durchbruch passierte in 2012 als Geoffrey Hinton ein Modell entwickelte, was die Fehlerquote in einer öffentlichen Challenge für Bilderkennung beinahe halbierte.\footnote{\cite[]{geoffrey}} Der Grund dafür waren mehrere fundamentale Neuerungen aus dem Bereich Deep Learning; die wahrscheinlich größte Änderung: Starke Parallelisierung des Backpropagation-Prozesses, durch Verschiebung der Last von der CPU auf die GPU. Aufgrund der starken Überlegenheit eines Grafikprozessors in parallelisierten Prozessen, wie die benötigten Tensormultiplikationen durch die deutlich größere Anzahl an (dafür schwächeren) Kernen im Vergleich zu einer herkömmlichen CPU, kann ein Neuronales Netzwerk mehrere hundertmal schneller trainiert werden.
 
 Heute gibt es (vergleichsweise) simple Frameworks, wie das im Jahr 2015 erschienende TensorFlow oder PyTorch aus 2016, welche das erstellen, trainieren und verwenden von Neuronales Netzwerk enorm vereinfachen, zum Beispiel lassen sich trainierte Netzwerke mit allen nötigen Informationen als "`Model"' speichern. Ihr Funktionsumfang wächst durch die große Open-Source Community ständig.
-
-%Sind die Zitate okay?
 
 \begin{figure}[h]
     \begin{chronology}[10]{1940}{2020}{\textwidth}
@@ -106,7 +104,7 @@ Auch diese Funktion kann wiederrum kompakter formuliert werden und diese Schreib
 
 \begin{equation}\label{funktion3}
     a^{(1)}=\sigma(W\cdot a^{(0)}+b)
-\end{equation}\footnotemark[20]%TODO ist die Zahl noch richtig?
+\end{equation}\footnotemark[22]%TODO ist die Zahl noch richtig?
 
 Theoretisch wenn ein Neuron einen hohen Aktivierungswert haben soll, wenn beispielsweise eine gerade Linie erkannt wird (um mit anderen Neuronen zusammen im späteren Verlauf aus den Mustern ganze Ziffern zu erkennen), so müssen die Weights der zu dem Neuron führenden Verbindungen alle möglichst niedrige Aktivierungen haben, ausser an den Stellen an denen die Linie sich befinden soll. Um sicherzustellen, dass es sich wirklich um eine gerade Linie handelt befindet sich direkt über dem Strich ein Bereich in dem keine Aktivierungen sein sollten, dieser ist rot markiert. Das erkennt man in Abbildung \ref{examples} sehr gut. In a erkennt man die zu erkennende Linie und in b sieht man die zugehörigen Weights der Input Nodes zu dem Neuron. Dabei stellt grün positive Weights da, rot negative und Weiß/Transparent ist 0. Der Bias des Neurons stellt eine Zusätzliche Hürde oder eine Verstärkung da, was auch in Formel \ref{funktion1} als $b$ sichtbar ist.
 
@@ -119,7 +117,7 @@ Theoretisch wenn ein Neuron einen hohen Aktivierungswert haben soll, wenn beispi
     \label{examples}%
 \end{figure}
 
-\subsubsection{Trainieren des Neuronalen Netzwerks} \label{backpropagation}
+\subsubsection{Trainieren eines Neuronalen Netzwerks} \label{backpropagation}
 
 Dieser Prozess ist der wichtigste. Durch das Trainieren erzielt ein Neuronales Netzwerk den Effekt des selbstständigen Lernens. Und da die Werte der Weights und Biases zunächst zufällig ausgewählt wurden, muss das Netzwerk trainiert werden um nicht völligen Unsinn auszugeben.\footnote{Ein Code Beispiel, wie man ein solches Netzwerk mit modernen Frameworks erstellen und trainieren würde befindet sich im Anhang \ref{anhang:colab1}.}
 
@@ -142,7 +140,7 @@ Wenn:
 
 \paragraph{Gradientenabstiegsverfahren}\label{paragrad}
 
-Leider ist es bei solch großen Funktionen nicht mehr möglich (stimmt das? !TODO!) das Globale Minimum explizit zu bestimmen.
+Leider ist es bei solch großen Funktionen nicht mehr möglich\footnote{Oder mit zu großem Aufwand verbunden} das Globale Minimum explizit zu bestimmen.
 
 \begin{wrapfigure}{r}{80mm}
     \input{lib/tikz/2dcost.tex}
@@ -150,15 +148,15 @@ Leider ist es bei solch großen Funktionen nicht mehr möglich (stimmt das? !TOD
     \label{2dcost}
 \end{wrapfigure}
 
-Daher berechnet man die Steigung $\Delta C$\footnote{$C$ bezieht sich hier auf die \textbf{C}ost function} der Funktion und bestimmt anschließend die Richtung $-\Delta C$ in welche der Graph sinkt. In Abbildung \ref{2dcost} ist der Graph nur Zweidimensional und daher gibt es nur eine Richtung in welcher der Graph fallen kann. So wird die Eingabe immer weiter so verändert, dass sich die Cost Function minimiert. Dies passiert in mehreren Iterationen oder auch Epochen, in welchen die Veränderungen, also Schritte in Richtung $-\Delta C$, in Abhänigkeit von der Steigung, immer kleiner werden um einen Überschuss zu verhindern.\footnote{\cite{3blue1brown}} Das ist auch der Grund weswegen, wie in dem Ergebniss des Trainings von \ref{anhang:colab1} zu erkennen, Trainingszeiten exponentiell zur Genauigkeit ansteigen. Die Größe dieser Schritte wird auch Lernrate / Learning Rate genannt.\footnote{\cite{readthedocsgradientdescent}}
+Daher berechnet man die Steigung $\nabla C$\footnote{$C$ bezieht sich hier auf die \textbf{C}ost function} der Funktion und bestimmt anschließend die Richtung $-\nabla C$ in welche der Graph sinkt. In Abbildung \ref{2dcost} ist der Graph nur Zweidimensional und daher gibt es nur eine Richtung in welcher der Graph fallen kann. So wird die Eingabe immer weiter so verändert, dass sich die Cost Function minimiert. Dies passiert in mehreren Iterationen oder auch Epochen, in welchen die Veränderungen, also Schritte in Richtung $-\nabla C$, in Abhänigkeit von der Steigung, immer kleiner werden um einen Überschuss zu verhindern.\footnote{\cite{3blue1brown}} Das ist auch der Grund weswegen, wie in dem Ergebniss des Trainings von \ref{anhang:colab1} zu erkennen, Trainingszeiten exponentiell zur Genauigkeit ansteigen. Die Größe dieser Schritte wird auch Lernrate / Learning Rate genannt.\footnote{\cite{readthedocsgradientdescent}}
 
-%\newpage
-
+\setlength{\belowcaptionskip}{-40pt}
 \begin{wrapfigure}{r}{80mm}
     \includegraphics[totalheight=9cm]{GradientDescent.png}
-    \caption[3dcost]{Visualisierung des Gradientenabstiegsverfahren im dreidimensionalen Raum (\cite{3blue1brown})}
+    \caption[3dcost]{Gradientenabstiegsverfahren im dreidimensionalen Raum (\cite{3blue1brown})}
     \label{3dcost}
 \end{wrapfigure}
+\setlength{\belowcaptionskip}{0pt}
 
 Bei mehrdimensionalen Funktionen, wie auch den Neuronalen Netzwerken, gibt es mehr Möglichkeiten in welche Richtung der Graph am schnellsten Fallen könnte. Die oben beschriebene Technik die dafür verwendet wird nennt sich das Gradientenabstiegsverfahren. Da die Funktionen in echt allerdings deutlich komplizierter sind, gibt es sehr viele Extrema und da das Ziel ein möglichst tiefer Extrempunkt ist, versucht man zu verhindern, dass man in einem solcher hohen Minima "`stecken bleibt"'. Deswegen verwendet man meistens abgewandelte Formen des Gradientenabstiegsverfahrens, zum Beispiel mit einem Modifikator für Momentum. So fällt unter Umständen "`der Ball"' weiter in ein tieferes Minimum, was in Abbildung \ref{3dcost} zu erkennen ist. Desweiteren wird für Machine Learning fast ausschließlich "`Stochastic gradient descent"' verwendet, da das Gradientenabstiegsverfahren allein viel zu aufwendig ist. Mit dieser Form verliert man etwas Genauigkeit, der Prozess geht aber ein vielfaches schneller vonstatten. Anstatt den Gradienten von allen Trainingsdaten zusammen zu suchen, teilt man die Trainingsdaten in mehrere "`Batches"' auf und wendet auf diesen das Gradientenabstiegsverfahren an. So werden häufiger/schneller Schritte richtung Extrempunkt gemacht, diese sind dafür aber ungenauer (sie repräsentieren nicht den schnellsten Weg).\footnote{\cite{3blue1brown} und \cite{mitstochasticgd}}
 
@@ -183,10 +181,11 @@ Der Algorithmus berechnet also die Ableitungen der einzelnen Teilstücke des Net
 
 \subsection{Abwandlungen}
 
-Heute gibt es sehr viele verschiedene Abwandlungen von diesen Techniken und auch Neuronale Netzwerke, die zwar ähnlich aufgebaut sind, die besser für manche Zwecke sind als andere. Da gibt es zum Beispiel "`Convolutional Neural Networks"'\footnote{auch CNN; deutsch: \textbf{faltendes} neuronales Netzwerk}, welche besonders gut zum erkennen von Objekten in Bildern geeignet sind und daher auch eins in \ref{erstellen des modells} verwendet wird. Oder "`Long short Term memory Networks"'\footnote{auch LSTMN; deutsch: Langes \textbf{Kurzzeitgedächtnis} Netzwerk}, welche speziell auf das erkennen von Stimmen ausgelegt sind.
+Heute gibt es sehr viele verschiedene Abwandlungen von diesen Techniken und auch Arten die für manche Zwecke deutlich besser geeignet sind als andere. Da gibt es zum Beispiel "`Convolutional Neural Networks"'\footnote{auch CNN; deutsch: \textbf{faltendes} neuronales Netzwerk}, welche besonders gut zum erkennen von Objekten in Bildern geeignet sind und daher auch eines in Kapitel \ref{erstellen des modells} verwendet wird oder auch "`Generative Adversarial Networks"'\footnote{auch GAN; deutsch: \textbf{erzeugende} gegnerische Netzwerke}, welche sogar selbst Bilder erstellen können.\footnote{siehe auch: DeepFaceLab (\cite{deepfacelab})}
 
 \subsubsection{Convolutional Neural Networks}
 
+\setlength{\belowcaptionskip}{-2pt}
 \begin{wrapfigure}{r}{58mm}
     \includegraphics[totalheight=3cm]{cnn2.png}
     \caption[cnn2]{Repräsentationen zweier Kreuze durch zweidimensionale Arrays}
@@ -204,6 +203,7 @@ Heute gibt es sehr viele verschiedene Abwandlungen von diesen Techniken und auch
     \caption[matrix]{Resultierende Matrix (Abbildungen \ref{cnn2} bis \ref{cnnmatrix} von \cite{cnnexplanation})}
     \label{cnnmatrix}
 \end{wrapfigure}
+\setlength{\belowcaptionskip}{0pt}
 
 Convolutional Neural Networks versuchen ein Problem der normalen Neuronalen Netzwerke im Bereich der Bilderkennung zu lösen. Während in einem normalen Netzwerk die Position des zu erkennenden Objektes im Bild eine Rolle spielt, wird dies zum Großteil in einem Convolutional Neural Network durch die veränderte Funktionsweise behoben/verbessert.
 

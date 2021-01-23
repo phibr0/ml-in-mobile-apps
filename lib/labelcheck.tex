@@ -9,7 +9,7 @@ Die Ziel ist es, dass die App es ermöglicht im Supermarkt die verschiedenen Lab
 \subsection{Erstellen des Models}\label{erstellen des modells}
 
 Zum erstellen und trainieren des Modells werde ich die Sprache Python und das
-Framework TensorFlow verwenden. Da sich, wie zuvor erklärt, Convolutional Neural Networks besonders gut zum Klassifiezieren von Bildern eignen werde ich im folgenden eines erstellen. 
+Framework TensorFlow verwenden. Da sich, wie zuvor erklärt, Convolutional Neural Networks besonders gut zum Klassifizieren von Bildern eignen werde ich im folgenden eines erstellen. 
 
 \emph{Der vollständige Code ist im Anhang unter \ref{tfcode} einsehbar.}
 
@@ -17,11 +17,42 @@ Framework TensorFlow verwenden. Da sich, wie zuvor erklärt, Convolutional Neura
 
 Da ich zum trainieren des Models „supervised Learning“ anwenden werde, wird ein Dataset benötigt. Dieses Dataset besteht aus vielen verschiedenen Bildern von den jeweiligen Objekten die vom Netzwerk identifiziert werden sollen. Dafür habe ich über die letzten Monate hinweg immer wieder verschiedene Label auf verschiedenen Verpackungen fotografiert und sortiert. Am Ende habe ich mich einfach darauf festgelegt die 7 Label zu benutzen, von welchen ich die meisten Fotos hatte. Supervised Learning bedeutet, dass die Daten (hier Bilder) „labelled“ sind, also das das gewünschte Ergebniss bekannt ist.41 So kann dann, zum Beispiel mit der MSE Funktion, überprüft werden wie genau das Netzwerk klassifiziert.
 
+Nachdem ich ein wenig experimentiert habe, immer mal andere Layer und unterschiedliche Konfigurationen habe ich mich auf folgendes Netzwerk festgelegt. Beim Testen erzielte ich so etwa 15\% bessere Ergebnisse als mit weniger Layern. Als Aktivierungsfunktion, ausser für den letzten Layer, habe ich die ReLU gewählt. Auch habe ich den Parameter "`validation\_ split"' auf 0.22 gesetzt, sodass 22\% des Datasets auschließlich zum überprüfen verwendet werden.
+
+Ich habe eine mit TensorFlow erstelle Visualisierung des Models im Anhang unter \ref{anhang:model} angehängt. Dort erkennt man besonders gut wie die Tensoren, vorallem durch das Pooling, immer kleiner werden.
+
+\paragraph{Schwierigkeiten}
+
+Obwohl ich schon eine Menge Daten (Fotos) gesammelt habe, hatte ich beim Trainieren immer wieder das Problem des "`Over-Fittings"', was bedeutet, dass sich das Netzwerk zu sehr auf die Trainingsdaten spezialisiert und dadurch schlechtere Ergebnisse bei anderen Fotos erzielt. Gelöst habe ich es durch "`Data Augmentation"', läuft ein Bild nun durch das Netzwerk wird das Bild in den ersten Layern zufällig leicht verändert, es gibt Data Augmentation Layer um Kontrastwerte zu verändern aber auch das Rotieren und Verzerren von Bildern ist möglich. So habe ich das Dataset künstlich vergrößert, was letztendlich gegen das Over-Fitting geholfen hat.
+
 \subsubsection{Ergebnisse des Models}
+
+\begin{figure}[H]
+  \centering
+  \subfloat[\centering Loss/Cost]{\resizebox{70mm}{!}{\includegraphics{epoch_loss.png}}}
+  \qquad
+  \subfloat[\centering Genauigkeit]{\resizebox{70mm}{!}{\includegraphics{epoch_accuracy.png}}}
+  \caption[Loss und Accuracy]{Die Performance des Labelcheck Netzwerks}
+  \label{performance}
+\end{figure}
+
+In \ref{performance} erkennt man wie das Netzwerk am Anfang sehr schnell Fortschritte macht und es dann exponentiell immer kleinere Schritte macht. Dabei steht die X-Achse für die Epoche, die blauen Werte für die Trainingswerte und die roten für die Validierungswerte. Die helleren Werte im Hintergrund sind die "`echten"' Werte während die kräftigeren Farben die geglätteten Werte repräsentieren. Nach 160 Epochen habe ich das Training beendet, die Ergebnisse sind:
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|c|c|}
+  \hline
+  \multicolumn{2}{|c|}{\textbf{Training}} & \multicolumn{2}{c|}{\textbf{Validation}} \\ \hline
+  Loss/Cost         & Genauigkeit         & Loss/Cost          & Genauigkeit         \\ \hline
+  $0.0059$           & $0.999$               & $0.0388$             & $0.998$               \\ \hline
+  \end{tabular}
+\end{table}
+
+\noindent In Theorie sollte das Netzwerk also beinahe perfekt klassifizieren und das tut es auch mit den Daten die beim Traning verwendet wurden. In Realität spielen dort allerdings deutlich mehr Faktoren rein, weswegen die Genauigkeit in Realität etwas schlechter ausfällt.
 
 \subsection{Entwickeln der App}
 
-Zum entwickeln der App verwende ich die Sprache Dart und das zugehörige Framework Flutter. Im Gegensatz zu nativ geschriebenen Apps bietet Flutter die möglichkeit nur einmal den Code in Dart zu schreiben und anschließend kann die App für alle großen Platformen kompiliert werden, dazu zählen iOS, Android, aber auch Linux, Windows, MacOS und Web/Javascript. Nun muss die App ja Zugriff auf die Kamera haben und auch in die Supermärkte "`mitgebracht"' werden, weshalb nur iOS und Android relevant sind. Die App ist vollständig Quelloffen und kann auf GitHub unter \url{https://github.com/phibr0/labelcheck} eingesehen werden.
+Zum entwickeln der App verwende ich die Sprache Dart und das zugehörige Framework Flutter. Im Gegensatz zu nativ geschriebenen Apps bietet Flutter die möglichkeit nur einmal den Code in Dart zu schreiben und anschließend kann die App für alle großen Platformen kompiliert werden, dazu zählen iOS, Android, aber auch Linux, Windows, MacOS und Web/Javascript. Nun muss die App ja Zugriff auf die Kamera haben und auch in die Supermärkte "`mitgebracht"' werden, weshalb nur iOS und Android relevant sind. Sollten PWAs\footnote{Progressive Web Apps} in Zukunft mehr Unterstützung bekommen wäre dieses Projekt vielleicht doch auch im Web interessant. Die App ist vollständig Quelloffen und kann auf GitHub unter \url{https://github.com/phibr0/labelcheck} eingesehen werden.
 
 \subsubsection{Das Framework: Flutter}
 
@@ -58,7 +89,7 @@ Um der App das Aussehen von nativen Apps zu verleihen, verwendet man üblicherwe
 
 Es gibt eine speziell für mobile Geräte angepasste Version von TensorFlow mit dem Namen TensorFlow Lite. TFLite hat einen geringeren Speicherbedarf kann dafür aber auch weniger als das herkömmliche Framework.\footnote{\cite{tflite}} Implementationen dafür gibt es allerdings nicht in Dart, stattdessen verwendet man PlatformChannel's in Flutter, welche die Möglichkeit bieten platformspezifischen Code aus einer Flutter App auszuführen (Java/Kotlin für Android und Objective-C/Swift für iOS).\footnote{\cite{flutterplatformcode}}
 
-Desweiteren muss das zuvor erstellte TensorFlow Model in ein TensorFlow Lite Model umgewandelt werden.
+Desweiteren muss das zuvor erstellte TensorFlow (Keras) Model in ein TensorFlow Lite kompatibles Model umgewandelt werden.
 
 \subsubsection{Funktionsweise der App}
 
@@ -83,9 +114,11 @@ Ich habe die App im Google PlayStore veröffentlicht\footnote{\url{https://play.
 
 Auch musste ich eine Datenschutzerklärung bereitstellen, sie ist unter \url{https://labelcheck.phibr0.de} erreichbar.
 
+Die App sammelt anonymisierte Nutzerdaten, so kann ich Performance Probleme erkennen, erfahren wie viele tägliche Nutzer die App hat und wie viele dieser Nutzer die App länger als einen Tag nutzen. Letzteres ist sehr entscheident für die Nutzerbindung. Ich habe in der App Ereignisse für \mintinline{Dart}{scan_from_camera} und \mintinline{Dart}{scan_from_file} hinzugefügt, sodass ich, zusätzlich zu den Standard Events, wie zum Beispiel \mintinline{Dart}{app_update} und \mintinline{Dart}{session_start}, das Nutzerverhalten beobachten kann. Auch habe ich eine Karte mit den ungefähren Standorten der Nutzer in Form einer "`Heatmap"'.
+
 \section{Fazit}
 
-Ich habe in den letzen Monaten viel über die App entwicklung mit Flutter gelernt, leider habe ich mit dieser App schon etwas früher begonnen, weswegen ich heute wahrscheinlich viele Dinge anders gemacht hätte. Ich habe nicht viel darauf geachtet den UI Code von dem Logik Code zu trennen und jetzt kommt es häufig vor, dass ich lange nach etwas suchen muss. Ich plane allerdings dies noch zu beheben. Auch habe ich viele Variablen als dynamisch deklariert, was die Autovervollständigung beeinträchtigt und daher behoben werden sollte. Das beeinträchtigt allerdings nicht die Funktionalität, beziehungsweise den Nutzer sondern nur mich, solange ich noch weiter an der App arbeiten möchte. Desweiteren ist Dart in der neusten Version nun standardmäßig "`Null-Safe"'\footnote{Damit Variablen \mintinline{Dart}{null} sein können können, müssen sie speziell deklariert werden. Dies fängt viele Fehler bei Laufzeit ab.}, weswegen ich meine App auf diese Version manuell migrieren muss.
+Ich habe in den letzen Monaten viel über die App Entwicklung mit Flutter gelernt, leider habe ich mit dieser App schon etwas früher begonnen, weswegen ich heute wahrscheinlich viele Dinge anders gemacht hätte. Ich habe nicht viel darauf geachtet den UI Code von dem Logik Code zu trennen und jetzt kommt es häufig vor, dass ich lange nach etwas suchen muss. Ich plane allerdings dies noch zu beheben. Auch habe ich viele Variablen als dynamisch deklariert, was die Autovervollständigung beeinträchtigt und daher behoben werden sollte. Das beeinträchtigt allerdings nicht die Funktionalität, beziehungsweise den Nutzer sondern nur mich, solange ich noch weiter an der App arbeiten möchte. Desweiteren ist Dart in der neusten Version nun standardmäßig "`Null-Safe"'\footnote{Damit Variablen \mintinline{Dart}{null} sein können können, müssen sie speziell deklariert werden. Dies fängt viele Fehler bei Laufzeit ab.}, weswegen ich meine App auf diese Version manuell migrieren muss.
 
 Dennoch konnte ich folgende Funktionen erfolgreich implementieren:
 
@@ -104,4 +137,8 @@ Dennoch konnte ich folgende Funktionen erfolgreich implementieren:
   \item Hosten einer Website für die Datenschutzerklärung und Nutzungsbedingungen
 \end{itemize}
 
-Auch habe ich einen größeren Einblick in die unterliegende Mathematik von Neuronalen Netzen erhalten. Alles in einem würde ich sagen die Facharbeit war für mich ein Erfolg.
+Ich habe ich einen größeren Einblick in die unterliegende Mathematik von Neuronalen Netzen erhalten und auch eine Menge über die Funktionsweise dazugelernt. Alleine aus diesem Grund würde ich behaupten diese Facharbeit war für mich ein Erfolg. Auch habe ich mein Ziel erreicht eine App zu entwickeln.
+
+Leider habe ich die unterliegende Mathematik des Backpropagation Algorithmus nicht verstehen können, obwohl ich es vergleichweise sehr lange versucht habe. Ich weiß was sein Ziel ist und wie dieses Ziel erreicht wird, allerdings könnte ich diesen Prozess nicht mathematisch Erläutern. Das ist auch der Grund wieso dieses Unterkapitel so kurz ausgefallen ist, obwohl es eigentlich ein sehr großes ist. Die anderen grundlegenden Prozesse und Algorithmen konnte ich dennoch erläutern.
+
+Auch könnte es Interessant werden die App immer weiter mit neuen Siegeln zu erweitern.

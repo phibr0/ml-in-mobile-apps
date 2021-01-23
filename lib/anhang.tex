@@ -54,7 +54,9 @@ model.save('beispielModel_MNIST') # Speichern des Modells
 \end{listing}
 Ein interaktives Beispiel gibt es zusätzlich hier in meinem Colab Notebook: \url{https://bit.ly/34Ggfuh}\footnote{Ungekürzter Link: \url{https://colab.research.google.com/drive/1ty_QQlL038YT6KpBjSdqGvIGyH0YXwxW}}
 
-\subsection{Die Siegel/Label}\label{angang:label}
+\subsection{Labelcheck}\label{anhang:labelchecktf}
+
+\subsubsection{Die Siegel/Label}\label{angang:label}
 
 \begin{figure}[H]
     \centering
@@ -89,11 +91,134 @@ Ein interaktives Beispiel gibt es zusätzlich hier in meinem Colab Notebook: \ur
 
 \noindent\textbf{(g)} Das ohne Gentechnik Siegel unterbindet den Einsatz von gentechnisch veränderten Organismen und Teilen davon, auch Futtermittel wird ohne Gentechnik hergestellt. Ebenfalls wird der Einsatz von gentechnisch veränderten Vitaminen, Aromen, Enzymen und anderen Lebensmittelzusatzstoffen unterbunden.\footnote{\cite{ohneGentechnik}}
 
-\subsection{Labelcheck Code}\label{anhang:labelchecktf}
+\subsubsection{Das Model}\label{anhang:model}
+
+\begin{figure}[H]
+    \centering
+    \resizebox{!}{\textheight/10*9}{\includegraphics{model2.png}}
+    \caption{Visualisierung des Models (Ohne Data Augmentation Layer, siehe \ref{tfcode})}
+  \end{figure}
 
 \subsubsection{Code für das Model}\label{tfcode}
 
-\emph{Interaktive Beispiele in meinem Colab Notebook: \url{https://bit.ly/34Ggfuh}\footnote{Ungekürzter Link: \url{https://colab.research.google.com/drive/1ty_QQlL038YT6KpBjSdqGvIGyH0YXwxW}}}.
+\emph{Interaktive Beispiele in meinem Colab Notebook: \url{https://bit.ly/34Ggfuh}\footnote{Ungekürzter Link: \url{https://colab.research.google.com/drive/1ty_QQlL038YT6KpBjSdqGvIGyH0YXwxW}}}. Listing 2,3 und 4 sind ein \textbf{zusammenhängender} Abschnitt, sie passen nur nicht auf eine Seite.
+
+\begin{listing}[H]
+    \begin{minted}[fontsize=\footnotesize,linenos]{Python}
+import numpy as np
+import os
+import datetime
+import tensorflow as tf
+from tensorflow.keras import layers
+import tensorboard
+
+batch_size = 16
+img_height = 180 # Ich habe mich für 180x180 entschieden um einen Kompromiss
+img_width = 180 # zwischen Geschwindigkeit und Genauigkeit einzugehen
+data_dir='/content/drive/MyDrive/dataset'
+AUTOTUNE = tf.data.AUTOTUNE
+
+train_ds = tf.keras.preprocessing.image_dataset_from_directory(
+    # Aufteilen der Daten in Trainingsdaten
+    data_dir,
+    validation_split=0.22,
+    # Das Dataset wird in 78% Trainingsdaten
+    # und 22% Validierungsdaten aufgeteilt
+    subset='training',
+    seed=123,
+    image_size=(img_height, img_width),
+    batch_size=batch_size)
+val_ds = tf.keras.preprocessing.image_dataset_from_directory(
+    # und Testdaten
+    data_dir,
+    validation_split=0.22,
+    subset="validation",
+    seed=123,
+    image_size=(img_height, img_width),
+    batch_size=batch_size)
+
+class_names = train_ds.class_names
+print('\nClass Names: ' + str(class_names) + '\n') # Ausgeben der Klassen
+
+train_ds = train_ds.cache().shuffle(buffer_size=1000).prefetch(buffer_size=AUTOTUNE)
+# I/O Operationen sind in Colab sehr langsam,
+val_ds = val_ds.cache().shuffle(buffer_size=1000).prefetch(buffer_size=AUTOTUNE)
+# durch die Methoden cache() und prefetch() werden die Daten im RAM gehalten
+    \end{minted}
+    \caption{Code zum Erstellen und Trainieren des Models aus Labelcheck Teil 1}
+\end{listing}
+
+\begin{listing}[H]
+    \begin{minted}[fontsize=\footnotesize,linenos]{Python}
+model = tf.keras.Sequential([
+    layers.experimental.preprocessing.Rescaling(1./255),
+    # Normalisieren der Daten, vorher waren die Daten 0-255, jetzt 0-1 /\
+    layers.experimental.preprocessing.RandomTranslation(0.1, 0.1),
+    # Data Augmentation - Leichte zufällige Veränderungen des
+    # Bildes "um das Dataset zu verändern" /\
+    layers.experimental.preprocessing.RandomRotation(0.12),
+    # Data Augmentation /\
+    layers.Conv2D(64, 5, activation='relu'),
+    # Convoultional Layer /\
+    layers.Dropout(0.1),
+    # Lässt Daten aus, hilft gegen Overfitting /\
+    layers.Conv2D(48, 3, activation='relu'),
+    layers.MaxPooling2D(),
+    # Max Pooling Layer /\
+    layers.Conv2D(32, 3, activation='relu'),
+    layers.MaxPooling2D(),
+    layers.Conv2D(32, 3, activation='relu'),
+    layers.MaxPooling2D(),
+    layers.Flatten(),
+    # 2D Layer --> 1D Layer /\
+    layers.Dense(48, activation='relu'),
+    # Normale Layer /\
+    layers.Dense(24, activation='relu'),
+    layers.Dense(len(class_names), activation='sigmoid')
+    # Output Layer /\
+])
+    \end{minted}
+    \caption{Code zum Erstellen und Trainieren des Models aus Labelcheck Teil 2}\label{teil2}
+\end{listing}
+
+\begin{listing}[H]
+    \begin{minted}[fontsize=\footnotesize,linenos]{Python}
+model.compile(
+    optimizer='adam',# Gradient Descent mit Momentum (und mehr)
+    loss=tf.losses.SparseCategoricalCrossentropy(from_logits=True),
+    metrics=['accuracy'])
+    
+    logdir = os.path.join("logs", datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
+    tensorboard_callback = tf.keras.callbacks.TensorBoard(logdir, histogram_freq=1)
+    
+    model.fit(
+    train_ds,
+    validation_data=val_ds,
+    epochs=160,
+    shuffle=True,
+    callbacks=[tensorboard_callback]
+)
+    
+converter = tf.lite.TFLiteConverter.from_keras_model(model)
+# Konvertieren des Keras Models in ein TensorFlow-Lite Model /\
+tflite_model = converter.convert()
+
+with open('model.tflite', 'wb') as f: # Speichern des Models
+f.write(tflite_model)
+
+tf.keras.utils.plot_model( # Erstellen der Visualisierung des Models
+    model, to_file='model.png', show_shapes=True, show_dtype=False,
+    show_layer_names=False, rankdir='TD', expand_nested=False, dpi=96
+)
+
+# Achtung: Das ist kein Python Code, funktioniert aber in Colab Notebooks
+# um das TensorBoard zu öffnen.
+# TensorBoard ist eine Web App um den Tainingsprozess zu analysieren
+%load_ext tensorboard
+%tensorboard --logdir logs
+    \end{minted}
+    \caption{Code zum Erstellen und Trainieren des Models aus Labelcheck Teil 3}
+\end{listing}
 
 \subsubsection{Code für die App}
 
@@ -130,7 +255,7 @@ Future<dynamic> classifyImage(String path) async {
     \caption{Die Methode zum klassifizieren eines Bildes}
 \end{listing}
 
-Diese Methode (\mintinline{Dart}{classifyImage}) genügt um eine Klassifizierung durchzuführen. Als einzigen Parameter wird der Dateipfad des Bildes übergeben und dann wird das Bild asynchron klassifiziert, zurückgegeben wird ein Objekt des Typs \emph{Future<dynamic>}.
+Diese Methode (\mintinline{Dart}{classifyImage}) genügt um eine Klassifizierung durchzuführen. Als einzigen Parameter wird der Dateipfad des Bildes übergeben und dann wird das Bild asynchron klassifiziert, zurückgegeben wird ein Objekt des Typs \mintinline{Dart}{Future<dynamic>}.
 
 \subsection{Die Flutter Architektur}\label{anhang:flutterarc}
 
